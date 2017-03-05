@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		530C39BB1E6BE47C0073AA78 /* Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 530C39BA1E6BE47C0073AA78 /* Logo.png */; };
 		530C39BE1E6BE8040073AA78 /* SignUpView.m in Sources */ = {isa = PBXBuildFile; fileRef = 530C39BD1E6BE8040073AA78 /* SignUpView.m */; };
+		530C39C11E6C340A0073AA78 /* ForgotPasswordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 530C39C01E6C340A0073AA78 /* ForgotPasswordView.m */; };
 		5310CBE11E6A957800091333 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5310CBE01E6A957800091333 /* main.m */; };
 		5310CBE41E6A957800091333 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5310CBE31E6A957800091333 /* AppDelegate.m */; };
 		5310CBEA1E6A957800091333 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5310CBE81E6A957800091333 /* Main.storyboard */; };
@@ -83,6 +84,8 @@
 		530C39BA1E6BE47C0073AA78 /* Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logo.png; sourceTree = "<group>"; };
 		530C39BC1E6BE8040073AA78 /* SignUpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpView.h; sourceTree = "<group>"; };
 		530C39BD1E6BE8040073AA78 /* SignUpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpView.m; sourceTree = "<group>"; };
+		530C39BF1E6C340A0073AA78 /* ForgotPasswordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPasswordView.h; sourceTree = "<group>"; };
+		530C39C01E6C340A0073AA78 /* ForgotPasswordView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotPasswordView.m; sourceTree = "<group>"; };
 		5310CBDC1E6A957800091333 /* MirchMasala.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MirchMasala.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5310CBE01E6A957800091333 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		5310CBE21E6A957800091333 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -261,6 +264,8 @@
 				5310CBFD1E6AABC100091333 /* LoginVW.m */,
 				530C39BC1E6BE8040073AA78 /* SignUpView.h */,
 				530C39BD1E6BE8040073AA78 /* SignUpView.m */,
+				530C39BF1E6C340A0073AA78 /* ForgotPasswordView.h */,
+				530C39C01E6C340A0073AA78 /* ForgotPasswordView.m */,
 				5310CBE81E6A957800091333 /* Main.storyboard */,
 				5310CC001E6AADE700091333 /* CommanClass */,
 				5310CBEB1E6A957800091333 /* Assets.xcassets */,
@@ -602,6 +607,7 @@
 				B1C4EC3F1E6B087300111837 /* AFAutoPurgingImageCache.m in Sources */,
 				B1C4EC4D1E6B087300111837 /* SDWebImageDownloaderOperation.m in Sources */,
 				B1C4EC271E6B087300111837 /* AFURLResponseSerialization.m in Sources */,
+				530C39C11E6C340A0073AA78 /* ForgotPasswordView.m in Sources */,
 				B1C4EC441E6B087300111837 /* UIImageView+AFNetworking.m in Sources */,
 				B1C4EC471E6B087300111837 /* UIWebView+AFNetworking.m in Sources */,
 				B1C4EC401E6B087300111837 /* AFImageDownloader.m in Sources */,

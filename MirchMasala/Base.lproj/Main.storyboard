@@ -46,7 +46,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                         <connections>
                                             <outlet property="delegate" destination="lZE-s4-aWq" id="WFZ-GK-ox8"/>
                                         </connections>
@@ -67,7 +67,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                         <connections>
                                             <outlet property="delegate" destination="lZE-s4-aWq" id="dIJ-1U-PND"/>
                                         </connections>
@@ -129,11 +129,91 @@
                         <outlet property="EmailView" destination="8cK-jG-qoU" id="POD-Sv-pg7"/>
                         <outlet property="PasswordView" destination="Kvl-Gt-6Z1" id="8OY-KF-0kx"/>
                         <outlet property="SignInBtn" destination="h25-wv-B2U" id="fbO-UA-uCf"/>
+                        <outlet property="emailTxt" destination="Wbo-TU-hzn" id="Gac-2K-qWc"/>
+                        <outlet property="passwordTxt" destination="aSC-zx-G2n" id="p56-wn-McO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ohU-vM-kCW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1831.2" y="-194.75262368815595"/>
+        </scene>
+        <!--Forgot Password View-->
+        <scene sceneID="ttg-ys-zRT">
+            <objects>
+                <viewController storyboardIdentifier="ForgotPasswordView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9Qi-E8-FeU" customClass="ForgotPasswordView" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="M6R-pD-P7s"/>
+                        <viewControllerLayoutGuide type="bottom" id="zn5-Jp-dTU"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="vqk-b0-J6h">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mpV-E5-hS7">
+                                <frame key="frameInset" minX="3" minY="20" width="51" height="43"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="BackBtn"/>
+                                <connections>
+                                    <action selector="backBtn_action:" destination="9Qi-E8-FeU" eventType="touchUpInside" id="fqf-YO-3ok"/>
+                                    <action selector="backBtn_action:" destination="Fki-tI-5aX" eventType="touchUpInside" id="uS2-Hr-hUm"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="rkq-iD-afe">
+                                <frame key="frameInset" minX="118" minY="65" width="139" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Enter your account Email for reset your password." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QJ5-Je-Luw">
+                                <frame key="frameInset" minX="65" minY="217" width="244" height="43"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" red="0.7725490196" green="0.7725490196" blue="0.7725490196" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t2t-aV-2XC">
+                                <frame key="frameInset" minX="39" minY="309" width="298" height="49"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZTe-bH-Wz4">
+                                        <frame key="frameInset" minX="50" minY="9" width="240" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="Fki-tI-5aX" id="YBS-8g-dhx"/>
+                                        </connections>
+                                    </textField>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Emailicon" translatesAutoresizingMaskIntoConstraints="NO" id="Li2-ec-ZRg">
+                                        <frame key="frameInset" minX="19" minY="15" width="18" height="18"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EpD-D1-fD5">
+                                <frame key="frameInset" minX="129" minY="452" width="117" height="43"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.96862745100000003" green="0.37647058820000001" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <state key="normal" title="Submit">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="SumbitBtn_action:" destination="9Qi-E8-FeU" eventType="touchUpInside" id="H9X-lT-uEa"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="EmailTxt" destination="ZTe-bH-Wz4" id="s4z-cT-4Fh"/>
+                        <outlet property="EmailView" destination="t2t-aV-2XC" id="c6k-Wl-Zt3"/>
+                        <outlet property="submitBtn" destination="EpD-D1-fD5" id="cFV-4c-JDU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yzB-Sg-7bP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-450" y="-196"/>
         </scene>
         <!--Sign Up View-->
         <scene sceneID="3zb-LI-JP1">
@@ -196,7 +276,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                         <connections>
                                             <outlet property="delegate" destination="Fki-tI-5aX" id="f6o-Sg-A80"/>
                                         </connections>
@@ -217,7 +297,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                         <connections>
                                             <outlet property="delegate" destination="Fki-tI-5aX" id="7qh-wB-Pyx"/>
                                         </connections>
@@ -238,7 +318,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                         <connections>
                                             <outlet property="delegate" destination="Fki-tI-5aX" id="iSd-pz-sGt"/>
                                         </connections>
@@ -287,8 +367,12 @@
                         <outlet property="SignUpBtn" destination="dqY-Gd-Sk5" id="CBX-Ee-v6y"/>
                         <outlet property="UsernamView" destination="bBS-BK-EXJ" id="TLp-2m-WoG"/>
                         <outlet property="confrimPasswordView" destination="6zX-0i-GER" id="YGb-NP-FBQ"/>
+                        <outlet property="confrimpasswordTxt" destination="9V9-3D-uQu" id="0sk-00-RL7"/>
+                        <outlet property="emailTxt" destination="2Ba-40-XYR" id="sv6-Gq-YQE"/>
                         <outlet property="emailView" destination="8c3-Ak-iR7" id="h03-bN-ego"/>
+                        <outlet property="passwordTxt" destination="8VH-JB-UyS" id="OLs-Lm-vS7"/>
                         <outlet property="passwordView" destination="ub9-hF-eok" id="Num-hn-xvA"/>
+                        <outlet property="userNameTxt" destination="zG4-h1-jqm" id="vJZ-V7-D9B"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yhf-5W-por" userLabel="First Responder" sceneMemberID="firstResponder"/>

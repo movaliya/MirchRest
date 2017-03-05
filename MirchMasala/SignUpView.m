@@ -8,13 +8,16 @@
 
 #import "SignUpView.h"
 #import "LoginVW.h"
+#import "AppDelegate.h"
+
 
 @interface SignUpView ()
+@property AppDelegate *appDelegate;
 
 @end
 
 @implementation SignUpView
-
+@synthesize userNameTxt,emailTxt,passwordTxt,confrimpasswordTxt;
 - (void)viewDidLoad {
     
     [super viewDidLoad];
@@ -46,7 +49,50 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-- (IBAction)SignUp_action:(id)sender {
+- (IBAction)SignUp_action:(id)sender
+{
+    if ([userNameTxt.text isEqualToString:@""])
+    {
+        [AppDelegate showErrorMessageWithTitle:@"Error!" message:@"Please enter username" delegate:nil];
+    }
+    else if ([emailTxt.text isEqualToString:@""])
+    {
+        
+        [AppDelegate showErrorMessageWithTitle:@"Error!" message:@"Please enter Email" delegate:nil];
+    }
+    else if ([passwordTxt.text isEqualToString:@""])
+    {
+        [AppDelegate showErrorMessageWithTitle:@"Error!" message:@"Please enter password" delegate:nil];
+    }
+    else if ([confrimpasswordTxt.text isEqualToString:@""])
+    {
+        [AppDelegate showErrorMessageWithTitle:@"Error!" message:@"Please enter confrim password" delegate:nil];
+    }
+    else
+    {
+        if (![AppDelegate IsValidEmail:emailTxt.text])
+        {
+            [AppDelegate showErrorMessageWithTitle:@"Error!" message:@"Please enter valid email" delegate:nil];
+        }
+        else if (![confrimpasswordTxt.text isEqualToString:passwordTxt.text])
+        {
+            [AppDelegate showErrorMessageWithTitle:@"Error!" message:@"Confrim password do not match." delegate:nil];
+        }
+        else
+        {
+            BOOL internet=[AppDelegate connectedToNetwork];
+            if (internet)
+            {
+                [self CallNormalSignup];
+            }
+            else
+                [AppDelegate showErrorMessageWithTitle:@"" message:@"Please check your internet connection or try again later." delegate:nil];
+        }
+    }
+}
+-(void)CallNormalSignup
+{
+    
 }
 - (IBAction)SignIn_action:(id)sender
 {

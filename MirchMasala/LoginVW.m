@@ -9,14 +9,17 @@
 #import "LoginVW.h"
 #import <QuartzCore/QuartzCore.h>
 #import "SignUpView.h"
-
+#import "ForgotPasswordView.h"
+#import "AppDelegate.h"
 @interface LoginVW ()
+@property AppDelegate *appDelegate;
 
 @end
 
 @implementation LoginVW
-
+@synthesize emailTxt,passwordTxt;
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     
     [self.navigationController setNavigationBarHidden:YES animated:YES];
@@ -42,14 +45,50 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-- (IBAction)SignIn_action:(id)sender {
+- (IBAction)SignIn_action:(id)sender
+{
+    if ([emailTxt.text isEqualToString:@""])
+    {
+        //[self ShowPOPUP];
+        
+        [AppDelegate showErrorMessageWithTitle:@"Error!" message:@"Please enter email" delegate:nil];
+    }
+    else
+    {
+        if (![AppDelegate IsValidEmail:emailTxt.text])
+        {
+            [AppDelegate showErrorMessageWithTitle:@"Error!" message:@"Please enter valid email" delegate:nil];
+        }
+        else
+        {
+            if ([passwordTxt.text isEqualToString:@""])
+            {
+                [AppDelegate showErrorMessageWithTitle:@"Error!" message:@"Please enter password" delegate:nil];
+            }
+            else
+            {
+                BOOL internet=[AppDelegate connectedToNetwork];
+                if (internet)
+                    [self CallForloging];
+                else
+                    [AppDelegate showErrorMessageWithTitle:@"" message:@"Please check your internet connection or try again later." delegate:nil];
+            }
+        }
+    }
+}
+-(void)CallForloging
+{
+    
 }
 - (IBAction)SignUp_action:(id)sender
 {
     SignUpView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"SignUpView"];
     [self.navigationController pushViewController:vcr animated:YES];
 }
-- (IBAction)ForgotPass_action:(id)sender {
+- (IBAction)ForgotPass_action:(id)sender
+{
+    ForgotPasswordView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ForgotPasswordView"];
+    [self.navigationController pushViewController:vcr animated:YES];
 }
 - (IBAction)BackBtn_action:(id)sender {
 }
