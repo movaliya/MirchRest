@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		530C39BB1E6BE47C0073AA78 /* Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 530C39BA1E6BE47C0073AA78 /* Logo.png */; };
 		530C39BE1E6BE8040073AA78 /* SignUpView.m in Sources */ = {isa = PBXBuildFile; fileRef = 530C39BD1E6BE8040073AA78 /* SignUpView.m */; };
+		530C39C11E6C340A0073AA78 /* ForgotPasswordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 530C39C01E6C340A0073AA78 /* ForgotPasswordView.m */; };
 		5310CBE11E6A957800091333 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5310CBE01E6A957800091333 /* main.m */; };
 		5310CBE41E6A957800091333 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5310CBE31E6A957800091333 /* AppDelegate.m */; };
 		5310CBEA1E6A957800091333 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5310CBE81E6A957800091333 /* Main.storyboard */; };
@@ -84,6 +85,8 @@
 		530C39BA1E6BE47C0073AA78 /* Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logo.png; sourceTree = "<group>"; };
 		530C39BC1E6BE8040073AA78 /* SignUpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpView.h; sourceTree = "<group>"; };
 		530C39BD1E6BE8040073AA78 /* SignUpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpView.m; sourceTree = "<group>"; };
+		530C39BF1E6C340A0073AA78 /* ForgotPasswordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPasswordView.h; sourceTree = "<group>"; };
+		530C39C01E6C340A0073AA78 /* ForgotPasswordView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotPasswordView.m; sourceTree = "<group>"; };
 		5310CBDC1E6A957800091333 /* MirchMasala.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MirchMasala.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5310CBE01E6A957800091333 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		5310CBE21E6A957800091333 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -265,6 +268,8 @@
 				5310CBFD1E6AABC100091333 /* LoginVW.m */,
 				530C39BC1E6BE8040073AA78 /* SignUpView.h */,
 				530C39BD1E6BE8040073AA78 /* SignUpView.m */,
+				530C39BF1E6C340A0073AA78 /* ForgotPasswordView.h */,
+				530C39C01E6C340A0073AA78 /* ForgotPasswordView.m */,
 				5310CBE81E6A957800091333 /* Main.storyboard */,
 				5310CC001E6AADE700091333 /* CommanClass */,
 				5310CBEB1E6A957800091333 /* Assets.xcassets */,
@@ -621,6 +626,33 @@
 				B15F7A801E6C3964004A4D32 /* AFURLSessionManager.m in Sources */,
 				B15F7A181E6C3665004A4D32 /* UIImage+KVNImageEffects.m in Sources */,
 				B15F7A261E6C3665004A4D32 /* NSData+ImageContentType.m in Sources */,
+				B1C4EC531E6B087300111837 /* UIImageView+HighlightedWebCache.m in Sources */,
+				B1C4EC2F1E6B087300111837 /* IQKeyboardManager.m in Sources */,
+				B1C4EC251E6B087300111837 /* AFSecurityPolicy.m in Sources */,
+				B1C4EC2D1E6B087300111837 /* IQUIViewController+Additions.m in Sources */,
+				B1C4EC2A1E6B087300111837 /* IQUIScrollView+Additions.m in Sources */,
+				B1C4EC3E1E6B087300111837 /* Reachability.m in Sources */,
+				B1C4EC511E6B087300111837 /* UIImage+GIF.m in Sources */,
+				B1C4EC3F1E6B087300111837 /* AFAutoPurgingImageCache.m in Sources */,
+				B1C4EC4D1E6B087300111837 /* SDWebImageDownloaderOperation.m in Sources */,
+				B1C4EC271E6B087300111837 /* AFURLResponseSerialization.m in Sources */,
+				530C39C11E6C340A0073AA78 /* ForgotPasswordView.m in Sources */,
+				B1C4EC441E6B087300111837 /* UIImageView+AFNetworking.m in Sources */,
+				B1C4EC471E6B087300111837 /* UIWebView+AFNetworking.m in Sources */,
+				B1C4EC401E6B087300111837 /* AFImageDownloader.m in Sources */,
+				B1C4EC481E6B087300111837 /* NSData+ImageContentType.m in Sources */,
+				B1C4EC541E6B087300111837 /* UIImageView+WebCache.m in Sources */,
+				B1C4EC331E6B087300111837 /* IQPreviousNextView.m in Sources */,
+				B1C4EC3B1E6B087300111837 /* UIColor+KVNContrast.m in Sources */,
+				B1C4EC2B1E6B087300111837 /* IQUITextFieldView+Additions.m in Sources */,
+				B1C4EC381E6B087300111837 /* KVNProgress.m in Sources */,
+				B1C4EC421E6B087300111837 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
+				B1C4EC321E6B087300111837 /* IQBarButtonItem.m in Sources */,
+				5310CC031E6AADF700091333 /* CommonWS.m in Sources */,
+				B1C4EC341E6B087300111837 /* IQTitleBarButtonItem.m in Sources */,
+				B1C4EC4A1E6B087300111837 /* SDWebImageCompat.m in Sources */,
+				B1C4EC521E6B087300111837 /* UIImage+MultiFormat.m in Sources */,
+				B1C4EC431E6B087300111837 /* UIButton+AFNetworking.m in Sources */,
 				5310CBE41E6A957800091333 /* AppDelegate.m in Sources */,
 				B15F7A7C1E6C3964004A4D32 /* AFSecurityPolicy.m in Sources */,
 				B15F7A191E6C3665004A4D32 /* KVNProgress.m in Sources */,

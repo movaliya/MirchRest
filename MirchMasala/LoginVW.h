@@ -13,6 +13,8 @@
 @property (weak, nonatomic) IBOutlet UIView *PasswordView;
 @property (weak, nonatomic) IBOutlet UIButton *SignInBtn;
 - (IBAction)SignUp_Click:(id)sender;
+@property (weak, nonatomic) IBOutlet UITextField *emailTxt;
+@property (weak, nonatomic) IBOutlet UITextField *passwordTxt;
 
 @property (strong, nonatomic) IBOutlet UITextField *Email_TXT;
 @property (strong, nonatomic) IBOutlet UITextField *Password_TXT;
