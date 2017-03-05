@@ -42,26 +42,22 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-- (IBAction)SignIn_action:(id)sender {
+
+- (IBAction)SignIn_action:(id)sender
+{
 }
-- (IBAction)SignUp_action:(id)sender
+
+- (IBAction)ForgotPass_action:(id)sender
+{
+}
+
+- (IBAction)BackBtn_action:(id)sender
+{
+}
+
+- (IBAction)SignUp_Click:(id)sender
 {
     SignUpView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"SignUpView"];
     [self.navigationController pushViewController:vcr animated:YES];
 }
-- (IBAction)ForgotPass_action:(id)sender {
-}
-- (IBAction)BackBtn_action:(id)sender {
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end

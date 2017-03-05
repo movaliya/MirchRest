@@ -9,10 +9,10 @@
 
 #import <Availability.h>
 #import "AFNetworking.h"
-
-#import "CommonWS.h"
-#import "KVNProgress.h"
+#import "AFHTTPRequestOperationManager.h"
 #import "AFNetworking/AFNetworking.h"
+
+#import "KVNProgress.h"
 
 
 // AFNetworking

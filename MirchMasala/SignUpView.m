@@ -8,6 +8,9 @@
 
 #import "SignUpView.h"
 #import "LoginVW.h"
+#import "MirchMasala.pch"
+#import "AFNetworking/AFNetworking.h"
+#import "AFNetworking.h"
 
 @interface SignUpView ()
 
@@ -46,25 +49,59 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-- (IBAction)SignUp_action:(id)sender {
+- (IBAction)SignUp_action:(id)sender
+{
+    
 }
-- (IBAction)SignIn_action:(id)sender
+
+-(void)Callforregister
+{
+   /* "RESTAURANT": {"APIKEY":"JyxtfV8BnnvQgm5vJCtgOMfH3fJSf3JOs67xR5Y4"},
+    "REQUESTPARAM":[
+                    {
+                        "MODULE":"action",
+                        "METHOD":"authenticate",
+                        "PARAMS":{
+                            "EMAIL":"tareqmm@webkutir.net",
+                            "PASSWORD":"20092015"*/
+                            
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//    NSMutableDictionary *dic=[[NSMutableDictionary alloc]init];
+ //   dic setObject:<#(nonnull id)#> forKey:<#(nonnull id<NSCopying>)#>
+       
+//    NSString *strUrl = [NSString stringWithFormat:@"%@v1/places",kBaseURL];
+//    NSDictionary *dataDict = @{
+//                               @"place[places_category_id]":strCategory,
+//                               @"place[name]":strName,
+//                               @"place[phone]":strPhoneNumber,
+//                               @"place[email]":strEmail,
+//                               @"place[location]":strAddress,
+//                               @"place[description]":strDescription
+//                               };
+    
+    [manager POST:@"" parameters:@"" success:^(AFHTTPRequestOperation *operation, NSDictionary *responseDict)
+     {
+        
+         NSLog(@"Success");
+     }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error)
+     {
+         if ([error.localizedDescription isEqualToString:@"The request timed out."])
+         {
+            
+         }
+     }];
+}
+
+
+- (IBAction)Signin_Click:(id)sender
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
-- (IBAction)backBtn_action:(id)sender {
+
+- (IBAction)Back_click:(id)sender
+{
     [self.navigationController popViewControllerAnimated:YES];
-
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
