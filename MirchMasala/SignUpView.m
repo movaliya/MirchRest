@@ -22,7 +22,7 @@
 @implementation SignUpView
 @synthesize userNameTxt,emailTxt,passwordTxt,confrimpasswordTxt;
 - (void)viewDidLoad {
-    
+    [self Callforregister];
     [super viewDidLoad];
     [_UsernamView.layer setCornerRadius:25.0f];
     _UsernamView.layer.borderColor = [UIColor colorWithRed:(247/255.0) green:(96/255.0) blue:(41/255.0) alpha:1.0].CGColor;
@@ -115,20 +115,45 @@
                             "PASSWORD":"20092015"*/
                             
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-//    NSMutableDictionary *dic=[[NSMutableDictionary alloc]init];
- //   dic setObject:<#(nonnull id)#> forKey:<#(nonnull id<NSCopying>)#>
-       
-//    NSString *strUrl = [NSString stringWithFormat:@"%@v1/places",kBaseURL];
-//    NSDictionary *dataDict = @{
-//                               @"place[places_category_id]":strCategory,
-//                               @"place[name]":strName,
-//                               @"place[phone]":strPhoneNumber,
-//                               @"place[email]":strEmail,
-//                               @"place[location]":strAddress,
-//                               @"place[description]":strDescription
-//                               };
+    //RESTAURANT DIC
+    NSMutableDictionary *dic=[[NSMutableDictionary alloc]init];
+    [dic setObject:@"JyxtfV8BnnvQgm5vJCtgOMfH3fJSf3JOs67xR5Y4" forKey:@"APIKEY"];
+    NSArray *arr=[dic mutableCopy];
+    NSMutableDictionary *RESTAURANTDic=[[NSMutableDictionary alloc]init];
+    [RESTAURANTDic setObject:arr forKey:@"RESTAURANT"];
     
-    [manager POST:@"" parameters:@"" success:^(AFHTTPRequestOperation *operation, NSDictionary *responseDict)
+    
+    
+    // PARAM DIC
+     NSMutableDictionary *emaildic=[[NSMutableDictionary alloc]init];
+    [emaildic setObject:@"tareqmm@webkutir.net" forKey:@"EMAIL"];
+    [emaildic setObject:@"20092015" forKey:@"PASSWORD"];
+   
+   
+    
+    NSMutableDictionary *moduledic=[[NSMutableDictionary alloc]init];
+    [moduledic setObject:@"action" forKey:@"MODULE"];
+    [moduledic setObject:@"authenticate" forKey:@"METHOD"];
+    [moduledic setObject:emaildic forKey:@"PARAMS"];
+    
+    NSArray *param=[moduledic mutableCopy];
+    NSMutableDictionary *Paramdic=[[NSMutableDictionary alloc]init];
+    [Paramdic setObject:param forKey:@"REQUESTPARAM"];
+    
+    NSMutableArray *Mainarr=[[NSMutableArray alloc]init];
+    [Mainarr addObject:RESTAURANTDic];
+    [Mainarr addObject:Paramdic];
+    
+    
+    
+    
+    
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:Mainarr options:NSJSONWritingPrettyPrinted error:&error];
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+
+    
+    [manager POST:@"http://jsfiddle.net/Tareqdhk/Lrph5hz1/11/" parameters:jsonString success:^(AFHTTPRequestOperation *operation, NSDictionary *responseDict)
      {
         
          NSLog(@"Success");
