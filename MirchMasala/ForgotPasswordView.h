@@ -12,6 +12,7 @@
 @property (weak, nonatomic) IBOutlet UIView *EmailView;
 @property (weak, nonatomic) IBOutlet UITextField *EmailTxt;
 @property (weak, nonatomic) IBOutlet UIButton *submitBtn;
+@property (weak, nonatomic) IBOutlet UIImageView *emailImageVW;
 
 
 @end
