@@ -14,16 +14,15 @@
 @property (weak, nonatomic) IBOutlet UIView *passwordView;
 @property (weak, nonatomic) IBOutlet UIView *confrimPasswordView;
 @property (weak, nonatomic) IBOutlet UIButton *SignUpBtn;
-@property (weak, nonatomic) IBOutlet UITextField *userNameTxt;
-@property (weak, nonatomic) IBOutlet UITextField *emailTxt;
-@property (weak, nonatomic) IBOutlet UITextField *passwordTxt;
-@property (weak, nonatomic) IBOutlet UITextField *confrimpasswordTxt;
-
 
 @property (strong, nonatomic) IBOutlet UITextField *Username_TXT;
 @property (strong, nonatomic) IBOutlet UITextField *Email_TXT;
 @property (strong, nonatomic) IBOutlet UITextField *Password_TXT;
 @property (strong, nonatomic) IBOutlet UITextField *Confir_TXT;
+@property (weak, nonatomic) IBOutlet UIImageView *UserImageVW;
+@property (weak, nonatomic) IBOutlet UIImageView *EmailImageVW;
+@property (weak, nonatomic) IBOutlet UIImageView *PasswordImageVw;
+@property (weak, nonatomic) IBOutlet UIImageView *ConfrimPassImageVW;
 
 - (IBAction)Signin_Click:(id)sender;
 

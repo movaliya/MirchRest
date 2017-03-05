@@ -18,4 +18,6 @@
 
 @property (strong, nonatomic) IBOutlet UITextField *Email_TXT;
 @property (strong, nonatomic) IBOutlet UITextField *Password_TXT;
+@property (weak, nonatomic) IBOutlet UIImageView *EmailImageVW;
+@property (weak, nonatomic) IBOutlet UIImageView *passwordImgeVW;
 @end

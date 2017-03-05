@@ -22,8 +22,9 @@
     
     
     [_EmailView.layer setCornerRadius:25.0f];
-    _EmailView.layer.borderColor = [UIColor colorWithRed:(247/255.0) green:(96/255.0) blue:(41/255.0) alpha:1.0].CGColor;
     _EmailView.layer.borderWidth = 1.0f;
+    _EmailView.layer.borderColor = [UIColor colorWithRed:(193/255.0) green:(193/255.0) blue:(193/255.0) alpha:1.0].CGColor;
+    _emailImageVW.image=[UIImage imageNamed:@"DisableEmail"];
     [_EmailView.layer setMasksToBounds:YES];
     
     [_submitBtn.layer setCornerRadius:20.0f];
@@ -68,14 +69,26 @@
 
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark - TextField Delegate
+-(BOOL)textFieldShouldBeginEditing:(UITextField*)textField
+{
+    if (textField == EmailTxt)
+    {
+        EmailTxt.textColor=[UIColor colorWithRed:(247/255.0) green:(96/255.0) blue:(41/255.0) alpha:1.0];
+        _EmailView.layer.borderColor = [UIColor colorWithRed:(247/255.0) green:(96/255.0) blue:(41/255.0) alpha:1.0].CGColor;
+        _emailImageVW.image=[UIImage imageNamed:@"Emailicon"];
+    }
+    return YES;
 }
-*/
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField{
+    NSLog(@"textFieldShouldEndEditing");
+    if (textField == EmailTxt)
+    {
+        EmailTxt.textColor=[UIColor colorWithRed:(193/255.0) green:(193/255.0) blue:(193/255.0) alpha:1.0];
+        _EmailView.layer.borderColor = [UIColor colorWithRed:(193/255.0) green:(193/255.0) blue:(193/255.0) alpha:1.0].CGColor;
+        _emailImageVW.image=[UIImage imageNamed:@"DisableEmail"];
+    }
+    return YES;
+}
 
 @end
