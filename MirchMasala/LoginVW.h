@@ -9,5 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface LoginVW : UIViewController
+@property (weak, nonatomic) IBOutlet UIView *EmailView;
+@property (weak, nonatomic) IBOutlet UIView *PasswordView;
+@property (weak, nonatomic) IBOutlet UIButton *SignInBtn;
 
 @end

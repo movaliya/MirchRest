@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		530C39BB1E6BE47C0073AA78 /* Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 530C39BA1E6BE47C0073AA78 /* Logo.png */; };
+		530C39BE1E6BE8040073AA78 /* SignUpView.m in Sources */ = {isa = PBXBuildFile; fileRef = 530C39BD1E6BE8040073AA78 /* SignUpView.m */; };
 		5310CBE11E6A957800091333 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5310CBE01E6A957800091333 /* main.m */; };
 		5310CBE41E6A957800091333 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5310CBE31E6A957800091333 /* AppDelegate.m */; };
 		5310CBEA1E6A957800091333 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5310CBE81E6A957800091333 /* Main.storyboard */; };
@@ -78,6 +80,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		530C39BA1E6BE47C0073AA78 /* Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logo.png; sourceTree = "<group>"; };
+		530C39BC1E6BE8040073AA78 /* SignUpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpView.h; sourceTree = "<group>"; };
+		530C39BD1E6BE8040073AA78 /* SignUpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpView.m; sourceTree = "<group>"; };
 		5310CBDC1E6A957800091333 /* MirchMasala.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MirchMasala.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5310CBE01E6A957800091333 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		5310CBE21E6A957800091333 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -254,6 +259,8 @@
 				5310CBE31E6A957800091333 /* AppDelegate.m */,
 				5310CBFC1E6AABC100091333 /* LoginVW.h */,
 				5310CBFD1E6AABC100091333 /* LoginVW.m */,
+				530C39BC1E6BE8040073AA78 /* SignUpView.h */,
+				530C39BD1E6BE8040073AA78 /* SignUpView.m */,
 				5310CBE81E6A957800091333 /* Main.storyboard */,
 				5310CC001E6AADE700091333 /* CommanClass */,
 				5310CBEB1E6A957800091333 /* Assets.xcassets */,
@@ -277,6 +284,7 @@
 		5310CBF81E6A95BE00091333 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				530C39BA1E6BE47C0073AA78 /* Logo.png */,
 				5310CBF61E6A95BA00091333 /* SplashScreen.png */,
 			);
 			name = Images;
@@ -568,6 +576,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B1C4EC371E6B087300111837 /* IQKeyboardManager.bundle in Resources */,
+				530C39BB1E6BE47C0073AA78 /* Logo.png in Resources */,
 				5310CBEF1E6A957800091333 /* LaunchScreen.storyboard in Resources */,
 				5310CBEC1E6A957800091333 /* Assets.xcassets in Resources */,
 				5310CBF71E6A95BA00091333 /* SplashScreen.png in Resources */,
@@ -635,6 +644,7 @@
 				B1C4EC311E6B087300111837 /* IQTextView.m in Sources */,
 				B1C4EC261E6B087300111837 /* AFURLRequestSerialization.m in Sources */,
 				B1C4EC291E6B087300111837 /* IQNSArray+Sort.m in Sources */,
+				530C39BE1E6BE8040073AA78 /* SignUpView.m in Sources */,
 				B1C4EC351E6B087300111837 /* IQToolbar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

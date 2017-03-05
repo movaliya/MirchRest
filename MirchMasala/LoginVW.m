@@ -7,6 +7,8 @@
 //
 
 #import "LoginVW.h"
+#import <QuartzCore/QuartzCore.h>
+#import "SignUpView.h"
 
 @interface LoginVW ()
 
@@ -16,12 +18,40 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+
+    
+    [_EmailView.layer setCornerRadius:25.0f];
+    _EmailView.layer.borderColor = [UIColor colorWithRed:(247/255.0) green:(96/255.0) blue:(41/255.0) alpha:1.0].CGColor;
+    _EmailView.layer.borderWidth = 1.0f;
+    [_EmailView.layer setMasksToBounds:YES];
+    
+    [_PasswordView.layer setCornerRadius:25.0f];
+    _PasswordView.layer.borderColor = [UIColor colorWithRed:(247/255.0) green:(96/255.0) blue:(41/255.0) alpha:1.0].CGColor;
+    _PasswordView.layer.borderWidth = 1.0f;
+    [_PasswordView.layer setMasksToBounds:YES];
+    
+    [_SignInBtn.layer setCornerRadius:20.0f];
+    [_SignInBtn.layer setMasksToBounds:YES];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+- (IBAction)SignIn_action:(id)sender {
+}
+- (IBAction)SignUp_action:(id)sender
+{
+    SignUpView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"SignUpView"];
+    [self.navigationController pushViewController:vcr animated:YES];
+}
+- (IBAction)ForgotPass_action:(id)sender {
+}
+- (IBAction)BackBtn_action:(id)sender {
 }
 
 /*
