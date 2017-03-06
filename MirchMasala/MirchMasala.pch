@@ -64,6 +64,10 @@
 #warning "This project uses features only available in iOS SDK 5.0 and later."
 #endif
 
+#define kBaseURL    @"http://tiffintom.com/api/private/request/data"
+#define KAPIKEY    @"JyxtfV8BnnvQgm5vJCtgOMfH3fJSf3JOs67xR5Y4"
+
+
 #ifdef __OBJC__
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
