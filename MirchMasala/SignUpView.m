@@ -22,7 +22,8 @@
 @implementation SignUpView
 @synthesize Username_TXT,Email_TXT,Password_TXT,Confir_TXT;
 - (void)viewDidLoad {
-
+  
+    
     [super viewDidLoad];
     [_UsernamView.layer setCornerRadius:25.0f];
     _UsernamView.layer.borderWidth = 1.0f;
@@ -170,7 +171,6 @@
          
      }];
 }
-
 
 - (IBAction)Signin_Click:(id)sender
 {

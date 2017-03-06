@@ -10,12 +10,19 @@
 		530C39BB1E6BE47C0073AA78 /* Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 530C39BA1E6BE47C0073AA78 /* Logo.png */; };
 		530C39BE1E6BE8040073AA78 /* SignUpView.m in Sources */ = {isa = PBXBuildFile; fileRef = 530C39BD1E6BE8040073AA78 /* SignUpView.m */; };
 		530C39C11E6C340A0073AA78 /* ForgotPasswordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 530C39C01E6C340A0073AA78 /* ForgotPasswordView.m */; };
+		530EA8EC1E6D8B7500A61A88 /* SplashScreen.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 530EA8EB1E6D8B7500A61A88 /* SplashScreen.jpg */; };
+		530EA8EF1E6DA68D00A61A88 /* SubItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 530EA8EE1E6DA68D00A61A88 /* SubItemView.m */; };
+		530EA8F41E6DA77F00A61A88 /* SubitemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 530EA8F21E6DA77F00A61A88 /* SubitemCell.m */; };
+		530EA8F51E6DA77F00A61A88 /* SubitemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 530EA8F31E6DA77F00A61A88 /* SubitemCell.xib */; };
+		530EA8FB1E6DB62900A61A88 /* OptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 530EA8FA1E6DB62900A61A88 /* OptionView.m */; };
+		530EA8FE1E6DB64700A61A88 /* cartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 530EA8FD1E6DB64700A61A88 /* cartView.m */; };
+		530EA9021E6DBB1000A61A88 /* CartTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 530EA9001E6DBB1000A61A88 /* CartTableCell.m */; };
+		530EA9031E6DBB1000A61A88 /* CartTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 530EA9011E6DBB1000A61A88 /* CartTableCell.xib */; };
 		5310CBE11E6A957800091333 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5310CBE01E6A957800091333 /* main.m */; };
 		5310CBE41E6A957800091333 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5310CBE31E6A957800091333 /* AppDelegate.m */; };
 		5310CBEA1E6A957800091333 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5310CBE81E6A957800091333 /* Main.storyboard */; };
 		5310CBEC1E6A957800091333 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5310CBEB1E6A957800091333 /* Assets.xcassets */; };
 		5310CBEF1E6A957800091333 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5310CBED1E6A957800091333 /* LaunchScreen.storyboard */; };
-		5310CBF71E6A95BA00091333 /* SplashScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 5310CBF61E6A95BA00091333 /* SplashScreen.png */; };
 		5310CBFE1E6AABC100091333 /* LoginVW.m in Sources */ = {isa = PBXBuildFile; fileRef = 5310CBFD1E6AABC100091333 /* LoginVW.m */; };
 		5310CC6A1E6AB10100091333 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5310CC691E6AB10100091333 /* MobileCoreServices.framework */; };
 		5310CC6C1E6AB10700091333 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5310CC6B1E6AB10700091333 /* SystemConfiguration.framework */; };
@@ -89,6 +96,19 @@
 		530C39BD1E6BE8040073AA78 /* SignUpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpView.m; sourceTree = "<group>"; };
 		530C39BF1E6C340A0073AA78 /* ForgotPasswordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPasswordView.h; sourceTree = "<group>"; };
 		530C39C01E6C340A0073AA78 /* ForgotPasswordView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotPasswordView.m; sourceTree = "<group>"; };
+		530EA8EB1E6D8B7500A61A88 /* SplashScreen.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = SplashScreen.jpg; sourceTree = "<group>"; };
+		530EA8ED1E6DA68D00A61A88 /* SubItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubItemView.h; sourceTree = "<group>"; };
+		530EA8EE1E6DA68D00A61A88 /* SubItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubItemView.m; sourceTree = "<group>"; };
+		530EA8F11E6DA77F00A61A88 /* SubitemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubitemCell.h; sourceTree = "<group>"; };
+		530EA8F21E6DA77F00A61A88 /* SubitemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubitemCell.m; sourceTree = "<group>"; };
+		530EA8F31E6DA77F00A61A88 /* SubitemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubitemCell.xib; sourceTree = "<group>"; };
+		530EA8F91E6DB62900A61A88 /* OptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionView.h; sourceTree = "<group>"; };
+		530EA8FA1E6DB62900A61A88 /* OptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionView.m; sourceTree = "<group>"; };
+		530EA8FC1E6DB64700A61A88 /* cartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cartView.h; sourceTree = "<group>"; };
+		530EA8FD1E6DB64700A61A88 /* cartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = cartView.m; sourceTree = "<group>"; };
+		530EA8FF1E6DBB1000A61A88 /* CartTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartTableCell.h; sourceTree = "<group>"; };
+		530EA9001E6DBB1000A61A88 /* CartTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartTableCell.m; sourceTree = "<group>"; };
+		530EA9011E6DBB1000A61A88 /* CartTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CartTableCell.xib; sourceTree = "<group>"; };
 		5310CBDC1E6A957800091333 /* MirchMasala.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MirchMasala.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5310CBE01E6A957800091333 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		5310CBE21E6A957800091333 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -97,7 +117,6 @@
 		5310CBEB1E6A957800091333 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5310CBEE1E6A957800091333 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5310CBF01E6A957800091333 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5310CBF61E6A95BA00091333 /* SplashScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SplashScreen.png; sourceTree = "<group>"; };
 		5310CBFC1E6AABC100091333 /* LoginVW.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginVW.h; sourceTree = "<group>"; };
 		5310CBFD1E6AABC100091333 /* LoginVW.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginVW.m; sourceTree = "<group>"; };
 		5310CBFF1E6AAD2200091333 /* MirchMasala.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MirchMasala.pch; sourceTree = "<group>"; };
@@ -247,6 +266,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		530EA8F01E6DA74800A61A88 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				530EA8F11E6DA77F00A61A88 /* SubitemCell.h */,
+				530EA8F21E6DA77F00A61A88 /* SubitemCell.m */,
+				530EA8F31E6DA77F00A61A88 /* SubitemCell.xib */,
+				530EA8FF1E6DBB1000A61A88 /* CartTableCell.h */,
+				530EA9001E6DBB1000A61A88 /* CartTableCell.m */,
+				530EA9011E6DBB1000A61A88 /* CartTableCell.xib */,
+			);
+			name = Cell;
+			sourceTree = "<group>";
+		};
 		5310CBD31E6A957800091333 = {
 			isa = PBXGroup;
 			children = (
@@ -268,6 +300,7 @@
 			isa = PBXGroup;
 			children = (
 				5310CBF81E6A95BE00091333 /* Images */,
+				530EA8F01E6DA74800A61A88 /* Cell */,
 				5310CBE21E6A957800091333 /* AppDelegate.h */,
 				5310CBE31E6A957800091333 /* AppDelegate.m */,
 				5310CBFC1E6AABC100091333 /* LoginVW.h */,
@@ -276,6 +309,12 @@
 				530C39BD1E6BE8040073AA78 /* SignUpView.m */,
 				530C39BF1E6C340A0073AA78 /* ForgotPasswordView.h */,
 				530C39C01E6C340A0073AA78 /* ForgotPasswordView.m */,
+				530EA8ED1E6DA68D00A61A88 /* SubItemView.h */,
+				530EA8EE1E6DA68D00A61A88 /* SubItemView.m */,
+				530EA8F91E6DB62900A61A88 /* OptionView.h */,
+				530EA8FA1E6DB62900A61A88 /* OptionView.m */,
+				530EA8FC1E6DB64700A61A88 /* cartView.h */,
+				530EA8FD1E6DB64700A61A88 /* cartView.m */,
 				5310CBE81E6A957800091333 /* Main.storyboard */,
 				5310CC001E6AADE700091333 /* CommanClass */,
 				5310CBEB1E6A957800091333 /* Assets.xcassets */,
@@ -300,7 +339,7 @@
 			isa = PBXGroup;
 			children = (
 				530C39BA1E6BE47C0073AA78 /* Logo.png */,
-				5310CBF61E6A95BA00091333 /* SplashScreen.png */,
+				530EA8EB1E6D8B7500A61A88 /* SplashScreen.jpg */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -613,11 +652,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				530EA8EC1E6D8B7500A61A88 /* SplashScreen.jpg in Resources */,
+				530EA8F51E6DA77F00A61A88 /* SubitemCell.xib in Resources */,
 				530C39BB1E6BE47C0073AA78 /* Logo.png in Resources */,
 				5310CBEF1E6A957800091333 /* LaunchScreen.storyboard in Resources */,
 				B15F7A151E6C3665004A4D32 /* IQKeyboardManager.bundle in Resources */,
 				5310CBEC1E6A957800091333 /* Assets.xcassets in Resources */,
-				5310CBF71E6A95BA00091333 /* SplashScreen.png in Resources */,
+				530EA9031E6DBB1000A61A88 /* CartTableCell.xib in Resources */,
 				B15F7A1B1E6C3665004A4D32 /* KVNProgressView.xib in Resources */,
 				5310CBEA1E6A957800091333 /* Main.storyboard in Resources */,
 			);
@@ -670,6 +711,8 @@
 				B15F7A171E6C3665004A4D32 /* UIImage+KVNEmpty.m in Sources */,
 				B15F7A121E6C3665004A4D32 /* IQTitleBarButtonItem.m in Sources */,
 				B15F7A2D1E6C3665004A4D32 /* SDWebImagePrefetcher.m in Sources */,
+				530EA9021E6DBB1000A61A88 /* CartTableCell.m in Sources */,
+				530EA8FE1E6DB64700A61A88 /* cartView.m in Sources */,
 				B15F7A111E6C3665004A4D32 /* IQPreviousNextView.m in Sources */,
 				B15F7A081E6C3665004A4D32 /* IQUIScrollView+Additions.m in Sources */,
 				B15F7A871E6C3964004A4D32 /* UIWebView+AFNetworking.m in Sources */,
@@ -679,8 +722,11 @@
 				B15F7A851E6C3964004A4D32 /* UIProgressView+AFNetworking.m in Sources */,
 				B15F7A831E6C3964004A4D32 /* UIButton+AFNetworking.m in Sources */,
 				B15F7A7D1E6C3964004A4D32 /* AFURLConnectionOperation.m in Sources */,
+				530EA8FB1E6DB62900A61A88 /* OptionView.m in Sources */,
 				B15F7A0F1E6C3665004A4D32 /* IQTextView.m in Sources */,
 				B15F7A7E1E6C3964004A4D32 /* AFURLRequestSerialization.m in Sources */,
+				530EA8F41E6DA77F00A61A88 /* SubitemCell.m in Sources */,
+				530EA8EF1E6DA68D00A61A88 /* SubItemView.m in Sources */,
 				B15F7A321E6C3665004A4D32 /* UIImageView+WebCache.m in Sources */,
 				B15F7A1A1E6C3665004A4D32 /* KVNProgressConfiguration.m in Sources */,
 				B15F7A2B1E6C3665004A4D32 /* SDWebImageDownloaderOperation.m in Sources */,
