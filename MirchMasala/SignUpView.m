@@ -111,6 +111,8 @@
 
 -(void)Callforregister
 {
+    
+    
    /* "RESTAURANT": {"APIKEY":"JyxtfV8BnnvQgm5vJCtgOMfH3fJSf3JOs67xR5Y4"},
     "REQUESTPARAM":[
                     {
@@ -119,12 +121,13 @@
                         "PARAMS":{
                             "EMAIL":"tareqmm@webkutir.net",
                             "PASSWORD":"20092015"*/
-                            
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     //RESTAURANT DIC
     NSMutableDictionary *dic=[[NSMutableDictionary alloc]init];
     [dic setObject:@"JyxtfV8BnnvQgm5vJCtgOMfH3fJSf3JOs67xR5Y4" forKey:@"APIKEY"];
     NSArray *arr=[dic mutableCopy];
+    
     NSMutableDictionary *RESTAURANTDic=[[NSMutableDictionary alloc]init];
     [RESTAURANTDic setObject:arr forKey:@"RESTAURANT"];
     
@@ -149,10 +152,6 @@
     NSMutableArray *Mainarr=[[NSMutableArray alloc]init];
     [Mainarr addObject:RESTAURANTDic];
     [Mainarr addObject:Paramdic];
-    
-    
-    
-    
     
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:Mainarr options:NSJSONWritingPrettyPrinted error:&error];
