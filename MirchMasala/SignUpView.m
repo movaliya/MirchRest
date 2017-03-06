@@ -22,7 +22,7 @@
 @implementation SignUpView
 @synthesize Username_TXT,Email_TXT,Password_TXT,Confir_TXT;
 - (void)viewDidLoad {
-    [self Callforregister];
+
     [super viewDidLoad];
     [_UsernamView.layer setCornerRadius:25.0f];
     _UsernamView.layer.borderWidth = 1.0f;
@@ -109,134 +109,65 @@
     
 }
 
--(void)Secondmothod
-{
-    NSString *strdata =[NSString stringWithFormat:@"\n\"RESTAURANT\":{\"APIKEY\":\"%@\"},\n\"REQUESTPARAM\":[\n{\n\"MODULE\":\"%@\",\n\"METHOD\":\"%@\",\n\"PARAMS\":{\n\"EMAIL\":\"%@\",\n\"PASSWORD\":\"%@\"\n}\n}\n]",KAPIKEY,@"action",@"authenticate",@"tareqmm@webkutir.net",@"20092015"];
-    // strdata = [strdata stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    // [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    manager.responseSerializer.acceptableContentTypes=[NSSet setWithObject:@"text/html"];
-    
-    AFJSONRequestSerializer *serializer = [AFJSONRequestSerializer serializer];
-    [serializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [serializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    manager.requestSerializer = serializer;
-    
-    // manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
-    [manager POST:kBaseURL parameters:strdata success:^(AFHTTPRequestOperation *operation, NSDictionary *responseDict)
-     {
-         NSLog(@"===%@",responseDict);
-         NSLog(@"Success");
-     }
-          failure:^(AFHTTPRequestOperation *operation, NSError *error)
-     {
-         if ([error.localizedDescription isEqualToString:@"The request timed out."])
-         {
-             
-         }
-     }];
-}
--(void)Callforregister
-{
-   /* "RESTAURANT": {"APIKEY":"JyxtfV8BnnvQgm5vJCtgOMfH3fJSf3JOs67xR5Y4"},
-    "REQUESTPARAM":[
-                    {
-                        "MODULE":"action",
-                        "METHOD":"authenticate",
-                        "PARAMS":{
-                            "EMAIL":"tareqmm@webkutir.net",
-                            "PASSWORD":"20092015"
-    
-    
-    
-    
-    NSString *strdata =[NSString stringWithFormat:@"\n\"RESTAURANT\":{\"APIKEY\":\"%@\"},\n\"REQUESTPARAM\":[\n{\n\"MODULE\":\"%@\",\n\"METHOD\":\"%@\",\n\"PARAMS\":{\n\"EMAIL\":\"%@\",\n\"PASSWORD\":\"%@\"\n}\n}\n]",KAPIKEY,@"action",@"authenticate",EmailSre,PassStr];
-    // strdata = [strdata stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    // [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    manager.responseSerializer.acceptableContentTypes=[NSSet setWithObject:@"text/html"];
-    
-    AFJSONRequestSerializer *serializer = [AFJSONRequestSerializer serializer];
-    [serializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [serializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    manager.requestSerializer = serializer;
-    
-    // manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
-    [manager POST:kBaseURL parameters:strdata success:^(AFHTTPRequestOperation *operation, NSDictionary *responseDict)
-    {
-    NSLog(@"===%@",responseDict);
-    NSLog(@"Success");
-    }
-    failure:^(AFHTTPRequestOperation *operation, NSError *error)
-    {
-    if ([error.localizedDescription isEqualToString:@"The request timed out."])
-    {
-    
-    }
-    }];
-    */
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    //RESTAURANT DIC
-    NSMutableDictionary *dic=[[NSMutableDictionary alloc]init];
-    [dic setObject:@"JyxtfV8BnnvQgm5vJCtgOMfH3fJSf3JOs67xR5Y4" forKey:@"APIKEY"];
-    NSArray *arr=[dic mutableCopy];
-    NSMutableDictionary *RESTAURANTDic=[[NSMutableDictionary alloc]init];
-    [RESTAURANTDic setObject:arr forKey:@"RESTAURANT"];
-    
-    
-    
-    // PARAM DIC
-     NSMutableDictionary *emaildic=[[NSMutableDictionary alloc]init];
-    [emaildic setObject:@"tareqmm@webkutir.net" forKey:@"EMAIL"];
-    [emaildic setObject:@"20092015" forKey:@"PASSWORD"];
-   
-   
-    
-    NSMutableDictionary *moduledic=[[NSMutableDictionary alloc]init];
-    [moduledic setObject:@"action" forKey:@"MODULE"];
-    [moduledic setObject:@"authenticate" forKey:@"METHOD"];
-    [moduledic setObject:emaildic forKey:@"PARAMS"];
-    
-    NSArray *param=[moduledic mutableCopy];
-    NSMutableDictionary *Paramdic=[[NSMutableDictionary alloc]init];
-    [Paramdic setObject:param forKey:@"REQUESTPARAM"];
-    
-    NSMutableArray *Mainarr=[[NSMutableArray alloc]init];
-    [Mainarr addObject:RESTAURANTDic];
-    [Mainarr addObject:Paramdic];
-    
-    
-    NSError *error;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:Mainarr options:NSJSONWritingPrettyPrinted error:&error];
-    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
 
+-(void)Callforregister :(NSString *)EmailStr Pass:(NSString *)PasswordStr Fname:(NSString *)FnameStr Lname:(NSString *)LNameStr
+{
+    NSMutableDictionary *dict1 = [[NSMutableDictionary alloc] init];
     
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    manager.responseSerializer.acceptableContentTypes=[NSSet setWithObject:@"text/html"];
+    [dict1 setValue:@"JyxtfV8BnnvQgm5vJCtgOMfH3fJSf3JOs67xR5Y4" forKey:@"APIKEY"];
     
+    
+    NSMutableDictionary *dictInner = [[NSMutableDictionary alloc] init];
+    
+    [dictInner setObject:EmailStr forKey:@"EMAIL"];
+    [dictInner setObject:PasswordStr forKey:@"PASSWORD"];
+    [dictInner setObject:FnameStr forKey:@"FIRSTNAME"];
+    [dictInner setObject:LNameStr forKey:@"LASTNAME"];
+    
+    
+    NSMutableDictionary *dictSub = [[NSMutableDictionary alloc] init];
+    [dictSub setObject:@"postitem" forKey:@"MODULE"];
+    [dictSub setObject:@"registration" forKey:@"METHOD"];
+    [dictSub setObject:dictInner forKey:@"PARAMS"];
+    
+    
+    NSMutableArray *arr = [[NSMutableArray alloc] initWithObjects:dictSub, nil];
+    NSMutableDictionary *dictREQUESTPARAM = [[NSMutableDictionary alloc] init];
+    
+    [dictREQUESTPARAM setObject:arr forKey:@"REQUESTPARAM"];
+    [dictREQUESTPARAM setObject:dict1 forKey:@"RESTAURANT"];
+    
+    
+    NSError* error = nil;
+    
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dictREQUESTPARAM options:NSJSONWritingPrettyPrinted error:&error];
+    // NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                         options:NSJSONReadingMutableContainers
+                                                           error:&error];
+    
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer.acceptableContentTypes=[NSSet setWithObjects:@"text/html",@"application/json", nil];
     AFJSONRequestSerializer *serializer = [AFJSONRequestSerializer serializer];
     [serializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [serializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    manager.requestSerializer = serializer;
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
-    [manager POST:kBaseURL parameters:jsonString success:^(AFHTTPRequestOperation *operation, NSDictionary *responseDict)
+    [manager POST:kBaseURL parameters:json success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject)
      {
-        
          NSLog(@"Success");
+         
      }
+     
           failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
-         if ([error.localizedDescription isEqualToString:@"The request timed out."])
-         {
-            
-         }
+         
+         NSLog(@"Fail");
+         
      }];
 }
 

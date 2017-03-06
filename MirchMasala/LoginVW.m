@@ -11,6 +11,9 @@
 #import "SignUpView.h"
 #import "ForgotPasswordView.h"
 #import "AppDelegate.h"
+#import "MirchMasala.pch"
+
+
 @interface LoginVW ()
 @property AppDelegate *appDelegate;
 
@@ -18,7 +21,9 @@
 
 @implementation LoginVW
 @synthesize emailTxt,passwordTxt;
-- (void)viewDidLoad {
+
+- (void)viewDidLoad
+{
     
     [super viewDidLoad];
     
@@ -43,13 +48,17 @@
     
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+
+
 - (IBAction)SignIn_action:(id)sender
 {
+    
     if ([emailTxt.text isEqualToString:@""])
     {
         //[self ShowPOPUP];
@@ -72,17 +81,77 @@
             {
                 BOOL internet=[AppDelegate connectedToNetwork];
                 if (internet)
-                    [self CallForloging];
+                    [self CallForloging:emailTxt.text Password:passwordTxt.text];
                 else
                     [AppDelegate showErrorMessageWithTitle:@"" message:@"Please check your internet connection or try again later." delegate:nil];
             }
         }
     }
 }
--(void)CallForloging
+
+-(void)CallForloging :(NSString *)EmailStr Password:(NSString *)PasswordStr
 {
+    NSMutableDictionary *dict1 = [[NSMutableDictionary alloc] init];
     
+    [dict1 setValue:@"JyxtfV8BnnvQgm5vJCtgOMfH3fJSf3JOs67xR5Y4" forKey:@"APIKEY"];
+    
+    
+    NSMutableDictionary *dictInner = [[NSMutableDictionary alloc] init];
+    
+    [dictInner setObject:EmailStr forKey:@"EMAIL"];
+    
+    [dictInner setObject:PasswordStr forKey:@"PASSWORD"];
+    
+    
+    NSMutableDictionary *dictSub = [[NSMutableDictionary alloc] init];
+    
+    [dictSub setObject:@"action" forKey:@"MODULE"];
+    
+    [dictSub setObject:@"authenticate" forKey:@"METHOD"];
+    
+    [dictSub setObject:dictInner forKey:@"PARAMS"];
+    
+    
+    NSMutableArray *arr = [[NSMutableArray alloc] initWithObjects:dictSub, nil];
+    NSMutableDictionary *dictREQUESTPARAM = [[NSMutableDictionary alloc] init];
+    
+    [dictREQUESTPARAM setObject:arr forKey:@"REQUESTPARAM"];
+    [dictREQUESTPARAM setObject:dict1 forKey:@"RESTAURANT"];
+    
+    
+    NSError* error = nil;
+    
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dictREQUESTPARAM options:NSJSONWritingPrettyPrinted error:&error];
+       // NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                         options:NSJSONReadingMutableContainers
+                                                           error:&error];
+    
+   
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer.acceptableContentTypes=[NSSet setWithObjects:@"text/html",@"application/json", nil];
+    AFJSONRequestSerializer *serializer = [AFJSONRequestSerializer serializer];
+    [serializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [serializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    manager.requestSerializer = serializer;
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    [manager POST:kBaseURL parameters:json success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject)
+    {
+         NSLog(@"Success");
+         
+     }
+     
+    failure:^(AFHTTPRequestOperation *operation, NSError *error)
+     {
+         
+         NSLog(@"Fail");
+         
+     }];
 }
+
 - (IBAction)SignUp_action:(id)sender
 {
     SignUpView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"SignUpView"];
