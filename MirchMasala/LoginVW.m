@@ -83,11 +83,7 @@
 {
     
 }
-- (IBAction)SignUp_action:(id)sender
-{
-    SignUpView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"SignUpView"];
-    [self.navigationController pushViewController:vcr animated:YES];
-}
+
 - (IBAction)ForgotPass_action:(id)sender
 {
     ForgotPasswordView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ForgotPasswordView"];
@@ -102,6 +98,7 @@
 {
     SignUpView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"SignUpView"];
     [self.navigationController pushViewController:vcr animated:YES];
+   
 }
 #pragma mark - TextField Delegate
 -(BOOL)textFieldShouldBeginEditing:(UITextField*)textField

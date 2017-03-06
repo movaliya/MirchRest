@@ -22,7 +22,10 @@
 @implementation SignUpView
 @synthesize Username_TXT,Email_TXT,Password_TXT,Confir_TXT;
 - (void)viewDidLoad {
-    [self Callforregister];
+    
+    [self tempMethod];
+    //[self Secondmothod];
+    
     [super viewDidLoad];
     [_UsernamView.layer setCornerRadius:25.0f];
     _UsernamView.layer.borderWidth = 1.0f;
@@ -112,6 +115,8 @@
 -(void)Secondmothod
 {
     NSString *strdata =[NSString stringWithFormat:@"\n\"RESTAURANT\":{\"APIKEY\":\"%@\"},\n\"REQUESTPARAM\":[\n{\n\"MODULE\":\"%@\",\n\"METHOD\":\"%@\",\n\"PARAMS\":{\n\"EMAIL\":\"%@\",\n\"PASSWORD\":\"%@\"\n}\n}\n]",KAPIKEY,@"action",@"authenticate",@"tareqmm@webkutir.net",@"20092015"];
+    
+     NSLog(@"strdata===%@",strdata);
     // strdata = [strdata stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
     
@@ -122,8 +127,9 @@
     
     AFJSONRequestSerializer *serializer = [AFJSONRequestSerializer serializer];
     [serializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [serializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    manager.requestSerializer = serializer;
+    
+   // [serializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    //manager.requestSerializer = serializer;
     
     // manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
@@ -140,9 +146,82 @@
          }
      }];
 }
--(void)Callforregister
+
+-(void)tempMethod
 {
     
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:@"value" forKey:@"key"];
+    
+    NSString *EmailSre=@"tareqmm@webkutir.net";
+    NSString *PassStr=@"20092015";
+    
+   
+    NSMutableDictionary *dict1 = [[NSMutableDictionary alloc] init];
+    [dict1 setValue:@"JyxtfV8BnnvQgm5vJCtgOMfH3fJSf3JOs67xR5Y4" forKey:@"APIKEY"];
+    NSMutableDictionary *mainDict = [[NSMutableDictionary  alloc] init];
+    [mainDict setObject:dict1 forKey:@"RESTAURANT"];
+    
+    NSMutableDictionary *dictInner = [[NSMutableDictionary alloc] init];
+    [dictInner setObject:@"tareqmm@webkutir.net" forKey:@"EMAIL"];
+    [dictInner setObject:@"20092015" forKey:@"PASSWORD"];
+    
+    NSMutableDictionary *dictParams = [[NSMutableDictionary alloc] init];
+    [dictParams setObject:dictInner forKey:@"PARAMS"];
+    
+    NSMutableDictionary *dictSub = [[NSMutableDictionary alloc] init];
+    [dictSub setObject:@"action" forKey:@"MODULE"];
+    [dictSub setObject:@"authenticate" forKey:@"METHOD"];
+    [dictSub setObject:dictParams forKey:@""];
+    
+    
+    NSMutableArray *arr = [[NSMutableArray alloc] initWithObjects:dictSub, nil];
+    
+    NSMutableDictionary *dictREQUESTPARAM = [[NSMutableDictionary alloc] init];
+    [dictREQUESTPARAM setObject:arr forKey:@"REQUESTPARAM"];
+
+    
+    NSString *ss=[NSString stringWithFormat:@"{\"APIKEY\":\"JyxtfV8BnnvQgm5vJCtgOMfH3fJSf3JOs67xR5Y4\"}, \"REQUESTPARAM\":[ { \"MODULE\":\"action\",\"METHOD\":\"authenticate\", \"PARAMS\":{ \"EMAIL\":\"tareqmm@webkutir.net\", \"PASSWORD\":\"20092015\" } } ]"];
+    NSMutableDictionary *dic=[[NSMutableDictionary alloc]init];
+    [dic setObject:ss forKey:@"RESTAURANT"];
+      NSLog(@"JSON: %@", dic);
+    
+    NSError* error = nil;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:&error];
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+      NSLog(@"JSON: %@", dictREQUESTPARAM);
+    
+    AFJSONRequestSerializer *serializer = [AFJSONRequestSerializer serializer];
+    [serializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [serializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] init];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.requestSerializer = serializer;
+    
+    [manager POST:kBaseURL parameters:dictREQUESTPARAM success:^(NSURLSessionDataTask *task, id responseObject) {
+        
+        NSLog(@"JSON: %@", responseObject);
+        //here is place for code executed in success case
+        
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        
+        //here is place for code executed in error case
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error while sending POST"
+                                                            message:@"Sorry, try again."
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"Ok"
+                                                  otherButtonTitles:nil];
+        [alertView show];
+        
+        NSLog(@"Error: %@", [error localizedDescription]);
+    }];
+
+}
+-(void)Callforregister
+{
+   
+        
     
    /* "RESTAURANT": {"APIKEY":"JyxtfV8BnnvQgm5vJCtgOMfH3fJSf3JOs67xR5Y4"},
     "REQUESTPARAM":[
@@ -154,35 +233,69 @@
                             "PASSWORD":"20092015"*/
     
     
-    NSString *EmailSre;
-     NSString *PassStr;
+    NSString *EmailSre=@"tareqmm@webkutir.net";
+     NSString *PassStr=@"20092015";
     
     NSString *strdata =[NSString stringWithFormat:@"\n\"RESTAURANT\":{\"APIKEY\":\"%@\"},\n\"REQUESTPARAM\":[\n{\n\"MODULE\":\"%@\",\n\"METHOD\":\"%@\",\n\"PARAMS\":{\n\"EMAIL\":\"%@\",\n\"PASSWORD\":\"%@\"\n}\n}\n]",KAPIKEY,@"action",@"authenticate",EmailSre,PassStr];
-    // strdata = [strdata stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
+    
+    NSMutableDictionary *dict1 = [[NSMutableDictionary alloc] init];
+    [dict1 setValue:@"JyxtfV8BnnvQgm5vJCtgOMfH3fJSf3JOs67xR5Y4" forKey:@"APIKEY"];
+    NSMutableDictionary *mainDict = [[NSMutableDictionary  alloc] init];
+    [mainDict setObject:dict1 forKey:@"RESTAURANT"];
+    
+    NSMutableDictionary *dictInner = [[NSMutableDictionary alloc] init];
+    [dictInner setObject:@"tareqmm@webkutir.net" forKey:@"EMAIL"];
+    [dictInner setObject:@"20092015" forKey:@"PASSWORD"];
+    
+    NSMutableDictionary *dictParams = [[NSMutableDictionary alloc] init];
+    [dictParams setObject:dictInner forKey:@"PARAMS"];
+    
+    NSMutableDictionary *dictSub = [[NSMutableDictionary alloc] init];
+    [dictSub setObject:@"action" forKey:@"MODULE"];
+    [dictSub setObject:@"authenticate" forKey:@"METHOD"];
+    [dictSub setObject:dictParams forKey:@""];
+    
+    
+    NSMutableArray *arr = [[NSMutableArray alloc] initWithObjects:dictSub, nil];
+    
+    NSMutableDictionary *dictREQUESTPARAM = [[NSMutableDictionary alloc] init];
+    [dictREQUESTPARAM setObject:arr forKey:@"REQUESTPARAM"];
+    
+    NSError* error = nil;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dictREQUESTPARAM options:NSJSONWritingPrettyPrinted error:&error];
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     // [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    manager.responseSerializer.acceptableContentTypes=[NSSet setWithObject:@"text/html"];
+    //manager.responseSerializer.acceptableContentTypes=[NSSet setWithObject:@"text/html"];
+    
+    
+    
+    
+    
+    
     
     AFJSONRequestSerializer *serializer = [AFJSONRequestSerializer serializer];
     [serializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [serializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    manager.requestSerializer = serializer;
+    //[serializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+   // manager.requestSerializer = serializer;
     
     // manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
-    [manager POST:kBaseURL parameters:strdata success:^(AFHTTPRequestOperation *operation, NSDictionary *responseDict)
+    
+    [manager POST:kBaseURL parameters:jsonString success:^(AFHTTPRequestOperation *operation, NSDictionary *responseDict)
     {
-    NSLog(@"===%@",responseDict);
-    NSLog(@"Success");
+        NSLog(@"===%@",responseDict);
+        NSLog(@"Success");
     }
     failure:^(AFHTTPRequestOperation *operation, NSError *error)
     {
+        NSLog(@"error===%@",error.localizedDescription);
     if ([error.localizedDescription isEqualToString:@"The request timed out."])
     {
-    
+        NSLog(@"===%@",error.localizedDescription);
     }
     }];
     
