@@ -19,6 +19,10 @@
 @implementation HomeView
 @synthesize CategoriesTableView,MenuView;
 
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -162,7 +166,11 @@
     }
     else
     {
+        cell.TitleLable.hidden=YES;
+        cell.ArrowImageVW.hidden=YES;
+        
         cell.AboutLable.text=AboutMessage;
+        
     }
     
     return cell;
@@ -170,12 +178,26 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SubItemView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"SubItemView"];
-    vcr.CategoryId=[[topCategoriesDic valueForKey:@"id"] objectAtIndex:indexPath.section];
-    [self.navigationController pushViewController:vcr animated:YES];
+    if (CheckMenuBool==1)
+    {
+        SubItemView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"SubItemView"];
+        vcr.CategoryId=[[topCategoriesDic valueForKey:@"id"] objectAtIndex:indexPath.section];
+        [self.navigationController pushViewController:vcr animated:YES];
+    }
 }
 
-- (void)didReceiveMemoryWarning {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (CheckMenuBool!=1)
+    {
+        return 400;
+    }
+    return 44;
+    
+}
+
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -202,6 +224,7 @@
     [self.MenuBtn setTitleColor:[UIColor colorWithRed:(247/255.0) green:(96/255.0) blue:(41/255.0) alpha:1.0] forState:UIControlStateNormal];
     
 }
+
 - (IBAction)AboutBtn_action:(id)sender
 {
     // Set Bool hide & show lable and image
@@ -229,14 +252,5 @@
 
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

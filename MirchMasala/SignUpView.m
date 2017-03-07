@@ -21,6 +21,11 @@
 
 @implementation SignUpView
 @synthesize Username_TXT,Email_TXT,Password_TXT,Confir_TXT;
+
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
 - (void)viewDidLoad {
   
     

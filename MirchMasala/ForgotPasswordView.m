@@ -17,7 +17,13 @@
 
 @implementation ForgotPasswordView
 @synthesize EmailTxt;
-- (void)viewDidLoad {
+
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     
     

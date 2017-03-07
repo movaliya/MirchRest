@@ -13,6 +13,7 @@
 #import "AppDelegate.h"
 #import "MirchMasala.pch"
 #import "HomeView.h"
+#import "AppDelegate.h"
 
 @interface LoginVW ()
 @property AppDelegate *appDelegate;
@@ -21,6 +22,10 @@
 
 @implementation LoginVW
 @synthesize emailTxt,passwordTxt;
+
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
 
 - (void)viewDidLoad
 {
@@ -47,8 +52,8 @@
     
     
     // Temp Login
-    emailTxt.text=@"jigneshbs@outlook.com";
-    passwordTxt.text=@"12345";
+   // emailTxt.text=@"jigneshbs@outlook.com";
+   // passwordTxt.text=@"12345";
     
     
 }
