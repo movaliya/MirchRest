@@ -12,7 +12,7 @@
 #import "ForgotPasswordView.h"
 #import "AppDelegate.h"
 #import "MirchMasala.pch"
-
+#import "HomeView.h"
 
 @interface LoginVW ()
 @property AppDelegate *appDelegate;
@@ -44,6 +44,11 @@
     
     [_SignInBtn.layer setCornerRadius:20.0f];
     [_SignInBtn.layer setMasksToBounds:YES];
+    
+    
+    // Temp Login
+    emailTxt.text=@"jigneshbs@outlook.com";
+    passwordTxt.text=@"12345";
     
     
 }
@@ -91,9 +96,11 @@
 
 -(void)CallForloging :(NSString *)EmailStr Password:(NSString *)PasswordStr
 {
+    
+     [KVNProgress show] ;
     NSMutableDictionary *dict1 = [[NSMutableDictionary alloc] init];
     
-    [dict1 setValue:@"JyxtfV8BnnvQgm5vJCtgOMfH3fJSf3JOs67xR5Y4" forKey:@"APIKEY"];
+    [dict1 setValue:KAPIKEY forKey:@"APIKEY"];
     
     
     NSMutableDictionary *dictInner = [[NSMutableDictionary alloc] init];
@@ -141,14 +148,29 @@
     [manager POST:kBaseURL parameters:json success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject)
     {
          NSLog(@"responseObject==%@",responseObject);
-         
+        //NSLog(@"SUCCESS==%@", [[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"action"] objectForKey:@"authenticate"] objectForKey:@"SUCCESS"]);
+        NSString *SUCCESS=[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"action"] objectForKey:@"authenticate"] objectForKey:@"SUCCESS"];
+        if ([SUCCESS boolValue] ==YES)
+        {
+            
+            HomeView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"HomeView"];
+            [self.navigationController pushViewController:vcr animated:YES];
+            emailTxt.text=@"";
+            passwordTxt.text=@"";
+            [AppDelegate showErrorMessageWithTitle:@"" message:@"Login successful" delegate:nil];
+        }
+        else
+        {
+             [AppDelegate showErrorMessageWithTitle:@"" message:@"Email and/or Password did not matched." delegate:nil];
+        }
+        
+         [KVNProgress dismiss] ;
      }
      
     failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
-         
          NSLog(@"Fail");
-         
+          [KVNProgress dismiss] ;
      }];
 }
 
@@ -160,6 +182,8 @@
 
 - (IBAction)ForgotPass_action:(id)sender
 {
+    emailTxt.text=@"";
+    passwordTxt.text=@"";
     ForgotPasswordView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ForgotPasswordView"];
     [self.navigationController pushViewController:vcr animated:YES];
 }
@@ -170,6 +194,8 @@
 
 - (IBAction)SignUp_Click:(id)sender
 {
+    emailTxt.text=@"";
+    passwordTxt.text=@"";
     SignUpView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"SignUpView"];
     [self.navigationController pushViewController:vcr animated:YES];
    

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5309EDD31E6EA8D400A216F2 /* HomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5309EDD21E6EA8D400A216F2 /* HomeView.m */; };
+		5309EDD71E6EC3EB00A216F2 /* CategoriesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5309EDD51E6EC3EB00A216F2 /* CategoriesCell.m */; };
+		5309EDD81E6EC3EB00A216F2 /* CategoriesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5309EDD61E6EC3EB00A216F2 /* CategoriesCell.xib */; };
 		530C39BB1E6BE47C0073AA78 /* Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 530C39BA1E6BE47C0073AA78 /* Logo.png */; };
 		530C39BE1E6BE8040073AA78 /* SignUpView.m in Sources */ = {isa = PBXBuildFile; fileRef = 530C39BD1E6BE8040073AA78 /* SignUpView.m */; };
 		530C39C11E6C340A0073AA78 /* ForgotPasswordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 530C39C01E6C340A0073AA78 /* ForgotPasswordView.m */; };
@@ -91,6 +94,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5309EDD11E6EA8D400A216F2 /* HomeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeView.h; sourceTree = "<group>"; };
+		5309EDD21E6EA8D400A216F2 /* HomeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeView.m; sourceTree = "<group>"; };
+		5309EDD41E6EC3EB00A216F2 /* CategoriesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoriesCell.h; sourceTree = "<group>"; };
+		5309EDD51E6EC3EB00A216F2 /* CategoriesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoriesCell.m; sourceTree = "<group>"; };
+		5309EDD61E6EC3EB00A216F2 /* CategoriesCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoriesCell.xib; sourceTree = "<group>"; };
 		530C39BA1E6BE47C0073AA78 /* Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logo.png; sourceTree = "<group>"; };
 		530C39BC1E6BE8040073AA78 /* SignUpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpView.h; sourceTree = "<group>"; };
 		530C39BD1E6BE8040073AA78 /* SignUpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpView.m; sourceTree = "<group>"; };
@@ -275,6 +283,9 @@
 				530EA8FF1E6DBB1000A61A88 /* CartTableCell.h */,
 				530EA9001E6DBB1000A61A88 /* CartTableCell.m */,
 				530EA9011E6DBB1000A61A88 /* CartTableCell.xib */,
+				5309EDD41E6EC3EB00A216F2 /* CategoriesCell.h */,
+				5309EDD51E6EC3EB00A216F2 /* CategoriesCell.m */,
+				5309EDD61E6EC3EB00A216F2 /* CategoriesCell.xib */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
@@ -309,6 +320,8 @@
 				530C39BD1E6BE8040073AA78 /* SignUpView.m */,
 				530C39BF1E6C340A0073AA78 /* ForgotPasswordView.h */,
 				530C39C01E6C340A0073AA78 /* ForgotPasswordView.m */,
+				5309EDD11E6EA8D400A216F2 /* HomeView.h */,
+				5309EDD21E6EA8D400A216F2 /* HomeView.m */,
 				530EA8ED1E6DA68D00A61A88 /* SubItemView.h */,
 				530EA8EE1E6DA68D00A61A88 /* SubItemView.m */,
 				530EA8F91E6DB62900A61A88 /* OptionView.h */,
@@ -657,6 +670,7 @@
 				530C39BB1E6BE47C0073AA78 /* Logo.png in Resources */,
 				5310CBEF1E6A957800091333 /* LaunchScreen.storyboard in Resources */,
 				B15F7A151E6C3665004A4D32 /* IQKeyboardManager.bundle in Resources */,
+				5309EDD81E6EC3EB00A216F2 /* CategoriesCell.xib in Resources */,
 				5310CBEC1E6A957800091333 /* Assets.xcassets in Resources */,
 				530EA9031E6DBB1000A61A88 /* CartTableCell.xib in Resources */,
 				B15F7A1B1E6C3665004A4D32 /* KVNProgressView.xib in Resources */,
@@ -680,6 +694,7 @@
 				530C39C11E6C340A0073AA78 /* ForgotPasswordView.m in Sources */,
 				5310CBE41E6A957800091333 /* AppDelegate.m in Sources */,
 				B15F7A7C1E6C3964004A4D32 /* AFSecurityPolicy.m in Sources */,
+				5309EDD31E6EA8D400A216F2 /* HomeView.m in Sources */,
 				B1451E221E6DE5E800E98C7C /* AFImageDownloader.m in Sources */,
 				B1451E211E6DE5E800E98C7C /* AFAutoPurgingImageCache.m in Sources */,
 				B15F7A191E6C3665004A4D32 /* KVNProgress.m in Sources */,
@@ -687,6 +702,7 @@
 				B15F7A781E6C3964004A4D32 /* AFHTTPRequestOperationManager.m in Sources */,
 				B15F7A281E6C3665004A4D32 /* SDWebImageCompat.m in Sources */,
 				B15F7A2C1E6C3665004A4D32 /* SDWebImageManager.m in Sources */,
+				5309EDD71E6EC3EB00A216F2 /* CategoriesCell.m in Sources */,
 				B15F7A791E6C3964004A4D32 /* AFHTTPSessionManager.m in Sources */,
 				B15F7A0A1E6C3665004A4D32 /* IQUIView+Hierarchy.m in Sources */,
 				B15F7A331E6C3665004A4D32 /* UIView+WebCacheOperation.m in Sources */,

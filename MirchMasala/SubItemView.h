@@ -9,6 +9,13 @@
 #import <UIKit/UIKit.h>
 
 @interface SubItemView : UIViewController
+{
+    NSString *CategoryId;
+    NSMutableDictionary *subCategoryDic;
+}
+@property (strong, nonatomic) NSString *CategoryId;
+
 @property (weak, nonatomic) IBOutlet UITableView *ItemTableView;
+- (IBAction)BackBtn_action:(id)sender;
 
 @end

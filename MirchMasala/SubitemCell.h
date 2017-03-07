@@ -10,5 +10,7 @@
 
 @interface SubitemCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIButton *optionBtn;
+@property (weak, nonatomic) IBOutlet UILabel *ProductName;
+@property (weak, nonatomic) IBOutlet UILabel *PriceLable;
 
 @end

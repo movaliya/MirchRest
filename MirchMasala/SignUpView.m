@@ -12,7 +12,7 @@
 #import "AFNetworking/AFNetworking.h"
 #import "AFNetworking.h"
 #import "AppDelegate.h"
-
+#import "HomeView.h"
 
 @interface SignUpView ()
 @property AppDelegate *appDelegate;
@@ -25,6 +25,7 @@
   
     
     [super viewDidLoad];
+    
     [_UsernamView.layer setCornerRadius:25.0f];
     _UsernamView.layer.borderWidth = 1.0f;
     [_UsernamView.layer setMasksToBounds:YES];
@@ -53,6 +54,7 @@
     
     [_SignUpBtn.layer setCornerRadius:20.0f];
     [_SignUpBtn.layer setMasksToBounds:YES];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -94,28 +96,32 @@
             BOOL internet=[AppDelegate connectedToNetwork];
             if (internet)
             {
-                [self CallNormalSignup];
+                NSString *firstName;
+                NSString *lastName;
+                NSArray *myArray = [Username_TXT.text componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"*"]];
+                if (myArray.count>1) {
+                    firstName=[myArray objectAtIndex:0];
+                    lastName=[myArray objectAtIndex:1];
+                }
+                else
+                {
+                    firstName=[myArray objectAtIndex:0];
+                    lastName=@"";
+                }
+                
+                [self Callforregister:Email_TXT.text Pass:Password_TXT.text Fname:firstName Lname:lastName];
             }
             else
                 [AppDelegate showErrorMessageWithTitle:@"" message:@"Please check your internet connection or try again later." delegate:nil];
         }
     }
 }
--(void)CallNormalSignup
-{
-    
-}
-- (IBAction)SignIn_action:(id)sender
-{
-    
-}
-
 
 -(void)Callforregister :(NSString *)EmailStr Pass:(NSString *)PasswordStr Fname:(NSString *)FnameStr Lname:(NSString *)LNameStr
 {
     NSMutableDictionary *dict1 = [[NSMutableDictionary alloc] init];
     
-    [dict1 setValue:@"JyxtfV8BnnvQgm5vJCtgOMfH3fJSf3JOs67xR5Y4" forKey:@"APIKEY"];
+    [dict1 setValue:KAPIKEY forKey:@"APIKEY"];
     
     
     NSMutableDictionary *dictInner = [[NSMutableDictionary alloc] init];
@@ -160,11 +166,23 @@
     
     [manager POST:kBaseURL parameters:json success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject)
      {
-         NSLog(@"Success");
-         
+        NSLog(@"responseObject==%@",responseObject);
+         NSString *SUCCESS=[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"postitem"] objectForKey:@"registration"] objectForKey:@"SUCCESS"];
+         if ([SUCCESS boolValue] ==YES)
+         {
+             HomeView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"HomeView"];
+             [self.navigationController pushViewController:vcr animated:YES];
+              [AppDelegate showErrorMessageWithTitle:@"" message:@"Registration successful" delegate:nil];
+         }
+         else
+         {
+              NSString *DESCRIPTION=[[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"postitem"] objectForKey:@"registration"] objectForKey:@"ERROR"] objectForKey:@"DESCRIPTION"];
+             
+             [AppDelegate showErrorMessageWithTitle:@"" message:DESCRIPTION delegate:nil];
+         }
      }
      
-          failure:^(AFHTTPRequestOperation *operation, NSError *error)
+    failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
          
          NSLog(@"Fail");
@@ -181,6 +199,8 @@
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+
 #pragma mark - TextField Delegate
 -(BOOL)textFieldShouldBeginEditing:(UITextField*)textField
 {

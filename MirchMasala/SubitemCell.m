@@ -9,7 +9,7 @@
 #import "SubitemCell.h"
 
 @implementation SubitemCell
-@synthesize optionBtn;
+@synthesize optionBtn,ProductName;
 - (void)awakeFromNib {
     [super awakeFromNib];
     
