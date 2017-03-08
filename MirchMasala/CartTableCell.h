@@ -13,4 +13,5 @@
 @property (weak, nonatomic) IBOutlet UIButton *PlusBtn;
 @property (weak, nonatomic) IBOutlet UILabel *Quatity_LBL;
 
+@property (strong, nonatomic) IBOutlet UIView *PlushView;
 @end

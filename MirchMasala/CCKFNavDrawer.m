@@ -325,7 +325,7 @@
     }
     else
     {
-        return 55;
+        return 45;
     }
 }
 

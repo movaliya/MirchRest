@@ -107,20 +107,21 @@
 {
    if (indexPath.section == cellcount)
     {
-        return 180;
+        return 137;
     }
-    return 72;
+    return 60;
     
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
 }
+
 -(void)PlushClick:(id)sender
 {
     UIButton *senderButton = (UIButton *)sender;
     UIView *cellContentView = (UIView *)senderButton.superview;
-    UITableViewCell *buttonCell = (UITableViewCell *)[cellContentView superview];
+    UITableViewCell *buttonCell = (UITableViewCell *)[[cellContentView superview] superview];
     UITableView* table = (UITableView *)[[buttonCell superview] superview];
     NSIndexPath* pathOfTheCell = [table indexPathForCell:buttonCell];
     //NSDictionary *item = sortedItems[sortedItems.allKeys[pathOfTheCell.row]];
@@ -129,9 +130,9 @@
     
     NSInteger count = [cell.Quatity_LBL.text integerValue];
     count = count + 1;
-    cell.Quatity_LBL.text = [NSString stringWithFormat:@"%ld",count];
+    cell.Quatity_LBL.text = [NSString stringWithFormat:@"%ld",(long)count];
     
-    [arr replaceObjectAtIndex:senderButton.tag withObject:[NSString stringWithFormat:@"%ld",count]];
+    [arr replaceObjectAtIndex:senderButton.tag withObject:[NSString stringWithFormat:@"%ld",(long)count]];
     [dic setObject:arr forKey:@"Count"];
     
     
@@ -143,9 +144,10 @@
 
 -(void)MinushClick:(id)sender
 {
+    
     UIButton *senderButton = (UIButton *)sender;
     UIView *cellContentView = (UIView *)senderButton.superview;
-    UITableViewCell *buttonCell = (UITableViewCell *)[cellContentView superview];
+    UITableViewCell *buttonCell = (UITableViewCell *)[[cellContentView superview] superview];
     UITableView* table = (UITableView *)[[buttonCell superview] superview];
     NSIndexPath* pathOfTheCell = [table indexPathForCell:buttonCell];
     //NSDictionary *item = sortedItems[sortedItems.allKeys[pathOfTheCell.row]];
@@ -155,8 +157,8 @@
     count = count - 1;
     if (count!=0)
     {
-        cell.Quatity_LBL.text = [NSString stringWithFormat:@"%ld",count];
-        [arr replaceObjectAtIndex:senderButton.tag withObject:[NSString stringWithFormat:@"%ld",count]];
+        cell.Quatity_LBL.text = [NSString stringWithFormat:@"%ld",(long)count];
+        [arr replaceObjectAtIndex:senderButton.tag withObject:[NSString stringWithFormat:@"%ld",(long)count]];
         [dic setObject:arr forKey:@"Count"];
         ButtonTag=senderButton.tag;
         chechPlusMinus=0;
