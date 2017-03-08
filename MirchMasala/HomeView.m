@@ -20,11 +20,18 @@
 @synthesize CategoriesTableView,MenuView;
 
 - (BOOL)prefersStatusBarHidden {
-    return YES;
+     return NO;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+     [self.navigationController setNavigationBarHidden:YES animated:YES];
+    
+    self.rootNav = (CCKFNavDrawer *)self.navigationController;
+    [self.rootNav setCCKFNavDrawerDelegate:self];
+    [self.rootNav CheckLoginArr];
+    [self.rootNav.pan_gr setEnabled:YES];
+    
     
     UINib *nib = [UINib nibWithNibName:@"CategoriesCell" bundle:nil];
     CategoriesCell *cell = [[nib instantiateWithOwner:nil options:nil] objectAtIndex:0];
@@ -182,6 +189,7 @@
     {
         SubItemView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"SubItemView"];
         vcr.CategoryId=[[topCategoriesDic valueForKey:@"id"] objectAtIndex:indexPath.section];
+        vcr.categoryName=[[topCategoriesDic valueForKey:@"categoryName"] objectAtIndex:indexPath.section];
         [self.navigationController pushViewController:vcr animated:YES];
     }
 }
@@ -251,6 +259,16 @@
     [self.AboutMenuBtn setTitleColor:[UIColor colorWithRed:(247/255.0) green:(96/255.0) blue:(41/255.0) alpha:1.0] forState:UIControlStateNormal];
 
 }
+- (IBAction)NavtoggleBtn_action:(id)sender
+{
+    [self.rootNav drawerToggle];
 
+}
+#pragma mark - photoShotSavedDelegate
+
+-(void)CCKFNavDrawerSelection:(NSInteger)selectionIndex
+{
+    NSLog(@"CCKFNavDrawerSelection = %li", (long)selectionIndex);
+}
 
 @end

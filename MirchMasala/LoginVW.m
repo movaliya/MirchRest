@@ -24,7 +24,7 @@
 @synthesize emailTxt,passwordTxt;
 
 - (BOOL)prefersStatusBarHidden {
-    return YES;
+    return NO;
 }
 
 - (void)viewDidLoad
@@ -52,8 +52,8 @@
     
     
     // Temp Login
-   // emailTxt.text=@"jigneshbs@outlook.com";
-   // passwordTxt.text=@"12345";
+    emailTxt.text=@"jigneshbs@outlook.com";
+    passwordTxt.text=@"12345";
     
     
 }
@@ -157,6 +157,7 @@
         NSString *SUCCESS=[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"action"] objectForKey:@"authenticate"] objectForKey:@"SUCCESS"];
         if ([SUCCESS boolValue] ==YES)
         {
+             [[NSUserDefaults standardUserDefaults]setObject:responseObject forKey:@"LoginUserDic"];
             
             HomeView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"HomeView"];
             [self.navigationController pushViewController:vcr animated:YES];

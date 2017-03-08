@@ -10,10 +10,12 @@
 
 @interface SubItemView : UIViewController
 {
-    NSString *CategoryId;
+    NSString *CategoryId,*categoryName;
     NSMutableDictionary *subCategoryDic;
 }
 @property (strong, nonatomic) NSString *CategoryId;
+@property (strong, nonatomic) NSString *categoryName;
+@property (weak, nonatomic) IBOutlet UILabel *CategoryTitleLBL;
 
 @property (weak, nonatomic) IBOutlet UITableView *ItemTableView;
 - (IBAction)BackBtn_action:(id)sender;

@@ -7,14 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface HomeView : UIViewController
+#import "MirchMasala.pch"
+@interface HomeView : UIViewController<CCKFNavDrawerDelegate>
 {
     NSMutableDictionary *topCategoriesDic;
     BOOL CheckMenuBool;
     NSString *AboutMessage;
    
 }
+@property (strong, nonatomic) CCKFNavDrawer *rootNav;
 
 @property (weak, nonatomic) IBOutlet UITableView *CategoriesTableView;
 @property (weak, nonatomic) IBOutlet UIView *MenuView;

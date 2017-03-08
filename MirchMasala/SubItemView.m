@@ -16,10 +16,10 @@
 
 @implementation SubItemView
 @synthesize ItemTableView;
-@synthesize CategoryId;
+@synthesize CategoryId,categoryName,CategoryTitleLBL;
 
 - (BOOL)prefersStatusBarHidden {
-    return YES;
+     return NO;
 }
 
 - (void)viewDidLoad
@@ -31,6 +31,7 @@
     SubitemCell *cell = [[nib instantiateWithOwner:nil options:nil] objectAtIndex:0];
     ItemTableView.rowHeight = cell.frame.size.height;
     [ItemTableView registerNib:nib forCellReuseIdentifier:@"SubitemCell"];
+    CategoryTitleLBL.text=categoryName;
     
     
     [self SUBCategoriesList];

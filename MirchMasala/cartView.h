@@ -7,8 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MirchMasala.pch"
 
-@interface cartView : UIViewController
+@interface cartView : UIViewController<CCKFNavDrawerDelegate>
+{
+    NSInteger cellcount;
+    NSInteger ButtonTag;
+    NSUInteger chechPlusMinus;
+}
+@property (strong, nonatomic) CCKFNavDrawer *rootNav;
+
 @property (weak, nonatomic) IBOutlet UITableView *cartTable;
 
 @end

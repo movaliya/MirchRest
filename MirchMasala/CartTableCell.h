@@ -9,5 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface CartTableCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UIButton *MinusBtn;
+@property (weak, nonatomic) IBOutlet UIButton *PlusBtn;
+@property (weak, nonatomic) IBOutlet UILabel *Quatity_LBL;
 
 @end

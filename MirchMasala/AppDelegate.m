@@ -20,6 +20,7 @@
     
     // Override point for customization after application launch.
     //Kaushik
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     return YES;
 }
 + (AppDelegate *)sharedInstance
@@ -81,6 +82,20 @@
         
     }
     return isInternet;
+}
+
+#pragma mark -
+#pragma mark - UserDefault
+
+- (BOOL)isUserLoggedIn
+{
+    //WSK_AUTH_TOKEN
+    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"LoginUserDic"])
+    {
+        return YES;
+    }
+    
+    return NO;
 }
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
