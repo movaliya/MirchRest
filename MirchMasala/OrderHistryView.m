@@ -17,7 +17,10 @@
 
 @implementation OrderHistryView
 @synthesize OrderHistyTableView;
-- (void)viewDidLoad {
+
+
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     
     self.rootNav = (CCKFNavDrawer *)self.navigationController;
@@ -30,6 +33,7 @@
     OrderHistyTableView.rowHeight = cell.frame.size.height;
     [OrderHistyTableView registerNib:nib forCellReuseIdentifier:@"OrderHistry_Cell"];
      [cell.CancelBtn setHidden:YES];
+    [cell.CancleIMG setHidden:YES];
     
     OrderStatus=@"Completed";
     
@@ -60,7 +64,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 20;
+    return 15;
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -84,10 +88,12 @@
     if ([OrderStatus isEqualToString:@"Pending"])
     {
         [cell.CancelBtn setHidden:NO];
+        [cell.CancleIMG setHidden:NO];
     }
     else
     {
          [cell.CancelBtn setHidden:YES];
+        [cell.CancleIMG setHidden:YES];
     }
     cell.OrderStatus_LBL.text=OrderStatus;
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];

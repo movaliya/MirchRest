@@ -29,7 +29,7 @@
                                 <constraint firstAttribute="height" constant="22" id="cjJ-Kn-Cfo"/>
                                 <constraint firstAttribute="width" constant="26" id="gy6-RZ-tdG"/>
                             </constraints>
-                            <state key="normal" image="WhiteBackBtn"/>
+                            <state key="normal" image="OrangeBack"/>
                         </button>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LoginLogo" translatesAutoresizingMaskIntoConstraints="NO" id="LGf-Kt-JYz">
                             <rect key="frame" x="55.5" y="60" width="130" height="130"/>
@@ -44,7 +44,7 @@
                             <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </tableView>
                     </subviews>
-                    <color key="backgroundColor" red="0.96862745100000003" green="0.37647058820000001" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstItem="adJ-1E-P1A" firstAttribute="leading" secondItem="tXO-v4-3jx" secondAttribute="leading" constant="18" id="2lc-Cu-Tae"/>
                         <constraint firstItem="ucE-hw-wWg" firstAttribute="leading" secondItem="tXO-v4-3jx" secondAttribute="leading" id="5A4-AQ-JdH"/>
@@ -77,6 +77,6 @@
     </objects>
     <resources>
         <image name="LoginLogo" width="156" height="150"/>
-        <image name="WhiteBackBtn" width="17" height="17"/>
+        <image name="OrangeBack" width="42" height="43"/>
     </resources>
 </document>

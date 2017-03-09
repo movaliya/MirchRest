@@ -14,5 +14,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *OrderAmount_LBL;
 @property (weak, nonatomic) IBOutlet UILabel *OderDate_LBL;
 @property (weak, nonatomic) IBOutlet UIButton *CancelBtn;
+@property (strong, nonatomic) IBOutlet UIImageView *CancleIMG;
 
 @end
