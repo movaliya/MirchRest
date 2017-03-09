@@ -11,21 +11,19 @@
 #import "CartGrandTotalCell.h"
 @interface cartView ()
 @property (strong, nonatomic) NSMutableArray *arr;
-@property (strong, nonatomic) NSMutableDictionary *dic;
+@property (strong, nonatomic) NSMutableDictionary *dic,*MainCount;
 
 @end
 
 @implementation cartView
 @synthesize cartTable;
-@synthesize arr,dic;
+@synthesize arr,dic,MainCount;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
     cellcount=15;
-    self.rootNav = (CCKFNavDrawer *)self.navigationController;
-    [self.rootNav setCCKFNavDrawerDelegate:self];
-    [self.rootNav CheckLoginArr];
-    [self.rootNav.pan_gr setEnabled:YES];
     
     UINib *nib = [UINib nibWithNibName:@"CartTableCell" bundle:nil];
     CartTableCell *cell = [[nib instantiateWithOwner:nil options:nil] objectAtIndex:0];
@@ -43,7 +41,17 @@
     }
     
     dic=[[NSMutableDictionary alloc]init];
+    MainCount=[[NSMutableDictionary alloc]init];
     [dic setObject:arr forKey:@"Count"];
+    [MainCount setObject:arr forKey:@"MainCount"];
+}
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.rootNav = (CCKFNavDrawer *)self.navigationController;
+    [self.rootNav setCCKFNavDrawerDelegate:self];
+    [self.rootNav CheckLoginArr];
+    [self.rootNav.pan_gr setEnabled:NO];
 }
 #pragma mark UITableView delegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -100,6 +108,21 @@
         [cell1.PlusBtn addTarget:self action:@selector(PlushClick:) forControlEvents:UIControlEventTouchUpInside];
         [cell1.MinusBtn addTarget:self action:@selector(MinushClick:) forControlEvents:UIControlEventTouchUpInside];
          [cell1 setSelectionStyle:UITableViewCellSelectionStyleNone];
+        
+        NSInteger *Main=[[[MainCount valueForKey:@"MainCount"] objectAtIndex:indexPath.section] integerValue];
+        
+        NSInteger *Second=[[[dic valueForKey:@"Count"] objectAtIndex:indexPath.section] integerValue];
+        
+        if (Main==Second)
+        {
+            cell1.Quatity_LBL.text=[NSString stringWithFormat:@"%ld",Main];
+            
+            
+        }
+        else
+        {
+            cell1.Quatity_LBL.text=[NSString stringWithFormat:@"%ld",Second];
+        }
         return cell1;
     }
 }

@@ -13,6 +13,8 @@
 #import "AppDelegate.h"
 #import "MirchMasala.pch"
 #import "cartView.h"
+#import "LoginVW.h"
+#import "OrderHistryView.h"
 
 #define SHAWDOW_ALPHA 0.5
 #define MENU_DURATION 0.3
@@ -350,15 +352,15 @@
     {
         cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     }
-    /*
-    if (indexPath.row==0)
+   
+    if (indexPath.row==8)
     {
-        cell.IconWidth.constant=19;
-        cell.IconHeight.constant=16;
-        cell.IconX.constant=8;
+        cell.IconWidth.constant=14;
+        cell.IconHeight.constant=17;
+        cell.IconX.constant=15;
         cell.ImgLblGap.constant=16;
         
-    }
+    } /*
     if (indexPath.row==1)
     {
         cell.IconWidth.constant=20;
@@ -419,10 +421,34 @@
         HomeView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"HomeView"];
         [super pushViewController:vcr animated:YES];
     }
-    if (indexPath.row==3)
+    else if (indexPath.row==3)
     {
         cartView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"cartView"];
         [super pushViewController:vcr animated:YES];
+    }
+    else if (indexPath.row==4)
+    {
+        OrderHistryView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"OrderHistryView"];
+        [super pushViewController:vcr animated:YES];
+    }
+    else if (indexPath.row==8)
+    {
+        if ([[TitleArr objectAtIndex:indexPath.row] isEqualToString:@"Login & Signup"])
+        {
+            [self checkLoginAndPresentContainer];
+            
+        }
+        else
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@""
+                                                            message:@"Are you sure want to Logout?"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"Cancel"
+                                                  otherButtonTitles:@"Logout",nil];
+            alert.tag=50;
+            [alert show];
+        }
+        
     }
     /*
     else if (indexPath.row==1)
@@ -474,25 +500,7 @@
         }
        
     }
-    else if (indexPath.row==6)
-    {
-        if ([[TitleArr objectAtIndex:indexPath.row] isEqualToString:@"Login & Signup"])
-        {
-            [self checkLoginAndPresentContainer];
-            
-        }
-        else
-        {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@""
-                                                            message:@"Are you sure want to Logout?"
-                                                           delegate:self
-                                                  cancelButtonTitle:@"Cancel"
-                                                  otherButtonTitles:@"Logout",nil];
-            alert.tag=50;
-            [alert show];
-        }
-        
-    }*/
+    */
     [self closeNavigationDrawer];
 }
 -(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -523,8 +531,8 @@
 
 -(void)checkLoginAndPresentContainer
 {
-    //LoginView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"LoginView"];
-   // [super  pushViewController:vcr animated:YES];
+    LoginVW *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"LoginVW"];
+    [super  pushViewController:vcr animated:YES];
 }
 
 @end

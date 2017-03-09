@@ -45,8 +45,8 @@
     
     
     self.MenuView.layer.masksToBounds = NO;
-    self.MenuView.layer.shadowOffset = CGSizeMake(-15, 2);
-    self.MenuView.layer.shadowRadius = 10;
+    self.MenuView.layer.shadowOffset = CGSizeMake(0, 1);
+    // self.MenuView.layer.shadowRadius = 5;
     self.MenuView.layer.shadowOpacity = 0.5;
     
     //About String
