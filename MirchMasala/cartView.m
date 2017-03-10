@@ -132,7 +132,7 @@
     {
         return 137;
     }
-    return 60;
+    return 90;
     
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

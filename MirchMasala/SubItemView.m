@@ -11,13 +11,13 @@
 #import "MirchMasala.pch"
 
 @interface SubItemView ()
-
+@property (strong, nonatomic) NSMutableDictionary *dic,*MainCount;
 @end
 
 @implementation SubItemView
 @synthesize ItemTableView;
 @synthesize CategoryId,categoryName,CategoryTitleLBL;
-
+@synthesize dic,MainCount;
 - (BOOL)prefersStatusBarHidden {
      return NO;
 }
@@ -35,6 +35,7 @@
     
     
     [self SUBCategoriesList];
+    
 }
 
 
@@ -93,6 +94,15 @@
          if ([SUCCESS boolValue] ==YES)
          {
              subCategoryDic=[[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"getitem"] objectForKey:@"products"] objectForKey:@"result"] objectForKey:@"products"];
+             arrayInt = [[NSMutableArray alloc] init];
+             for (int i = 0; i <subCategoryDic.count; i++) {
+                 [arrayInt addObject:@"1"];
+             }
+             
+             dic=[[NSMutableDictionary alloc]init];
+             MainCount=[[NSMutableDictionary alloc]init];
+             [dic setObject:arrayInt forKey:@"Count"];
+             [MainCount setObject:arrayInt forKey:@"MainCount"];
              
              if (subCategoryDic) {
                  [ItemTableView reloadData];
@@ -141,6 +151,27 @@
         cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         
     }
+    cell.PlusBtn.tag=indexPath.section;
+    cell.MinusBtn.tag=indexPath.section;
+    
+    [cell.PlusBtn addTarget:self action:@selector(PlushClick:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.MinusBtn addTarget:self action:@selector(MinushClick:) forControlEvents:UIControlEventTouchUpInside];
+    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    
+    NSInteger *Main=[[[MainCount valueForKey:@"MainCount"] objectAtIndex:indexPath.section] integerValue];
+    
+    NSInteger *Second=[[[dic valueForKey:@"Count"] objectAtIndex:indexPath.section] integerValue];
+    
+    if (Main==Second)
+    {
+        cell.Quatity_LBL.text=[NSString stringWithFormat:@"%ld",Main];
+        
+        
+    }
+    else
+    {
+        cell.Quatity_LBL.text=[NSString stringWithFormat:@"%ld",Second];
+    }
     
     cell.ProductName.text=[[subCategoryDic valueForKey:@"productName"] objectAtIndex:indexPath.section];
     cell.PriceLable.text=[NSString stringWithFormat:@"£%@",[[subCategoryDic valueForKey:@"price"] objectAtIndex:indexPath.section]];
@@ -156,10 +187,56 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 44;
+    return 65;
+    
+}
+-(void)PlushClick:(id)sender
+{
+    UIButton *senderButton = (UIButton *)sender;
+    UIView *cellContentView = (UIView *)senderButton.superview;
+    UITableViewCell *buttonCell = (UITableViewCell *)[[cellContentView superview] superview];
+    UITableView* table = (UITableView *)[[buttonCell superview] superview];
+    NSIndexPath* pathOfTheCell = [table indexPathForCell:buttonCell];
+    //NSDictionary *item = sortedItems[sortedItems.allKeys[pathOfTheCell.row]];
+    SubitemCell *cell = (SubitemCell *)[ItemTableView cellForRowAtIndexPath:pathOfTheCell];
+    NSLog(@"senderButton.tag=%ld",(long)senderButton.tag);
+    
+    NSInteger count = [cell.Quatity_LBL.text integerValue];
+    count = count + 1;
+    cell.Quatity_LBL.text = [NSString stringWithFormat:@"%ld",(long)count];
+    
+    [arrayInt replaceObjectAtIndex:senderButton.tag withObject:[NSString stringWithFormat:@"%ld",(long)count]];
+    [dic setObject:arrayInt forKey:@"Count"];
+    
+    
+    ButtonTag=senderButton.tag;
+    chechPlusMinus=1;
+    //[TableView reloadData];
     
 }
 
+-(void)MinushClick:(id)sender
+{
+    
+    UIButton *senderButton = (UIButton *)sender;
+    UIView *cellContentView = (UIView *)senderButton.superview;
+    UITableViewCell *buttonCell = (UITableViewCell *)[[cellContentView superview] superview];
+    UITableView* table = (UITableView *)[[buttonCell superview] superview];
+    NSIndexPath* pathOfTheCell = [table indexPathForCell:buttonCell];
+    //NSDictionary *item = sortedItems[sortedItems.allKeys[pathOfTheCell.row]];
+    SubitemCell *cell = (SubitemCell *)[ItemTableView cellForRowAtIndexPath:pathOfTheCell];
+    
+    NSInteger count = [cell.Quatity_LBL.text integerValue];
+    count = count - 1;
+    if (count!=0)
+    {
+        cell.Quatity_LBL.text = [NSString stringWithFormat:@"%ld",(long)count];
+        [arrayInt replaceObjectAtIndex:senderButton.tag withObject:[NSString stringWithFormat:@"%ld",(long)count]];
+        [dic setObject:arrayInt forKey:@"Count"];
+        ButtonTag=senderButton.tag;
+        chechPlusMinus=0;
+    }
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

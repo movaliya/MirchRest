@@ -12,6 +12,11 @@
 {
     NSString *CategoryId,*categoryName;
     NSMutableDictionary *subCategoryDic;
+    
+    NSInteger cellcount;
+    NSInteger ButtonTag;
+    NSUInteger chechPlusMinus;
+    NSMutableArray *arrayInt;
 }
 @property (strong, nonatomic) NSString *CategoryId;
 @property (strong, nonatomic) NSString *categoryName;
