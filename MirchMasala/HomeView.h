@@ -12,7 +12,7 @@
 {
     NSMutableDictionary *topCategoriesDic;
     BOOL CheckMenuBool;
-    NSString *AboutMessage;
+    NSAttributedString *AboutMessage;
    
 }
 @property (strong, nonatomic) CCKFNavDrawer *rootNav;

@@ -49,9 +49,15 @@
     // self.MenuView.layer.shadowRadius = 5;
     self.MenuView.layer.shadowOpacity = 0.5;
     
+    
     //About String
     
-    AboutMessage=@"Welcome to Mirch Masala Indian Takeaway\n Situated in Pensnett, the Mirch Masala Indian Takeaway offers mouth-watering Indian cuisine.\n The Mirch Masala Indian Takeaway is renowned throughout the Pensnett and Dudley area for its divine style and presentation of traditional Indian cuisine, this is achieved by paying special attention to every fine detail and only using the very finest ingredients.\n If you looking for the most exquisite Indian food in the Pensnett and Dudley area, then take a look and order from our easy to use on screen menu, you will see that we offer something for every member of your family. Our on-line menu is fully customisable, so why give it a try! If your favourite meal is not on our menu just call 01384 78007 to ask us, and our chef will happily try and prepare it especially for you.\n            Our high quality Website is provided by tiffintom.com, please be sure to visit our website on a regular basis to see our latest menu updates.\n We deliver on all online orders to following postcods DY1 DY2 DY3 DY5 DY4 DY6 DY8 B69 plus more also Pensenett Dudley and Brierley hill";
+    //AboutMessage=@"Welcome to Mirch Masala Indian Takeaway\n Situated in Pensnett, the Mirch Masala Indian Takeaway offers mouth-watering Indian cuisine.\n The Mirch Masala Indian Takeaway is renowned throughout the Pensnett and Dudley area for its divine style and presentation of traditional Indian cuisine, this is achieved by paying special attention to every fine detail and only using the very finest ingredients.\n If you looking for the most exquisite Indian food in the Pensnett and Dudley area, then take a look and order from our easy to use on screen menu, you will see that we offer something for every member of your family. Our on-line menu is fully customisable, so why give it a try! If your favourite meal is not on our menu just call 01384 78007 to ask us, and our chef will happily try and prepare it especially for you.\n            Our high quality Website is provided by tiffintom.com, please be sure to visit our website on a regular basis to see our latest menu updates.\n We deliver on all online orders to following postcods DY1 DY2 DY3 DY5 DY4 DY6 DY8 B69 plus more also Pensenett Dudley and Brierley hill";
+    
+    NSString * htmlString = @"<html><body><h3><center>Welcome to Mirch Masala Indian Takeaway</center></h3><br><span>Situated in Pensnett, the Mirch Masala Indian Takeaway offers mouth-watering Indian cuisine.</span></br><br>The Mirch Masala Indian Takeaway is renowned throughout the Pensnett and Dudley area for its divine style and presentation of traditional Indian cuisine, this is achieved by paying special attention to every fine detail and only using the very finest ingredients.</br><br>If you looking for the most exquisite Indian food in the Pensnett and Dudley area, then take a look and order from our easy to use on screen menu, you will see that we offer something for every member of your family. Our on-line menu is fully customisable, so why give it a try! If your favourite meal is not on our menu just call 01384 78007 to ask us, and our chef will happily try and prepare it especially for you.</br><br>Our high quality Website is provided by tiffintom.com, please be sure to visit our website on a regular basis to see our latest menu updates.\n We deliver on all online orders to following postcods DY1 DY2 DY3 DY5 DY4 DY6 DY8 B69 plus more also Pensenett Dudley and Brierley hill</br></body></html>";
+    AboutMessage = [[NSAttributedString alloc] initWithData:[htmlString dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
+    
+    
     
     
     
@@ -175,8 +181,7 @@
     {
         cell.TitleLable.hidden=YES;
         cell.ArrowImageVW.hidden=YES;
-        
-        cell.AboutLable.text=AboutMessage;
+        cell.AboutLable.attributedText=AboutMessage;
         
     }
     

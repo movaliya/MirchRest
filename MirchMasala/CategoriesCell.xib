@@ -1,11 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,20 +12,16 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <frame key="frameInset" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U9O-aF-0er">
-                        <rect key="frame" x="20" y="21.5" width="0.0" height="0.0"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.53725490200000003" green="0.50588235290000005" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TableArrow" translatesAutoresizingMaskIntoConstraints="NO" id="VCK-of-Url">
-                        <rect key="frame" x="300" y="11" width="12" height="21"/>
-                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TableArrow" translatesAutoresizingMaskIntoConstraints="NO" id="VCK-of-Url"/>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gVE-ju-ZmV">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -40,10 +33,10 @@
                     <constraint firstItem="U9O-aF-0er" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="FdX-SH-aVG"/>
                     <constraint firstAttribute="bottom" secondItem="gVE-ju-ZmV" secondAttribute="bottom" id="HWA-po-zQe"/>
                     <constraint firstItem="U9O-aF-0er" firstAttribute="centerY" secondItem="VCK-of-Url" secondAttribute="centerY" id="IfB-Ne-s2w"/>
-                    <constraint firstItem="gVE-ju-ZmV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="WSI-Fb-MiH"/>
+                    <constraint firstItem="gVE-ju-ZmV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="WSI-Fb-MiH"/>
                     <constraint firstItem="U9O-aF-0er" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="rf3-YU-xXi"/>
                     <constraint firstItem="VCK-of-Url" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="x7O-Eg-PE3"/>
-                    <constraint firstAttribute="trailing" secondItem="gVE-ju-ZmV" secondAttribute="trailing" id="zdf-lg-s51"/>
+                    <constraint firstAttribute="trailing" secondItem="gVE-ju-ZmV" secondAttribute="trailing" constant="20" id="zdf-lg-s51"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
