@@ -93,9 +93,9 @@
 {
     if (indexPath.section == 0)
     {
-        return 137;
+        return 130;
     }
-    return 60;
+    return 73;
     
 }
 - (void)didReceiveMemoryWarning {

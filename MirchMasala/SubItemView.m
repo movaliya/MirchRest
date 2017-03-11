@@ -11,6 +11,10 @@
 #import "MirchMasala.pch"
 
 @interface SubItemView ()
+{
+    NSMutableArray *WithSelectArr,*WithoutSelectArr;
+}
+
 @property (strong, nonatomic) NSMutableDictionary *dic,*MainCount;
 @end
 
@@ -18,20 +22,36 @@
 @synthesize ItemTableView;
 @synthesize CategoryId,categoryName,CategoryTitleLBL;
 @synthesize dic,MainCount;
-- (BOOL)prefersStatusBarHidden {
+@synthesize OptionView,WithTBL,WithoutTBL;
+
+
+- (BOOL)prefersStatusBarHidden
+{
      return NO;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    WithSelectArr=[[NSMutableArray alloc]init];
+    WithoutSelectArr=[[NSMutableArray alloc]init];
+    for (int i=0; i<20; i++)
+    {
+        [WithSelectArr addObject:@"NO"];
+        [WithoutSelectArr addObject:@"NO"];
+    }
     
-    
+    OptionView.hidden=YES;
     UINib *nib = [UINib nibWithNibName:@"SubitemCell" bundle:nil];
     SubitemCell *cell = [[nib instantiateWithOwner:nil options:nil] objectAtIndex:0];
     ItemTableView.rowHeight = cell.frame.size.height;
     [ItemTableView registerNib:nib forCellReuseIdentifier:@"SubitemCell"];
     CategoryTitleLBL.text=categoryName;
+    
+    self.OptionTitleView.layer.masksToBounds = NO;
+    self.OptionTitleView.layer.shadowOffset = CGSizeMake(0, 1);
+    // self.MenuView.layer.shadowRadius = 5;
+    self.OptionTitleView.layer.shadowOpacity = 0.5;
     
     
     [self SUBCategoriesList];
@@ -121,21 +141,37 @@
 #pragma mark UITableView delegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    if (tableView==WithTBL || tableView==WithoutTBL)
+    {
+        return 1;
+    }
     return subCategoryDic.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if (tableView==WithTBL || tableView==WithoutTBL)
+    {
+        return 20;
+    }
     return 1;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
+    if (tableView==WithTBL || tableView==WithoutTBL)
+    {
+        return 1;
+    }
     return 10.0f;
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
+    if (tableView==WithTBL || tableView==WithoutTBL)
+    {
+        return nil;
+    }
     UIView *v = [UIView new];
     [v setBackgroundColor:[UIColor clearColor]];
     return v;
@@ -143,6 +179,58 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (tableView==WithTBL || tableView==WithoutTBL)
+    {
+        static NSString *CellIdentifier = @"Cell";
+        UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        cell=nil;
+        if (cell == nil)
+        {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+            cell.accessoryView = nil;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+        
+        UIButton *ChkButton=[[UIButton alloc]initWithFrame:CGRectMake(8, 14.5, 15, 15)];
+        if (tableView==WithTBL)
+        {
+            if ([[WithSelectArr objectAtIndex:indexPath.row] isEqualToString:@"YES"])
+            {
+                [ChkButton setBackgroundImage:[UIImage imageNamed:@"Orange_chkIcon"] forState:UIControlStateNormal];
+            }
+            else
+            {
+                [ChkButton setBackgroundImage:[UIImage imageNamed:@"Orange_UnchkIcon"] forState:UIControlStateNormal];
+            }
+             [ChkButton addTarget:self action:@selector(WithChkbox_click:) forControlEvents:UIControlEventTouchUpInside];
+        }
+        else
+        {
+            if ([[WithoutSelectArr objectAtIndex:indexPath.row] isEqualToString:@"YES"])
+            {
+                [ChkButton setBackgroundImage:[UIImage imageNamed:@"Orange_chkIcon"] forState:UIControlStateNormal];
+            }
+            else
+            {
+                [ChkButton setBackgroundImage:[UIImage imageNamed:@"Orange_UnchkIcon"] forState:UIControlStateNormal];
+            }
+             [ChkButton addTarget:self action:@selector(WithoutChkbox_click:) forControlEvents:UIControlEventTouchUpInside];
+        }
+        
+        ChkButton.tag=indexPath.row;
+       
+        [cell addSubview:ChkButton];
+        
+        UILabel *titleLBL=[[UILabel alloc]initWithFrame:CGRectMake(30, 0, 100, 44)];
+        titleLBL.text=@"Mushroom";
+        titleLBL.font=[UIFont systemFontOfSize:15.0f];
+        [cell addSubview:titleLBL];
+        
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        return cell;
+        
+    }
+    
     static NSString *CellIdentifier = @"SubitemCell";
     SubitemCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     cell=nil;
@@ -156,6 +244,8 @@
     
     [cell.PlusBtn addTarget:self action:@selector(PlushClick:) forControlEvents:UIControlEventTouchUpInside];
     [cell.MinusBtn addTarget:self action:@selector(MinushClick:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.optionBtn addTarget:self action:@selector(OptionClick:) forControlEvents:UIControlEventTouchUpInside];
+    
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     
     NSInteger *Main=[[[MainCount valueForKey:@"MainCount"] objectAtIndex:indexPath.section] integerValue];
@@ -178,18 +268,87 @@
     
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     return cell;
+    
+    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-   
+    if (tableView==WithoutTBL)
+    {
+        if ([[WithoutSelectArr objectAtIndex:indexPath.row] isEqualToString:@"YES"])
+        {
+            [WithoutSelectArr replaceObjectAtIndex:indexPath.row withObject:@"NO"];
+        }
+        else
+        {
+            [WithoutSelectArr replaceObjectAtIndex:indexPath.row withObject:@"YES"];
+        }
+        
+        [WithoutTBL reloadData];
+    }
+    else if (tableView==WithTBL)
+    {
+        if ([[WithSelectArr objectAtIndex:indexPath.row] isEqualToString:@"YES"])
+        {
+            [WithSelectArr replaceObjectAtIndex:indexPath.row withObject:@"NO"];
+        }
+        else
+        {
+            [WithSelectArr replaceObjectAtIndex:indexPath.row withObject:@"YES"];
+        }
+        
+        [WithTBL reloadData];
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (tableView==WithTBL || tableView==WithoutTBL)
+    {
+        return 44;
+    }
     return 65;
     
 }
+
+
+-(void)WithoutChkbox_click:(id)sender
+{
+    UIButton *senderButton = (UIButton *)sender;
+    NSLog(@"%ld",(long)senderButton.tag);
+    
+    if ([[WithoutSelectArr objectAtIndex:senderButton.tag] isEqualToString:@"YES"])
+    {
+        [WithoutSelectArr replaceObjectAtIndex:senderButton.tag withObject:@"NO"];
+    }
+    else
+    {
+        [WithoutSelectArr replaceObjectAtIndex:senderButton.tag withObject:@"YES"];
+    }
+    
+    [WithoutTBL reloadData];
+}
+
+-(void)WithChkbox_click:(id)sender
+{
+     UIButton *senderButton = (UIButton *)sender;
+    NSLog(@"%ld",(long)senderButton.tag);
+    
+    if ([[WithSelectArr objectAtIndex:senderButton.tag] isEqualToString:@"YES"])
+    {
+        [WithSelectArr replaceObjectAtIndex:senderButton.tag withObject:@"NO"];
+    }
+    else
+    {
+        [WithSelectArr replaceObjectAtIndex:senderButton.tag withObject:@"YES"];
+    }
+    
+    [WithTBL reloadData];
+    
+    
+}
+
 -(void)PlushClick:(id)sender
 {
     UIButton *senderButton = (UIButton *)sender;
@@ -237,7 +396,9 @@
         chechPlusMinus=0;
     }
 }
-- (void)didReceiveMemoryWarning {
+
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -247,4 +408,38 @@
     [self.navigationController popViewControllerAnimated:YES];
 
 }
+
+-(void)OptionClick:(id)sender
+{
+    OptionView.hidden=NO;
+}
+
+- (IBAction)Cancle:(id)sender
+{
+    WithSelectArr=[[NSMutableArray alloc]init];
+    WithoutSelectArr=[[NSMutableArray alloc]init];
+    for (int i=0; i<20; i++)
+    {
+        [WithSelectArr addObject:@"NO"];
+        [WithoutSelectArr addObject:@"NO"];
+    }
+    OptionView.hidden=YES;
+    [WithTBL reloadData];
+    [WithoutTBL reloadData];
+}
+
+- (IBAction)Confirm_Click:(id)sender
+{
+    WithSelectArr=[[NSMutableArray alloc]init];
+    WithoutSelectArr=[[NSMutableArray alloc]init];
+    for (int i=0; i<20; i++)
+    {
+        [WithSelectArr addObject:@"NO"];
+        [WithoutSelectArr addObject:@"NO"];
+    }
+    OptionView.hidden=YES;
+    [WithTBL reloadData];
+    [WithoutTBL reloadData];
+}
+
 @end

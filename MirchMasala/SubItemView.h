@@ -25,4 +25,13 @@
 @property (weak, nonatomic) IBOutlet UITableView *ItemTableView;
 - (IBAction)BackBtn_action:(id)sender;
 
+@property (strong, nonatomic) IBOutlet UIView *OptionView;
+- (IBAction)Cancle:(id)sender;
+- (IBAction)Confirm_Click:(id)sender;
+
+@property (strong, nonatomic) IBOutlet UITableView *WithTBL;
+@property (strong, nonatomic) IBOutlet UITableView *WithoutTBL;
+@property (strong, nonatomic) IBOutlet UIView *OptionTitleView;
+
+
 @end
