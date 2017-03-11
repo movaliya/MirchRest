@@ -15,6 +15,9 @@
 #import "cartView.h"
 #import "LoginVW.h"
 #import "OrderHistryView.h"
+#import "ContactUsView.h"
+#import "AboutUS.h"
+#import "ProfileView.h"
 
 #define SHAWDOW_ALPHA 0.5
 #define MENU_DURATION 0.3
@@ -421,6 +424,11 @@
         HomeView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"HomeView"];
         [super pushViewController:vcr animated:YES];
     }
+    else if (indexPath.row==2)
+    {
+        ProfileView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProfileView"];
+        [super pushViewController:vcr animated:YES];
+    }
     else if (indexPath.row==3)
     {
         cartView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"cartView"];
@@ -429,6 +437,16 @@
     else if (indexPath.row==4)
     {
         OrderHistryView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"OrderHistryView"];
+        [super pushViewController:vcr animated:YES];
+    }
+    else if (indexPath.row==5)
+    {
+        AboutUS *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"AboutUS"];
+        [super pushViewController:vcr animated:YES];
+    }
+    else if (indexPath.row==6)
+    {
+        ContactUsView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ContactUsView"];
         [super pushViewController:vcr animated:YES];
     }
     else if (indexPath.row==8)
