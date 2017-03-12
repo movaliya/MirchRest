@@ -152,7 +152,6 @@
     else if (tableView==WithoutTBL )
     {
         return withoutIntegrate.count;
-
     }
     else
     {
@@ -208,7 +207,7 @@
                 [ChkButton setBackgroundImage:[UIImage imageNamed:@"Orange_UnchkIcon"] forState:UIControlStateNormal];
             }
              [ChkButton addTarget:self action:@selector(WithChkbox_click:) forControlEvents:UIControlEventTouchUpInside];
-            titleLBL.text=[WithIntegrate objectAtIndex:indexPath.row];
+            titleLBL.text=[[WithIntegrate valueForKey:@"ingredient_name"] objectAtIndex:indexPath.row];
 
         }
         else
@@ -222,7 +221,7 @@
                 [ChkButton setBackgroundImage:[UIImage imageNamed:@"Orange_UnchkIcon"] forState:UIControlStateNormal];
             }
              [ChkButton addTarget:self action:@selector(WithoutChkbox_click:) forControlEvents:UIControlEventTouchUpInside];
-             titleLBL.text=[withoutIntegrate objectAtIndex:indexPath.row];
+             titleLBL.text=[[withoutIntegrate valueForKey:@"ingredient_name"] objectAtIndex:indexPath.row];
         }
         
         ChkButton.tag=indexPath.row;
@@ -415,6 +414,7 @@
 {
     OptionView.hidden=NO;
     UIButton *senderButton = (UIButton *)sender;
+    subItemIndex=senderButton.tag;
     NSLog(@"senderButton.tag=%ld",(long)senderButton.tag);
     ProductIngredDic=[[subCategoryDic valueForKey:@"ingredients"] objectAtIndex:senderButton.tag];
     
@@ -425,11 +425,11 @@
     {
         if ([[dic1 valueForKey:@"is_with"] boolValue]==0)
         {
-            [withoutIntegrate addObject:[dic1 valueForKey:@"ingredient_name"]];
+            [withoutIntegrate addObject:dic1];
         }
         else
         {
-             [WithIntegrate addObject:[dic1 valueForKey:@"ingredient_name"]];
+             [WithIntegrate addObject:dic1];
         }
         count++;
     }
@@ -448,6 +448,7 @@
     [WithoutTBL reloadData];
     [WithTBL reloadData];
     NSLog(@"withoutIntegrate=%@",withoutIntegrate);
+    
 }
 
 - (IBAction)Cancle:(id)sender
@@ -466,16 +467,24 @@
 
 - (IBAction)Confirm_Click:(id)sender
 {
-    WithSelectArr=[[NSMutableArray alloc]init];
-    WithoutSelectArr=[[NSMutableArray alloc]init];
-    for (int i=0; i<20; i++)
-    {
-        [WithSelectArr addObject:@"NO"];
-        [WithoutSelectArr addObject:@"NO"];
-    }
+   
     OptionView.hidden=YES;
     [WithTBL reloadData];
     [WithoutTBL reloadData];
+    NSString *prductNM=[[subCategoryDic valueForKey:@"productName"] objectAtIndex:subItemIndex];
+    NSString *prductPRICE=[[subCategoryDic valueForKey:@"price"] objectAtIndex:subItemIndex];
+    NSString *Quatity=[[MainCount valueForKey:@"MainCount"] objectAtIndex:subItemIndex];
+    
+    NSMutableDictionary *AddTocardDic = [[NSMutableDictionary alloc] init];
+    
+    [AddTocardDic setObject:prductNM forKey:@"productName"];
+    
+    [AddTocardDic setObject:prductPRICE forKey:@"price"];
+    [AddTocardDic setObject:Quatity forKey:@"quatity"];
+    
+    [AddTocardDic setObject:[withoutIntegrate objectAtIndex:1] forKey:@"ingredient"];
+    NSLog(@"AddTocardDic===%@",AddTocardDic);
+    
 }
 
 @end

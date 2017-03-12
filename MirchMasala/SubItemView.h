@@ -20,6 +20,7 @@
     NSMutableDictionary *AllProductIngredientsDIC;
     NSMutableDictionary *ProductIngredDic;
     NSMutableArray *WithIntegrate,*withoutIntegrate;
+    NSInteger subItemIndex;
 }
 @property (strong, nonatomic) NSString *CategoryId;
 @property (strong, nonatomic) NSString *categoryName;
