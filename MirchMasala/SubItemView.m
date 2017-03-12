@@ -240,6 +240,7 @@
         cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         
     }
+    
     cell.PlusBtn.tag=indexPath.section;
     cell.MinusBtn.tag=indexPath.section;
     
