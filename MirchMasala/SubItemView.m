@@ -13,6 +13,7 @@
 @interface SubItemView ()
 {
     NSMutableArray *WithSelectArr,*WithoutSelectArr;
+    NSMutableArray *withSelectMain,*withoutselectMain;
 }
 
 @property (strong, nonatomic) NSMutableDictionary *dic,*MainCount;
@@ -45,8 +46,6 @@
     self.OptionTitleView.layer.shadowOffset = CGSizeMake(0, 1);
     // self.MenuView.layer.shadowRadius = 5;
     self.OptionTitleView.layer.shadowOpacity = 0.5;
-    
-    
     [self SUBCategoriesList];
     
 }
@@ -325,10 +324,14 @@
     if ([[WithoutSelectArr objectAtIndex:senderButton.tag] isEqualToString:@"YES"])
     {
         [WithoutSelectArr replaceObjectAtIndex:senderButton.tag withObject:@"NO"];
+        NSInteger indx=[withoutselectMain indexOfObject:[NSString stringWithFormat:@"%ld",(long)senderButton.tag]];
+        [withoutselectMain removeObjectAtIndex:indx];
+        
     }
     else
     {
         [WithoutSelectArr replaceObjectAtIndex:senderButton.tag withObject:@"YES"];
+        [withoutselectMain addObject:[NSString stringWithFormat:@"%ld",(long)senderButton.tag]];
     }
     
     [WithoutTBL reloadData];
@@ -342,10 +345,14 @@
     if ([[WithSelectArr objectAtIndex:senderButton.tag] isEqualToString:@"YES"])
     {
         [WithSelectArr replaceObjectAtIndex:senderButton.tag withObject:@"NO"];
+        NSInteger indx=[withSelectMain indexOfObject:[NSString stringWithFormat:@"%ld",(long)senderButton.tag]];
+        [withSelectMain removeObjectAtIndex:indx];
     }
     else
     {
         [WithSelectArr replaceObjectAtIndex:senderButton.tag withObject:@"YES"];
+        [withSelectMain addObject:[NSString stringWithFormat:@"%ld",(long)senderButton.tag]];
+
     }
     [WithTBL reloadData];
 }
@@ -421,6 +428,9 @@
     int count=0;
     withoutIntegrate=[[NSMutableArray alloc] init];
     WithIntegrate=[[NSMutableArray alloc] init];
+    
+    withSelectMain=[[NSMutableArray alloc] init];
+    withoutselectMain=[[NSMutableArray alloc] init];
     for (NSMutableArray *dic1 in ProductIngredDic)
     {
         if ([[dic1 valueForKey:@"is_with"] boolValue]==0)
@@ -468,6 +478,16 @@
 - (IBAction)Confirm_Click:(id)sender
 {
    
+    NSLog(@"===%@",withSelectMain);
+    NSLog(@"===%@",withoutselectMain);
+    
+    
+    NSMutableArray *arr=[[NSMutableArray alloc]init];
+    for (int i=0; i<withSelectMain.count; i++)
+    {
+        [arr addObject:[WithIntegrate objectAtIndex:[[withSelectMain objectAtIndex:i] integerValue]]];
+    }
+    
     OptionView.hidden=YES;
     [WithTBL reloadData];
     [WithoutTBL reloadData];
