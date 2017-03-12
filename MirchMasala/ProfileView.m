@@ -246,6 +246,7 @@
     }
     
 }
+
 - (IBAction)Menu_Toggle:(id)sender
 {
     [self.rootNav drawerToggle];
@@ -266,7 +267,32 @@
 
 - (IBAction)Update_Action:(id)sender
 {
-    [self UpdateUserProfileData];
+    if ([Street_TXT.text isEqualToString:@""])
+    {
+        [AppDelegate showErrorMessageWithTitle:@"Error!" message:@"Please enter street" delegate:nil];
+    }
+    else if ([PostCode_TXT.text isEqualToString:@""])
+    {
+        [AppDelegate showErrorMessageWithTitle:@"Error!" message:@"Please enter post code" delegate:nil];
+    }
+    else if ([Mobile_TXT.text isEqualToString:@""])
+    {
+        [AppDelegate showErrorMessageWithTitle:@"Error!" message:@"Please enter mobile number" delegate:nil];
+    }
+    else if ([Country_TXT.text isEqualToString:@""])
+    {
+        [AppDelegate showErrorMessageWithTitle:@"Error!" message:@"Please enter country" delegate:nil];
+    }
+    else
+    {
+        BOOL internet=[AppDelegate connectedToNetwork];
+        if (internet)
+        {
+            [self UpdateUserProfileData];
+        }
+        else
+            [AppDelegate showErrorMessageWithTitle:@"" message:@"Please check your internet connection or try again later." delegate:nil];
+        }
 }
 
 
