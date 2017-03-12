@@ -282,10 +282,14 @@
         if ([[WithoutSelectArr objectAtIndex:indexPath.row] isEqualToString:@"YES"])
         {
             [WithoutSelectArr replaceObjectAtIndex:indexPath.row withObject:@"NO"];
+            NSInteger indx=[withoutselectMain indexOfObject:[NSString stringWithFormat:@"%ld",indexPath.row]];
+            [withoutselectMain removeObjectAtIndex:indx];
         }
         else
         {
             [WithoutSelectArr replaceObjectAtIndex:indexPath.row withObject:@"YES"];
+            [withoutselectMain addObject:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
+
         }
         
         [WithoutTBL reloadData];
@@ -295,10 +299,13 @@
         if ([[WithSelectArr objectAtIndex:indexPath.row] isEqualToString:@"YES"])
         {
             [WithSelectArr replaceObjectAtIndex:indexPath.row withObject:@"NO"];
+            NSInteger indx=[withSelectMain indexOfObject:[NSString stringWithFormat:@"%ld",indexPath.row]];
+            [withSelectMain removeObjectAtIndex:indx];
         }
         else
         {
             [WithSelectArr replaceObjectAtIndex:indexPath.row withObject:@"YES"];
+             [withSelectMain addObject:[NSString stringWithFormat:@"%ld",indexPath.row]];
         }
         
         [WithTBL reloadData];
@@ -478,8 +485,7 @@
 - (IBAction)Confirm_Click:(id)sender
 {
    
-    NSLog(@"===%@",withSelectMain);
-    NSLog(@"===%@",withoutselectMain);
+   
     
     
     NSMutableArray *arr=[[NSMutableArray alloc]init];
@@ -488,21 +494,31 @@
         [arr addObject:[WithIntegrate objectAtIndex:[[withSelectMain objectAtIndex:i] integerValue]]];
     }
     
+    NSMutableArray *arr2=[[NSMutableArray alloc]init];
+    for (int i=0; i<withoutselectMain.count; i++)
+    {
+        [arr2 addObject:[withoutIntegrate objectAtIndex:[[withoutselectMain objectAtIndex:i] integerValue]]];
+    }
+    
+    NSArray *FinalArray=[arr arrayByAddingObjectsFromArray:arr2];
+
+    //NSLog(@"===%@",FinalArray);
+    //NSLog(@"===%@",arr2);
+    
     OptionView.hidden=YES;
     [WithTBL reloadData];
     [WithoutTBL reloadData];
+    
     NSString *prductNM=[[subCategoryDic valueForKey:@"productName"] objectAtIndex:subItemIndex];
     NSString *prductPRICE=[[subCategoryDic valueForKey:@"price"] objectAtIndex:subItemIndex];
     NSString *Quatity=[[MainCount valueForKey:@"MainCount"] objectAtIndex:subItemIndex];
     
     NSMutableDictionary *AddTocardDic = [[NSMutableDictionary alloc] init];
-    
     [AddTocardDic setObject:prductNM forKey:@"productName"];
-    
     [AddTocardDic setObject:prductPRICE forKey:@"price"];
     [AddTocardDic setObject:Quatity forKey:@"quatity"];
     
-    [AddTocardDic setObject:[withoutIntegrate objectAtIndex:1] forKey:@"ingredient"];
+    [AddTocardDic setObject:FinalArray forKey:@"ingredient"];
     NSLog(@"AddTocardDic===%@",AddTocardDic);
     
 }
