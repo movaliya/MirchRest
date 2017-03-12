@@ -33,13 +33,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    WithSelectArr=[[NSMutableArray alloc]init];
-    WithoutSelectArr=[[NSMutableArray alloc]init];
-    for (int i=0; i<20; i++)
-    {
-        [WithSelectArr addObject:@"NO"];
-        [WithoutSelectArr addObject:@"NO"];
-    }
     
     OptionView.hidden=YES;
     UINib *nib = [UINib nibWithNibName:@"SubitemCell" bundle:nil];
@@ -114,6 +107,7 @@
          if ([SUCCESS boolValue] ==YES)
          {
              subCategoryDic=[[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"getitem"] objectForKey:@"products"] objectForKey:@"result"] objectForKey:@"products"];
+             AllProductIngredientsDIC=[subCategoryDic valueForKey:@"ingredients"];
              arrayInt = [[NSMutableArray alloc] init];
              for (int i = 0; i <subCategoryDic.count; i++) {
                  [arrayInt addObject:@"1"];
@@ -151,9 +145,14 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (tableView==WithTBL || tableView==WithoutTBL)
+    if (tableView==WithTBL )
     {
-        return 20;
+        return WithIntegrate.count;
+    }
+    else
+    {
+        return withoutIntegrate.count;
+
     }
     return 1;
 }
@@ -193,6 +192,8 @@
         }
         
         UIButton *ChkButton=[[UIButton alloc]initWithFrame:CGRectMake(8, 14.5, 15, 15)];
+        UILabel *titleLBL=[[UILabel alloc]initWithFrame:CGRectMake(30, 0, 100, 44)];
+        titleLBL.font=[UIFont systemFontOfSize:15.0f];
         if (tableView==WithTBL)
         {
             if ([[WithSelectArr objectAtIndex:indexPath.row] isEqualToString:@"YES"])
@@ -204,6 +205,8 @@
                 [ChkButton setBackgroundImage:[UIImage imageNamed:@"Orange_UnchkIcon"] forState:UIControlStateNormal];
             }
              [ChkButton addTarget:self action:@selector(WithChkbox_click:) forControlEvents:UIControlEventTouchUpInside];
+            titleLBL.text=[WithIntegrate objectAtIndex:indexPath.row];
+
         }
         else
         {
@@ -216,15 +219,11 @@
                 [ChkButton setBackgroundImage:[UIImage imageNamed:@"Orange_UnchkIcon"] forState:UIControlStateNormal];
             }
              [ChkButton addTarget:self action:@selector(WithoutChkbox_click:) forControlEvents:UIControlEventTouchUpInside];
+             titleLBL.text=[withoutIntegrate objectAtIndex:indexPath.row];
         }
         
         ChkButton.tag=indexPath.row;
-       
         [cell addSubview:ChkButton];
-        
-        UILabel *titleLBL=[[UILabel alloc]initWithFrame:CGRectMake(30, 0, 100, 44)];
-        titleLBL.text=@"Mushroom";
-        titleLBL.font=[UIFont systemFontOfSize:15.0f];
         [cell addSubview:titleLBL];
         
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
@@ -243,6 +242,7 @@
     
     cell.PlusBtn.tag=indexPath.section;
     cell.MinusBtn.tag=indexPath.section;
+    cell.optionBtn.tag=indexPath.section;
     
     [cell.PlusBtn addTarget:self action:@selector(PlushClick:) forControlEvents:UIControlEventTouchUpInside];
     [cell.MinusBtn addTarget:self action:@selector(MinushClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -345,10 +345,7 @@
     {
         [WithSelectArr replaceObjectAtIndex:senderButton.tag withObject:@"YES"];
     }
-    
     [WithTBL reloadData];
-    
-    
 }
 
 -(void)PlushClick:(id)sender
@@ -414,17 +411,51 @@
 -(void)OptionClick:(id)sender
 {
     OptionView.hidden=NO;
+    UIButton *senderButton = (UIButton *)sender;
+    NSLog(@"senderButton.tag=%ld",(long)senderButton.tag);
+    ProductIngredDic=[[subCategoryDic valueForKey:@"ingredients"] objectAtIndex:senderButton.tag];
+    
+    int count=0;
+    withoutIntegrate=[[NSMutableArray alloc] init];
+    WithIntegrate=[[NSMutableArray alloc] init];
+    for (NSMutableArray *dic1 in ProductIngredDic)
+    {
+        if ([[dic1 valueForKey:@"is_with"] boolValue]==0)
+        {
+            [withoutIntegrate addObject:[dic1 valueForKey:@"ingredient_name"]];
+        }
+        else
+        {
+             [WithIntegrate addObject:[dic1 valueForKey:@"ingredient_name"]];
+        }
+        count++;
+    }
+    
+    
+    WithSelectArr=[[NSMutableArray alloc]init];
+    WithoutSelectArr=[[NSMutableArray alloc]init];
+    for (int i=0; i<withoutIntegrate.count; i++)
+    {
+        [WithoutSelectArr addObject:@"NO"];
+    }
+    for (int i=0; i<WithIntegrate.count; i++)
+    {
+        [WithSelectArr addObject:@"NO"];
+    }
+    [WithoutTBL reloadData];
+    [WithTBL reloadData];
+    NSLog(@"withoutIntegrate=%@",withoutIntegrate);
 }
 
 - (IBAction)Cancle:(id)sender
 {
-    WithSelectArr=[[NSMutableArray alloc]init];
-    WithoutSelectArr=[[NSMutableArray alloc]init];
-    for (int i=0; i<20; i++)
-    {
-        [WithSelectArr addObject:@"NO"];
-        [WithoutSelectArr addObject:@"NO"];
-    }
+    //WithSelectArr=[[NSMutableArray alloc]init];
+   // WithoutSelectArr=[[NSMutableArray alloc]init];
+   // for (int i=0; i<20; i++)
+   // {
+       // [WithSelectArr addObject:@"NO"];
+       // [WithoutSelectArr addObject:@"NO"];
+   // }
     OptionView.hidden=YES;
     [WithTBL reloadData];
     [WithoutTBL reloadData];
