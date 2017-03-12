@@ -149,12 +149,15 @@
     {
         return WithIntegrate.count;
     }
-    else
+    else if (tableView==WithoutTBL )
     {
         return withoutIntegrate.count;
 
     }
-    return 1;
+    else
+    {
+        return 1;
+    }
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
