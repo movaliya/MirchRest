@@ -17,6 +17,9 @@
     NSInteger ButtonTag;
     NSUInteger chechPlusMinus;
     NSMutableArray *arrayInt;
+    NSMutableDictionary *AllProductIngredientsDIC;
+    NSMutableDictionary *ProductIngredDic;
+    NSMutableArray *WithIntegrate,*withoutIntegrate;
 }
 @property (strong, nonatomic) NSString *CategoryId;
 @property (strong, nonatomic) NSString *categoryName;
