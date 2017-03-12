@@ -22,8 +22,10 @@
 
 @implementation LoginVW
 @synthesize emailTxt,passwordTxt;
+@synthesize ShowBack,BackBTN;
 
-- (BOOL)prefersStatusBarHidden {
+- (BOOL)prefersStatusBarHidden
+{
     return NO;
 }
 
@@ -31,7 +33,14 @@
 {
     
     [super viewDidLoad];
-    
+    if ([ShowBack isEqualToString:@"YES"])
+    {
+        BackBTN.hidden=NO;
+    }
+    else
+    {
+         BackBTN.hidden=YES;
+    }
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 
     

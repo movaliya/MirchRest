@@ -13,7 +13,7 @@
 @end
 
 @implementation AppDelegate
-
+@synthesize MainCartArr;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -65,6 +65,7 @@
         [toast dismissWithClickedButtonIndex:0 animated:YES];
     });
 }
+
 + (BOOL)connectedToNetwork{
     Reachability* reachability = [Reachability reachabilityWithHostName:@"www.google.com"];
     NetworkStatus remoteHostStatus = [reachability currentReachabilityStatus];

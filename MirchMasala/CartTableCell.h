@@ -9,9 +9,14 @@
 #import <UIKit/UIKit.h>
 
 @interface CartTableCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UIButton *MinusBtn;
-@property (weak, nonatomic) IBOutlet UIButton *PlusBtn;
-@property (weak, nonatomic) IBOutlet UILabel *Quatity_LBL;
-
-@property (strong, nonatomic) IBOutlet UIView *PlushView;
+{
+    
+}
+@property (strong, nonatomic) IBOutlet UILabel *Title_LBL;
+@property (strong, nonatomic) IBOutlet UILabel *Option_LBL;
+@property (strong, nonatomic) IBOutlet UIButton *Change_BTN;
+@property (strong, nonatomic) IBOutlet UILabel *Price_LBL;
+@property (strong, nonatomic) IBOutlet UITextField *Qnt_TXT;
+@property (strong, nonatomic) IBOutlet UIButton *Update_BTN;
+@property (strong, nonatomic) IBOutlet UIButton *Close_BTN;
 @end

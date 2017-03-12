@@ -9,6 +9,8 @@
 #import "SubItemView.h"
 #import "SubitemCell.h"
 #import "MirchMasala.pch"
+#import "AppDelegate.h"
+#import "LoginVW.h"
 
 @interface SubItemView ()
 {
@@ -244,10 +246,13 @@
     cell.PlusBtn.tag=indexPath.section;
     cell.MinusBtn.tag=indexPath.section;
     cell.optionBtn.tag=indexPath.section;
+    cell.Cart_BTN.tag=indexPath.section;
+
     
     [cell.PlusBtn addTarget:self action:@selector(PlushClick:) forControlEvents:UIControlEventTouchUpInside];
     [cell.MinusBtn addTarget:self action:@selector(MinushClick:) forControlEvents:UIControlEventTouchUpInside];
     [cell.optionBtn addTarget:self action:@selector(OptionClick:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.Cart_BTN addTarget:self action:@selector(Cart_Click:) forControlEvents:UIControlEventTouchUpInside];
     
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     
@@ -282,7 +287,7 @@
         if ([[WithoutSelectArr objectAtIndex:indexPath.row] isEqualToString:@"YES"])
         {
             [WithoutSelectArr replaceObjectAtIndex:indexPath.row withObject:@"NO"];
-            NSInteger indx=[withoutselectMain indexOfObject:[NSString stringWithFormat:@"%ld",indexPath.row]];
+            NSInteger indx=[withoutselectMain indexOfObject:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
             [withoutselectMain removeObjectAtIndex:indx];
         }
         else
@@ -299,13 +304,13 @@
         if ([[WithSelectArr objectAtIndex:indexPath.row] isEqualToString:@"YES"])
         {
             [WithSelectArr replaceObjectAtIndex:indexPath.row withObject:@"NO"];
-            NSInteger indx=[withSelectMain indexOfObject:[NSString stringWithFormat:@"%ld",indexPath.row]];
+            NSInteger indx=[withSelectMain indexOfObject:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
             [withSelectMain removeObjectAtIndex:indx];
         }
         else
         {
             [WithSelectArr replaceObjectAtIndex:indexPath.row withObject:@"YES"];
-             [withSelectMain addObject:[NSString stringWithFormat:@"%ld",indexPath.row]];
+             [withSelectMain addObject:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
         }
         
         [WithTBL reloadData];
@@ -322,6 +327,42 @@
     
 }
 
+-(void)Cart_Click:(id)sender
+{
+    UIButton *senderButton = (UIButton *)sender;
+    
+    if ([KmyappDelegate isUserLoggedIn] == NO)
+    {
+        [self performSelector:@selector(checkLoginAndPresentContainer) withObject:nil afterDelay:0.0];
+    }
+    else
+    {
+        OptionView.hidden=YES;
+        [WithTBL reloadData];
+        [WithoutTBL reloadData];
+        
+        NSString *prductNM=[[subCategoryDic valueForKey:@"productName"] objectAtIndex:senderButton.tag];
+        NSString *prductPRICE=[[subCategoryDic valueForKey:@"price"] objectAtIndex:senderButton.tag];
+        NSString *Quatity=[[MainCount valueForKey:@"MainCount"] objectAtIndex:senderButton.tag];
+        
+        NSMutableDictionary *AddTocardDic = [[NSMutableDictionary alloc] init];
+        [AddTocardDic setObject:prductNM forKey:@"productName"];
+        [AddTocardDic setObject:prductPRICE forKey:@"price"];
+        [AddTocardDic setObject:Quatity forKey:@"quatity"];
+        
+        [AddTocardDic setObject:@"" forKey:@"ingredient"];
+        NSLog(@"AddTocardDic===%@",AddTocardDic);
+        
+        NSDictionary *UserSaveData=[[NSUserDefaults standardUserDefaults]objectForKey:@"LoginUserDic"];
+        NSString *CoustmerID=[[[[[[UserSaveData objectForKey:@"RESPONSE"] objectForKey:@"action"] objectForKey:@"authenticate"] objectForKey:@"result"] objectForKey:@"authenticate"]  objectForKey:@"customerid"];
+        
+        KmyappDelegate.MainCartArr=[[NSMutableArray alloc]initWithArray:[[NSUserDefaults standardUserDefaults]objectForKey:CoustmerID]];
+        [KmyappDelegate.MainCartArr addObject:AddTocardDic];
+        [[NSUserDefaults standardUserDefaults] setObject:KmyappDelegate.MainCartArr forKey:CoustmerID];
+        NSLog(@"==%@",KmyappDelegate.MainCartArr);
+        
+    }
+}
 
 -(void)WithoutChkbox_click:(id)sender
 {
@@ -482,45 +523,59 @@
     [WithoutTBL reloadData];
 }
 
+-(void)checkLoginAndPresentContainer
+{
+    LoginVW *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"LoginVW"];
+    vcr.ShowBack=@"YES";
+    [self.navigationController  pushViewController:vcr animated:YES];
+}
+
 - (IBAction)Confirm_Click:(id)sender
 {
-   
-   
-    
-    
-    NSMutableArray *arr=[[NSMutableArray alloc]init];
-    for (int i=0; i<withSelectMain.count; i++)
+    if ([KmyappDelegate isUserLoggedIn] == NO)
     {
-        [arr addObject:[WithIntegrate objectAtIndex:[[withSelectMain objectAtIndex:i] integerValue]]];
+        [self performSelector:@selector(checkLoginAndPresentContainer) withObject:nil afterDelay:0.0];
     }
-    
-    NSMutableArray *arr2=[[NSMutableArray alloc]init];
-    for (int i=0; i<withoutselectMain.count; i++)
+    else
     {
-        [arr2 addObject:[withoutIntegrate objectAtIndex:[[withoutselectMain objectAtIndex:i] integerValue]]];
+        NSMutableArray *arr=[[NSMutableArray alloc]init];
+        for (int i=0; i<withSelectMain.count; i++)
+        {
+            [arr addObject:[WithIntegrate objectAtIndex:[[withSelectMain objectAtIndex:i] integerValue]]];
+        }
+        
+        NSMutableArray *arr2=[[NSMutableArray alloc]init];
+        for (int i=0; i<withoutselectMain.count; i++)
+        {
+            [arr2 addObject:[withoutIntegrate objectAtIndex:[[withoutselectMain objectAtIndex:i] integerValue]]];
+        }
+        
+        NSArray *FinalArray=[arr arrayByAddingObjectsFromArray:arr2];
+        OptionView.hidden=YES;
+        [WithTBL reloadData];
+        [WithoutTBL reloadData];
+        
+        NSString *prductNM=[[subCategoryDic valueForKey:@"productName"] objectAtIndex:subItemIndex];
+        NSString *prductPRICE=[[subCategoryDic valueForKey:@"price"] objectAtIndex:subItemIndex];
+        NSString *Quatity=[[MainCount valueForKey:@"MainCount"] objectAtIndex:subItemIndex];
+        
+        NSMutableDictionary *AddTocardDic = [[NSMutableDictionary alloc] init];
+        [AddTocardDic setObject:prductNM forKey:@"productName"];
+        [AddTocardDic setObject:prductPRICE forKey:@"price"];
+        [AddTocardDic setObject:Quatity forKey:@"quatity"];
+        
+        [AddTocardDic setObject:FinalArray forKey:@"ingredient"];
+        NSLog(@"AddTocardDic===%@",AddTocardDic);
+        
+        NSDictionary *UserSaveData=[[NSUserDefaults standardUserDefaults]objectForKey:@"LoginUserDic"];
+        NSString *CoustmerID=[[[[[[UserSaveData objectForKey:@"RESPONSE"] objectForKey:@"action"] objectForKey:@"authenticate"] objectForKey:@"result"] objectForKey:@"authenticate"]  objectForKey:@"customerid"];
+        
+        KmyappDelegate.MainCartArr=[[NSMutableArray alloc]initWithArray:[[NSUserDefaults standardUserDefaults]objectForKey:CoustmerID]];
+        [KmyappDelegate.MainCartArr addObject:AddTocardDic];
+        [[NSUserDefaults standardUserDefaults] setObject:KmyappDelegate.MainCartArr forKey:CoustmerID];
+        NSLog(@"==%@",KmyappDelegate.MainCartArr);
+        
     }
-    
-    NSArray *FinalArray=[arr arrayByAddingObjectsFromArray:arr2];
-
-    //NSLog(@"===%@",FinalArray);
-    //NSLog(@"===%@",arr2);
-    
-    OptionView.hidden=YES;
-    [WithTBL reloadData];
-    [WithoutTBL reloadData];
-    
-    NSString *prductNM=[[subCategoryDic valueForKey:@"productName"] objectAtIndex:subItemIndex];
-    NSString *prductPRICE=[[subCategoryDic valueForKey:@"price"] objectAtIndex:subItemIndex];
-    NSString *Quatity=[[MainCount valueForKey:@"MainCount"] objectAtIndex:subItemIndex];
-    
-    NSMutableDictionary *AddTocardDic = [[NSMutableDictionary alloc] init];
-    [AddTocardDic setObject:prductNM forKey:@"productName"];
-    [AddTocardDic setObject:prductPRICE forKey:@"price"];
-    [AddTocardDic setObject:Quatity forKey:@"quatity"];
-    
-    [AddTocardDic setObject:FinalArray forKey:@"ingredient"];
-    NSLog(@"AddTocardDic===%@",AddTocardDic);
-    
 }
 
 @end

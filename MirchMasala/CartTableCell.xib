@@ -15,10 +15,10 @@
             <rect key="frame" x="0.0" y="0.0" width="357" height="90"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="357" height="89.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="357" height="89"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TANDOORI CHICKEN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WEr-df-49r">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WEr-df-49r">
                         <rect key="frame" x="8" y="12" width="319" height="15"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="15" id="vX7-wr-xmv"/>
@@ -28,7 +28,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tatal Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="34a-em-PSk">
-                        <rect key="frame" x="255" y="64" width="54" height="13"/>
+                        <rect key="frame" x="292" y="64" width="54" height="13"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="54" id="2iL-RR-cfZ"/>
                             <constraint firstAttribute="height" constant="13" id="Hpd-4w-m8k"/>
@@ -37,8 +37,8 @@
                         <color key="textColor" red="0.53725490200000003" green="0.50588235290000005" blue="0.50588235290000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="£2.45" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9pM-7Q-h4h">
-                        <rect key="frame" x="312" y="64" width="37" height="13"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9pM-7Q-h4h">
+                        <rect key="frame" x="349" y="64" width="0.0" height="13"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="13" id="J6c-sy-JKm"/>
                         </constraints>
@@ -70,8 +70,8 @@
                         <color key="textColor" red="0.53725490200000003" green="0.50588235290000005" blue="0.50588235290000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="With Mashroom,without chees,orengano" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YgK-nk-qn6">
-                        <rect key="frame" x="8" y="39" width="177" height="13"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YgK-nk-qn6">
+                        <rect key="frame" x="8" y="39" width="0.0" height="13"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="13" id="YEd-MK-wIP"/>
                         </constraints>
@@ -104,7 +104,7 @@
                         <state key="normal" title="Update"/>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="49N-7d-SmJ">
-                        <rect key="frame" x="189" y="38" width="45" height="15"/>
+                        <rect key="frame" x="12" y="38" width="45" height="15"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="45" id="685-EY-Fle"/>
@@ -140,7 +140,16 @@
                     <constraint firstItem="ZW5-Uw-Mdf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="swH-9G-Thy"/>
                 </constraints>
             </tableViewCellContentView>
-            <point key="canvasLocation" x="9.5" y="41"/>
+            <connections>
+                <outlet property="Change_BTN" destination="49N-7d-SmJ" id="R4y-As-KrF"/>
+                <outlet property="Close_BTN" destination="ZW5-Uw-Mdf" id="J9G-eD-aLe"/>
+                <outlet property="Option_LBL" destination="YgK-nk-qn6" id="xvP-rf-mcG"/>
+                <outlet property="Price_LBL" destination="9pM-7Q-h4h" id="vEx-bD-fhs"/>
+                <outlet property="Qnt_TXT" destination="oZA-fg-WfI" id="dk1-ut-BNk"/>
+                <outlet property="Title_LBL" destination="WEr-df-49r" id="nPm-3b-wtO"/>
+                <outlet property="Update_BTN" destination="rNx-sg-00b" id="bFS-TP-wmU"/>
+            </connections>
+            <point key="canvasLocation" x="-258.5" y="50"/>
         </tableViewCell>
     </objects>
     <resources>

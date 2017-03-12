@@ -114,6 +114,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="Cart_BTN" destination="iD4-L1-MFG" id="Vtl-zq-0qf"/>
                 <outlet property="MinusBtn" destination="Kwd-hn-gkJ" id="nXL-zg-xt4"/>
                 <outlet property="PlusBtn" destination="wIh-v8-7BV" id="9ev-2F-n5K"/>
                 <outlet property="PriceLable" destination="sZR-hz-2F0" id="dXB-ZY-XQ3"/>

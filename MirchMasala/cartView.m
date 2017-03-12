@@ -10,6 +10,9 @@
 #import "CartTableCell.h"
 #import "CartGrandTotalCell.h"
 @interface cartView ()
+{
+    NSString *CoustmerID;
+}
 @property (strong, nonatomic) NSMutableArray *arr;
 @property (strong, nonatomic) NSMutableDictionary *dic,*MainCount;
 
@@ -19,11 +22,15 @@
 @synthesize cartTable;
 @synthesize arr,dic,MainCount;
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     
+    NSDictionary *UserSaveData=[[NSUserDefaults standardUserDefaults]objectForKey:@"LoginUserDic"];
+    CoustmerID=[[[[[[UserSaveData objectForKey:@"RESPONSE"] objectForKey:@"action"] objectForKey:@"authenticate"] objectForKey:@"result"] objectForKey:@"authenticate"]  objectForKey:@"customerid"];
     
-    cellcount=15;
+    NSLog( @"%@",KmyappDelegate.MainCartArr=[[NSMutableArray alloc]initWithArray:[[NSUserDefaults standardUserDefaults]objectForKey:CoustmerID]]);
+    cellcount=KmyappDelegate.MainCartArr.count;
     
     UINib *nib = [UINib nibWithNibName:@"CartTableCell" bundle:nil];
     CartTableCell *cell = [[nib instantiateWithOwner:nil options:nil] objectAtIndex:0];
@@ -36,7 +43,8 @@
     [cartTable registerNib:nib1 forCellReuseIdentifier:@"CartGrandTotalCell"];
     
     arr = [NSMutableArray array];
-    for (int i = 0; i <15; i++) {
+    for (int i = 0; i <15; i++)
+    {
         [arr addObject:@"1"];
     }
     
@@ -45,6 +53,7 @@
     [dic setObject:arr forKey:@"Count"];
     [MainCount setObject:arr forKey:@"MainCount"];
 }
+
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -53,11 +62,12 @@
     [self.rootNav CheckLoginArr];
     [self.rootNav.pan_gr setEnabled:NO];
 }
+
 #pragma mark UITableView delegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
       //  return topCategoriesDic.count;
-    return cellcount+1;
+    return KmyappDelegate.MainCartArr.count+1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -102,27 +112,37 @@
         {
             cell1 = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         }
-        cell1.PlusBtn.tag=indexPath.section;
-        cell1.MinusBtn.tag=indexPath.section;
-        
-        [cell1.PlusBtn addTarget:self action:@selector(PlushClick:) forControlEvents:UIControlEventTouchUpInside];
-        [cell1.MinusBtn addTarget:self action:@selector(MinushClick:) forControlEvents:UIControlEventTouchUpInside];
-         [cell1 setSelectionStyle:UITableViewCellSelectionStyleNone];
-        
-        NSInteger *Main=[[[MainCount valueForKey:@"MainCount"] objectAtIndex:indexPath.section] integerValue];
-        
-        NSInteger *Second=[[[dic valueForKey:@"Count"] objectAtIndex:indexPath.section] integerValue];
-        
-        if (Main==Second)
+        NSMutableArray *Array=[[[KmyappDelegate.MainCartArr objectAtIndex:indexPath.section] valueForKey:@"ingredient"] mutableCopy];
+        if ([Array isKindOfClass:[NSArray class]])
         {
-            cell1.Quatity_LBL.text=[NSString stringWithFormat:@"%ld",Main];
-            
-            
+            NSString *OptionStr=[[NSString alloc]init];
+            for (int i=0; i<Array.count; i++)
+            {
+                if (i==0)
+                {
+                    OptionStr=[[Array objectAtIndex:i] valueForKey:@"ingredient_name"];
+                }
+                else
+                {
+                    OptionStr=[NSString stringWithFormat:@"%@,%@",OptionStr,[[Array objectAtIndex:i] valueForKey:@"ingredient_name"]];
+                }
+            }
+            if (![OptionStr isEqualToString:@""])
+            {
+                cell1.Option_LBL.text=OptionStr;
+            }
         }
-        else
-        {
-            cell1.Quatity_LBL.text=[NSString stringWithFormat:@"%ld",Second];
-        }
+       
+        
+        [cell1 setSelectionStyle:UITableViewCellSelectionStyleNone];
+        cell1.Title_LBL.text=[[KmyappDelegate.MainCartArr objectAtIndex:indexPath.section]valueForKey:@"productName"];
+       
+        cell1.Qnt_TXT.text=[[KmyappDelegate.MainCartArr objectAtIndex:indexPath.section]valueForKey:@"quatity"];
+        cell1.Price_LBL.text=[NSString stringWithFormat:@"£%@",[[KmyappDelegate.MainCartArr objectAtIndex:indexPath.section]valueForKey:@"price"]];
+        
+        [cell1.Close_BTN addTarget:self action:@selector(Close_Click:) forControlEvents:UIControlEventTouchUpInside];
+        cell1.Close_BTN.tag=indexPath.section;
+       
         return cell1;
     }
 }
@@ -135,63 +155,29 @@
     return 90;
     
 }
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
 }
 
--(void)PlushClick:(id)sender
+-(void)Close_Click:(id)sender
 {
     UIButton *senderButton = (UIButton *)sender;
-    UIView *cellContentView = (UIView *)senderButton.superview;
-    UITableViewCell *buttonCell = (UITableViewCell *)[[cellContentView superview] superview];
-    UITableView* table = (UITableView *)[[buttonCell superview] superview];
-    NSIndexPath* pathOfTheCell = [table indexPathForCell:buttonCell];
-    //NSDictionary *item = sortedItems[sortedItems.allKeys[pathOfTheCell.row]];
-    CartTableCell *cell = (CartTableCell *)[cartTable cellForRowAtIndexPath:pathOfTheCell];
-    NSLog(@"senderButton.tag=%ld",(long)senderButton.tag);
     
-    NSInteger count = [cell.Quatity_LBL.text integerValue];
-    count = count + 1;
-    cell.Quatity_LBL.text = [NSString stringWithFormat:@"%ld",(long)count];
-    
-    [arr replaceObjectAtIndex:senderButton.tag withObject:[NSString stringWithFormat:@"%ld",(long)count]];
-    [dic setObject:arr forKey:@"Count"];
-    
-    
-    ButtonTag=senderButton.tag;
-    chechPlusMinus=1;
-    //[TableView reloadData];
-    
+    [KmyappDelegate.MainCartArr removeObjectAtIndex:senderButton.tag];
+    [[NSUserDefaults standardUserDefaults] setObject:KmyappDelegate.MainCartArr forKey:CoustmerID];
+    KmyappDelegate.MainCartArr=[[NSMutableArray alloc]initWithArray:[[NSUserDefaults standardUserDefaults]objectForKey:CoustmerID]];
+    cellcount=KmyappDelegate.MainCartArr.count;
+    [cartTable reloadData];
 }
 
--(void)MinushClick:(id)sender
+- (void)didReceiveMemoryWarning
 {
-    
-    UIButton *senderButton = (UIButton *)sender;
-    UIView *cellContentView = (UIView *)senderButton.superview;
-    UITableViewCell *buttonCell = (UITableViewCell *)[[cellContentView superview] superview];
-    UITableView* table = (UITableView *)[[buttonCell superview] superview];
-    NSIndexPath* pathOfTheCell = [table indexPathForCell:buttonCell];
-    //NSDictionary *item = sortedItems[sortedItems.allKeys[pathOfTheCell.row]];
-    CartTableCell *cell = (CartTableCell *)[cartTable cellForRowAtIndexPath:pathOfTheCell];
-    
-    NSInteger count = [cell.Quatity_LBL.text integerValue];
-    count = count - 1;
-    if (count!=0)
-    {
-        cell.Quatity_LBL.text = [NSString stringWithFormat:@"%ld",(long)count];
-        [arr replaceObjectAtIndex:senderButton.tag withObject:[NSString stringWithFormat:@"%ld",(long)count]];
-        [dic setObject:arr forKey:@"Count"];
-        ButtonTag=senderButton.tag;
-        chechPlusMinus=0;
-    }
-}
-
-- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 - (IBAction)ToggleMenuBtn_action:(id)sender
 {
     [self.rootNav drawerToggle];

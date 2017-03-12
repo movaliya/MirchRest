@@ -9,6 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @interface LoginVW : UIViewController
+{
+    NSString *ShowBack;
+}
+@property (strong, nonatomic) NSString *ShowBack;
+
 @property (weak, nonatomic) IBOutlet UIView *EmailView;
 @property (weak, nonatomic) IBOutlet UIView *PasswordView;
 @property (weak, nonatomic) IBOutlet UIButton *SignInBtn;
@@ -20,4 +25,5 @@
 @property (strong, nonatomic) IBOutlet UITextField *Password_TXT;
 @property (weak, nonatomic) IBOutlet UIImageView *EmailImageVW;
 @property (weak, nonatomic) IBOutlet UIImageView *passwordImgeVW;
+@property (strong, nonatomic) IBOutlet UIButton *BackBTN;
 @end
