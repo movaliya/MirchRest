@@ -61,8 +61,8 @@
     
     
     // Temp Login
-    emailTxt.text=@"jigneshbs@outlook.com";
-    passwordTxt.text=@"12345";
+    //emailTxt.text=@"jigneshbs@outlook.com";
+    //passwordTxt.text=@"12345";
     
     
 }

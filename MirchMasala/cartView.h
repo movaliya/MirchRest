@@ -11,12 +11,30 @@
 
 @interface cartView : UIViewController<CCKFNavDrawerDelegate>
 {
+    NSMutableDictionary *subCategoryDic;
+    NSMutableArray *arrayInt;
+    NSMutableDictionary *AllProductIngredientsDIC;
+    NSMutableDictionary *ProductIngredDic;
+    NSMutableArray *WithIntegrate,*withoutIntegrate;
+    NSInteger subItemIndex;
+    
+    
     NSInteger cellcount;
     NSInteger ButtonTag;
     NSUInteger chechPlusMinus;
 }
+@property (strong, nonatomic) IBOutlet UILabel *Notavailable_LBL;
+
 @property (strong, nonatomic) CCKFNavDrawer *rootNav;
-
 @property (weak, nonatomic) IBOutlet UITableView *cartTable;
+@property (strong, nonatomic) IBOutlet UILabel *CheckoutTotal_LBL;
 
+
+@property (strong, nonatomic) IBOutlet UIView *OptionView;
+
+- (IBAction)Confirm_Click:(id)sender;
+
+@property (strong, nonatomic) IBOutlet UITableView *WithTBL;
+@property (strong, nonatomic) IBOutlet UITableView *WithoutTBL;
+@property (strong, nonatomic) IBOutlet UIView *OptionTitleView;
 @end

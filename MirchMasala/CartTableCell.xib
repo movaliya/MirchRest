@@ -88,7 +88,7 @@
                         </constraints>
                         <nil key="textColor"/>
                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                        <textInputTraits key="textInputTraits"/>
+                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                         <connections>
                             <outlet property="delegate" destination="KGk-i7-Jjw" id="aEe-40-H5s"/>
                         </connections>

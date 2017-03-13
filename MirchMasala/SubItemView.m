@@ -55,7 +55,6 @@
 
 -(void)SUBCategoriesList
 {
-    
     [KVNProgress show] ;
     NSMutableDictionary *dict1 = [[NSMutableDictionary alloc] init];
     
@@ -85,11 +84,7 @@
     NSError* error = nil;
     
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dictREQUESTPARAM options:NSJSONWritingPrettyPrinted error:&error];
-    // NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-    
-    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:jsonData
-                                                         options:NSJSONReadingMutableContainers
-                                                           error:&error];
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers  error:&error];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer.acceptableContentTypes=[NSSet setWithObjects:@"text/html",@"application/json", nil];
@@ -101,7 +96,6 @@
     
     [manager POST:kBaseURL parameters:json success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject)
      {
-         //NSLog(@"responseObject==%@",responseObject);
          [KVNProgress dismiss];
          
          NSString *SUCCESS=[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"getitem"] objectForKey:@"products"] objectForKey:@"SUCCESS"];
@@ -344,11 +338,14 @@
         NSString *prductNM=[[subCategoryDic valueForKey:@"productName"] objectAtIndex:senderButton.tag];
         NSString *prductPRICE=[[subCategoryDic valueForKey:@"price"] objectAtIndex:senderButton.tag];
         NSString *Quatity=[[MainCount valueForKey:@"MainCount"] objectAtIndex:senderButton.tag];
+        NSString *Productid=[[subCategoryDic valueForKey:@"id"] objectAtIndex:senderButton.tag];
         
         NSMutableDictionary *AddTocardDic = [[NSMutableDictionary alloc] init];
         [AddTocardDic setObject:prductNM forKey:@"productName"];
         [AddTocardDic setObject:prductPRICE forKey:@"price"];
         [AddTocardDic setObject:Quatity forKey:@"quatity"];
+        [AddTocardDic setObject:Productid forKey:@"Productid"];
+        [AddTocardDic setObject:CategoryId forKey:@"CategoryId"];
         
         [AddTocardDic setObject:@"" forKey:@"ingredient"];
         NSLog(@"AddTocardDic===%@",AddTocardDic);
@@ -427,12 +424,10 @@
     ButtonTag=senderButton.tag;
     chechPlusMinus=1;
     //[TableView reloadData];
-    
 }
 
 -(void)MinushClick:(id)sender
 {
-    
     UIButton *senderButton = (UIButton *)sender;
     UIView *cellContentView = (UIView *)senderButton.superview;
     UITableViewCell *buttonCell = (UITableViewCell *)[[cellContentView superview] superview];
@@ -511,14 +506,7 @@
 
 - (IBAction)Cancle:(id)sender
 {
-    //WithSelectArr=[[NSMutableArray alloc]init];
-   // WithoutSelectArr=[[NSMutableArray alloc]init];
-   // for (int i=0; i<20; i++)
-   // {
-       // [WithSelectArr addObject:@"NO"];
-       // [WithoutSelectArr addObject:@"NO"];
-   // }
-    OptionView.hidden=YES;
+        OptionView.hidden=YES;
     [WithTBL reloadData];
     [WithoutTBL reloadData];
 }
@@ -558,11 +546,14 @@
         NSString *prductNM=[[subCategoryDic valueForKey:@"productName"] objectAtIndex:subItemIndex];
         NSString *prductPRICE=[[subCategoryDic valueForKey:@"price"] objectAtIndex:subItemIndex];
         NSString *Quatity=[[MainCount valueForKey:@"MainCount"] objectAtIndex:subItemIndex];
+        NSString *Productid=[[subCategoryDic valueForKey:@"id"] objectAtIndex:subItemIndex];
         
         NSMutableDictionary *AddTocardDic = [[NSMutableDictionary alloc] init];
         [AddTocardDic setObject:prductNM forKey:@"productName"];
         [AddTocardDic setObject:prductPRICE forKey:@"price"];
         [AddTocardDic setObject:Quatity forKey:@"quatity"];
+        [AddTocardDic setObject:Productid forKey:@"Productid"];
+        [AddTocardDic setObject:CategoryId forKey:@"CategoryId"];
         
         [AddTocardDic setObject:FinalArray forKey:@"ingredient"];
         NSLog(@"AddTocardDic===%@",AddTocardDic);

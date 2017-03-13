@@ -24,4 +24,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *AboutMenuBtn;
 @property (weak, nonatomic) IBOutlet UILabel *AboutLine;
 
+@property (strong, nonatomic) IBOutlet UIScrollView *HeaderScroll;
+@property (strong, nonatomic) IBOutlet UIPageControl *PageControll;
 @end

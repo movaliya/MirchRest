@@ -120,6 +120,11 @@
                     <constraint firstItem="A4C-TU-yQl" firstAttribute="centerY" secondItem="8Ma-6Y-gXv" secondAttribute="centerY" id="zdm-ps-oeS"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="Discount_LBL" destination="ChG-Sk-bmo" id="G9Z-G8-cef"/>
+                <outlet property="GrandTotal_LBL" destination="TQ6-Ki-ie8" id="8rq-66-y7r"/>
+                <outlet property="SubTotal_LBL" destination="A4C-TU-yQl" id="J6t-QY-cuw"/>
+            </connections>
             <point key="canvasLocation" x="30.5" y="-24"/>
         </tableViewCell>
     </objects>
