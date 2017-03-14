@@ -25,7 +25,7 @@
 @synthesize ItemTableView;
 @synthesize CategoryId,categoryName,CategoryTitleLBL;
 @synthesize dic,MainCount;
-@synthesize OptionView,WithTBL,WithoutTBL;
+@synthesize OptionView,WithTBL,WithoutTBL,CartNotification_LBL;
 
 
 - (BOOL)prefersStatusBarHidden
@@ -36,6 +36,22 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    CartNotification_LBL.layer.masksToBounds = YES;
+    CartNotification_LBL.layer.cornerRadius = 10.0;
+    NSDictionary *UserSaveData=[[NSUserDefaults standardUserDefaults]objectForKey:@"LoginUserDic"];
+    NSString *CoustmerID=[[[[[[UserSaveData objectForKey:@"RESPONSE"] objectForKey:@"action"] objectForKey:@"authenticate"] objectForKey:@"result"] objectForKey:@"authenticate"]  objectForKey:@"customerid"];
+     KmyappDelegate.MainCartArr=[[NSMutableArray alloc]initWithArray:[[NSUserDefaults standardUserDefaults]objectForKey:CoustmerID]];
+    
+    if (KmyappDelegate.MainCartArr.count>0)
+    {
+        [CartNotification_LBL setHidden:NO];
+        CartNotification_LBL.text=[NSString stringWithFormat:@"%lu",(unsigned long)KmyappDelegate.MainCartArr.count];
+    }
+    else
+    {
+        [CartNotification_LBL setHidden:YES];
+    }
     
     OptionView.hidden=YES;
     UINib *nib = [UINib nibWithNibName:@"SubitemCell" bundle:nil];
@@ -357,6 +373,17 @@
         [KmyappDelegate.MainCartArr addObject:AddTocardDic];
         [[NSUserDefaults standardUserDefaults] setObject:KmyappDelegate.MainCartArr forKey:CoustmerID];
         NSLog(@"==%@",KmyappDelegate.MainCartArr);
+        [AppDelegate showErrorMessageWithTitle:@"" message:@"Product Added in Cart." delegate:nil];
+        
+        if (KmyappDelegate.MainCartArr.count>0)
+        {
+            [CartNotification_LBL setHidden:NO];
+            CartNotification_LBL.text=[NSString stringWithFormat:@"%lu",(unsigned long)KmyappDelegate.MainCartArr.count];
+        }
+        else
+        {
+            [CartNotification_LBL setHidden:YES];
+        }
         
     }
 }
@@ -565,7 +592,17 @@
         [KmyappDelegate.MainCartArr addObject:AddTocardDic];
         [[NSUserDefaults standardUserDefaults] setObject:KmyappDelegate.MainCartArr forKey:CoustmerID];
         NSLog(@"==%@",KmyappDelegate.MainCartArr);
+        [AppDelegate showErrorMessageWithTitle:@"" message:@"Product Added in Cart." delegate:nil];
         
+        if (KmyappDelegate.MainCartArr.count>0)
+        {
+            [CartNotification_LBL setHidden:NO];
+            CartNotification_LBL.text=[NSString stringWithFormat:@"%lu",(unsigned long)KmyappDelegate.MainCartArr.count];
+        }
+        else
+        {
+            [CartNotification_LBL setHidden:YES];
+        }
     }
 }
 

@@ -22,6 +22,7 @@
     NSMutableArray *WithIntegrate,*withoutIntegrate;
     NSInteger subItemIndex;
 }
+@property (weak, nonatomic) IBOutlet UILabel *CartNotification_LBL;
 @property (strong, nonatomic) NSString *CategoryId;
 @property (strong, nonatomic) NSString *categoryName;
 @property (weak, nonatomic) IBOutlet UILabel *CategoryTitleLBL;

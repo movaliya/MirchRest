@@ -7,12 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MirchMasala.pch"
 
 @interface OrderDetailView : UIViewController
 {
     NSString *StatusMsg;
   
 }
+@property (weak, nonatomic) IBOutlet UILabel *CartNotification_LBL;
 @property (strong, nonatomic) NSString *StatusMsg;
 @property (weak, nonatomic) IBOutlet UITableView *OrderDetailTableView;
 

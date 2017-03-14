@@ -28,11 +28,14 @@
 @implementation cartView
 @synthesize cartTable;
 @synthesize arr,dic,MainCount,CheckoutTotal_LBL;
-@synthesize OptionView,WithTBL,WithoutTBL,Notavailable_LBL;
+@synthesize OptionView,WithTBL,WithoutTBL,Notavailable_LBL,cartNotification_LBL;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    cartNotification_LBL.layer.masksToBounds = YES;
+    cartNotification_LBL.layer.cornerRadius = 10.0;
     
     OptionView.hidden=YES;
     self.OptionTitleView.layer.masksToBounds = NO;
@@ -43,6 +46,8 @@
     NSDictionary *UserSaveData=[[NSUserDefaults standardUserDefaults]objectForKey:@"LoginUserDic"];
     CoustmerID=[[[[[[UserSaveData objectForKey:@"RESPONSE"] objectForKey:@"action"] objectForKey:@"authenticate"] objectForKey:@"result"] objectForKey:@"authenticate"]  objectForKey:@"customerid"];
     
+   // First take data from NSDefault Of My Cart.
+    KmyappDelegate.MainCartArr=[[NSMutableArray alloc]initWithArray:[[NSUserDefaults standardUserDefaults]objectForKey:CoustmerID]];
     if (KmyappDelegate.MainCartArr.count>0)
     {
         
@@ -51,11 +56,14 @@
         Notavailable_LBL.hidden=YES;
         cartTable.hidden=NO;
         cellcount=KmyappDelegate.MainCartArr.count;
+        [cartNotification_LBL setHidden:NO];
+        cartNotification_LBL.text=[NSString stringWithFormat:@"%lu",(unsigned long)KmyappDelegate.MainCartArr.count];
     }
     else
     {
         Notavailable_LBL.hidden=NO;
         cartTable.hidden=YES;
+        [cartNotification_LBL setHidden:YES];
     }
     
     UINib *nib = [UINib nibWithNibName:@"CartTableCell" bundle:nil];
@@ -81,6 +89,8 @@
     
     
     [self GetDiscount];
+    
+   
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -301,7 +311,7 @@
          {
              MainDiscount=[NSString stringWithFormat:@"%@",[[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"getitem"] objectForKey:@"calculateDiscount"]  objectForKey:@"result"] objectForKey:@"calculateDiscount"]];
          }
-         [cartTable reloadData];
+         //[cartTable reloadData];
      }
     failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
@@ -317,6 +327,7 @@
     {
         return 1;
     }
+    //NSLog(@"MainCartArr---%d",KmyappDelegate.MainCartArr.count);
     return KmyappDelegate.MainCartArr.count+1;
 }
 
@@ -358,10 +369,11 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     if (tableView==WithTBL || tableView==WithoutTBL)
     {
-        static NSString *CellIdentifier = @"Cell";
-        UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        static NSString *CellIdentifier1 = @"Cell";
+        UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier1];
         cell=nil;
         if (cell == nil)
         {
@@ -434,19 +446,33 @@
             static NSString *CellIdentifier = @"CartTableCell";
             CartTableCell *cell1 = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
             cell1=nil;
+            
             if (cell1 == nil)
             {
                 cell1 = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+                
             }
             
             NSMutableArray *Array=[[[KmyappDelegate.MainCartArr objectAtIndex:indexPath.section] valueForKey:@"ingredient"] mutableCopy];
+            
             Total=[[[KmyappDelegate.MainCartArr objectAtIndex:indexPath.section]valueForKey:@"price"] floatValue];
+             float integratPRICE=0.00;
             if ([Array isKindOfClass:[NSArray class]])
             {
                 NSString *OptionStr=[[NSString alloc]init];
+               
                 for (int i=0; i<Array.count; i++)
                 {
-                    Total=Total+[[[Array objectAtIndex:i] valueForKey:@"price"] floatValue];
+                   // Total=Total+[[[Array objectAtIndex:i] valueForKey:@"price"] floatValue];
+                    
+                    if ([[[Array objectAtIndex:i] valueForKey:@"is_with"] boolValue]==0)
+                    {
+                        integratPRICE=integratPRICE+[[[Array objectAtIndex:i] valueForKey:@"price_without"] floatValue];
+                    }
+                    else
+                    {
+                        integratPRICE=integratPRICE+[[[Array objectAtIndex:i] valueForKey:@"price"] floatValue];
+                    }
                     if (i==0)
                     {
                         OptionStr=[[Array objectAtIndex:i] valueForKey:@"ingredient_name"];
@@ -456,14 +482,17 @@
                         OptionStr=[NSString stringWithFormat:@"%@,%@",OptionStr,[[Array objectAtIndex:i] valueForKey:@"ingredient_name"]];
                     }
                 }
+                 NSLog(@"integratPRICE===%f",integratPRICE);
                 if (![OptionStr isEqualToString:@""])
                 {
                     cell1.Option_LBL.text=OptionStr;
                 }
             }
             
+            
             Total=Total*[[[KmyappDelegate.MainCartArr objectAtIndex:indexPath.section]valueForKey:@"quatity"] floatValue];
-            MainTotal=MainTotal+Total;
+            NSLog(@"total=%f",Total);
+            MainTotal=MainTotal+Total+integratPRICE;
             [cell1 setSelectionStyle:UITableViewCellSelectionStyleNone];
             cell1.Title_LBL.text=[[KmyappDelegate.MainCartArr objectAtIndex:indexPath.section]valueForKey:@"productName"];
             
@@ -483,6 +512,7 @@
             return cell1;
         }
     }
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -649,6 +679,7 @@
         Total=0.0;
         MainTotal=0.0;
         [cartTable reloadData];
+      
     }
 }
 
@@ -692,6 +723,16 @@
     Total=0.0;
     MainTotal=0.0;
     [cartTable reloadData];
+    
+    if (KmyappDelegate.MainCartArr.count>0)
+    {
+        [cartNotification_LBL setHidden:NO];
+        cartNotification_LBL.text=[NSString stringWithFormat:@"%lu",(unsigned long)KmyappDelegate.MainCartArr.count];
+    }
+    else
+    {
+        [cartNotification_LBL setHidden:YES];
+    }
 }
 
 - (void)didReceiveMemoryWarning

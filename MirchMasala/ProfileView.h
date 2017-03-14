@@ -13,6 +13,7 @@
 {
     
 }
+@property (weak, nonatomic) IBOutlet UILabel *CartNotification_LBL;
 @property (weak, nonatomic) IBOutlet UITextField *User_TXT;
 @property (weak, nonatomic) IBOutlet UITextField *Email_TXT;
 @property (weak, nonatomic) IBOutlet UITextField *Street_TXT;

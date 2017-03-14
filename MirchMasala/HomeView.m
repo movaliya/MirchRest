@@ -11,6 +11,7 @@
 #import "MirchMasala.pch"
 #import "AppDelegate.h"
 #import "SubItemView.h"
+
 @interface HomeView ()
 {
     UIImageView *Headerimg;
@@ -21,16 +22,36 @@
 
 @implementation HomeView
 @synthesize CategoriesTableView,MenuView,HeaderScroll,PageControll;
+@synthesize CartNotification_LBL;
 
 - (BOOL)prefersStatusBarHidden
 {
      return NO;
 }
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    NSDictionary *UserSaveData=[[NSUserDefaults standardUserDefaults]objectForKey:@"LoginUserDic"];
+    NSString *CoustmerID=[[[[[[UserSaveData objectForKey:@"RESPONSE"] objectForKey:@"action"] objectForKey:@"authenticate"] objectForKey:@"result"] objectForKey:@"authenticate"]  objectForKey:@"customerid"];
+    KmyappDelegate.MainCartArr=[[NSMutableArray alloc]initWithArray:[[NSUserDefaults standardUserDefaults]objectForKey:CoustmerID]];
+    if (KmyappDelegate.MainCartArr.count>0)
+    {
+        [CartNotification_LBL setHidden:NO];
+        CartNotification_LBL.text=[NSString stringWithFormat:@"%lu",(unsigned long)KmyappDelegate.MainCartArr.count];
+    }
+    else
+    {
+        [CartNotification_LBL setHidden:YES];
+    }
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
      [self.navigationController setNavigationBarHidden:YES animated:YES];
+    
+   
+    CartNotification_LBL.layer.masksToBounds = YES;
+    CartNotification_LBL.layer.cornerRadius = 10.0;
     
     self.rootNav = (CCKFNavDrawer *)self.navigationController;
     [self.rootNav setCCKFNavDrawerDelegate:self];

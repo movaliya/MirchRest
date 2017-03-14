@@ -534,9 +534,11 @@
     {
         if (buttonIndex == 1)
         {
-            [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"LoginUserDic"];
-            [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"Email"];
-            [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"Password"];
+            NSDictionary *UserSaveData=[[NSUserDefaults standardUserDefaults]objectForKey:@"LoginUserDic"];
+            NSString *CoustmerID=[[[[[[UserSaveData objectForKey:@"RESPONSE"] objectForKey:@"action"] objectForKey:@"authenticate"] objectForKey:@"result"] objectForKey:@"authenticate"]  objectForKey:@"customerid"];
+            KmyappDelegate.MainCartArr=[[NSMutableArray alloc] init];
+             [[NSUserDefaults standardUserDefaults] setObject:KmyappDelegate.MainCartArr forKey:CoustmerID];
+             [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"LoginUserDic"];
            // [[FBSession activeSession] closeAndClearTokenInformation];
             
             [self CheckLoginArr];

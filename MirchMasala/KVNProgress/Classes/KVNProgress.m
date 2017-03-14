@@ -1134,6 +1134,7 @@ static KVNProgressConfiguration *configuration;
 
 - (void)cancelCircleAnimation
 {
+    
 	[CATransaction begin];
 	[CATransaction setDisableActions:YES];
 	

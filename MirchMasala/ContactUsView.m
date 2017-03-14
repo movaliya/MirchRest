@@ -16,10 +16,26 @@
 
 @implementation ContactUsView
 @synthesize UserName_TXT,Email_TXT,Message_TXT,Message_Icon,Message_View,email_View,Email_Icon,user_View,User_Icon,Submit_Btn;
-
+@synthesize CartNotification_LBL;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    NSDictionary *UserSaveData=[[NSUserDefaults standardUserDefaults]objectForKey:@"LoginUserDic"];
+    NSString *CoustmerID=[[[[[[UserSaveData objectForKey:@"RESPONSE"] objectForKey:@"action"] objectForKey:@"authenticate"] objectForKey:@"result"] objectForKey:@"authenticate"]  objectForKey:@"customerid"];
+    KmyappDelegate.MainCartArr=[[NSMutableArray alloc]initWithArray:[[NSUserDefaults standardUserDefaults]objectForKey:CoustmerID]];
+    if (KmyappDelegate.MainCartArr.count>0)
+    {
+        [CartNotification_LBL setHidden:NO];
+        CartNotification_LBL.text=[NSString stringWithFormat:@"%lu",(unsigned long)KmyappDelegate.MainCartArr.count];
+    }
+    else
+    {
+        [CartNotification_LBL setHidden:YES];
+    }
+    CartNotification_LBL.layer.masksToBounds = YES;
+    CartNotification_LBL.layer.cornerRadius = 10.0;
     
     self.rootNav = (CCKFNavDrawer *)self.navigationController;
     [self.rootNav setCCKFNavDrawerDelegate:self];

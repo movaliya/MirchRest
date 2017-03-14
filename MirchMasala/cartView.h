@@ -23,6 +23,7 @@
     NSInteger ButtonTag;
     NSUInteger chechPlusMinus;
 }
+@property (weak, nonatomic) IBOutlet UILabel *cartNotification_LBL;
 @property (strong, nonatomic) IBOutlet UILabel *Notavailable_LBL;
 
 @property (strong, nonatomic) CCKFNavDrawer *rootNav;

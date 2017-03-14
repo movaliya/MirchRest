@@ -15,10 +15,26 @@
 @implementation ProfileView
 @synthesize User_TXT,Email_TXT,Street_TXT,PostCode_TXT,Mobile_TXT,Country_TXT,user_View,Email_View,Street_View,PostCode_View,Mobile_View,Country_View,update_Btn;
 
+@synthesize CartNotification_LBL;
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
+    NSDictionary *UserSaveData=[[NSUserDefaults standardUserDefaults]objectForKey:@"LoginUserDic"];
+    NSString *CoustmerID=[[[[[[UserSaveData objectForKey:@"RESPONSE"] objectForKey:@"action"] objectForKey:@"authenticate"] objectForKey:@"result"] objectForKey:@"authenticate"]  objectForKey:@"customerid"];
+    KmyappDelegate.MainCartArr=[[NSMutableArray alloc]initWithArray:[[NSUserDefaults standardUserDefaults]objectForKey:CoustmerID]];
+    if (KmyappDelegate.MainCartArr.count>0)
+    {
+        [CartNotification_LBL setHidden:NO];
+        CartNotification_LBL.text=[NSString stringWithFormat:@"%lu",(unsigned long)KmyappDelegate.MainCartArr.count];
+    }
+    else
+    {
+        [CartNotification_LBL setHidden:YES];
+    }
+    CartNotification_LBL.layer.masksToBounds = YES;
+    CartNotification_LBL.layer.cornerRadius = 10.0;
     
     self.rootNav = (CCKFNavDrawer *)self.navigationController;
     [self.rootNav setCCKFNavDrawerDelegate:self];
@@ -134,10 +150,23 @@
                  
                  User_TXT.text=[myProfileDic valueForKey:@"customerName"];
                  Email_TXT.text=[myProfileDic valueForKey:@"email"];
-                 Street_TXT.text=[myProfileDic valueForKey:@"street"];
-                 PostCode_TXT.text=[myProfileDic valueForKey:@"postCode"];
-                 Mobile_TXT.text=[myProfileDic valueForKey:@"mobile"];
-                 Country_TXT.text=[myProfileDic valueForKey:@"country"];
+                 
+                 if ([myProfileDic valueForKey:@"street"] != (id)[NSNull null])
+                 {
+                      Street_TXT.text=[myProfileDic valueForKey:@"street"];
+                 }
+                 if ([myProfileDic valueForKey:@"postCode"] != (id)[NSNull null])
+                 {
+                      PostCode_TXT.text=[myProfileDic valueForKey:@"postCode"];
+                 }
+                 if ([myProfileDic valueForKey:@"mobile"] != (id)[NSNull null])
+                 {
+                      Mobile_TXT.text=[myProfileDic valueForKey:@"mobile"];
+                 }
+                 if ([myProfileDic valueForKey:@"country"] != (id)[NSNull null])
+                 {
+                     Country_TXT.text=[myProfileDic valueForKey:@"country"];
+                 }
              }
              else
              {

@@ -15,6 +15,7 @@
     NSAttributedString *AboutMessage;
    
 }
+@property (weak, nonatomic) IBOutlet UILabel *CartNotification_LBL;
 @property (strong, nonatomic) CCKFNavDrawer *rootNav;
 
 @property (weak, nonatomic) IBOutlet UITableView *CategoriesTableView;

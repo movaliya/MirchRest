@@ -13,6 +13,7 @@
 {
     
 }
+@property (weak, nonatomic) IBOutlet UILabel *CartNotification_LBL;
 @property (weak, nonatomic) IBOutlet UIWebView *WebViewAbout;
 @property (strong, nonatomic) CCKFNavDrawer *rootNav;
 

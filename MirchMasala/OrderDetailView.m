@@ -16,11 +16,26 @@
 
 @implementation OrderDetailView
 @synthesize OrderDetailTableView;
-@synthesize StatusMsg;
+@synthesize StatusMsg,CartNotification_LBL;
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    NSDictionary *UserSaveData=[[NSUserDefaults standardUserDefaults]objectForKey:@"LoginUserDic"];
+    NSString *CoustmerID=[[[[[[UserSaveData objectForKey:@"RESPONSE"] objectForKey:@"action"] objectForKey:@"authenticate"] objectForKey:@"result"] objectForKey:@"authenticate"]  objectForKey:@"customerid"];
+    KmyappDelegate.MainCartArr=[[NSMutableArray alloc]initWithArray:[[NSUserDefaults standardUserDefaults]objectForKey:CoustmerID]];
+    if (KmyappDelegate.MainCartArr.count>0)
+    {
+        [CartNotification_LBL setHidden:NO];
+        CartNotification_LBL.text=[NSString stringWithFormat:@"%lu",(unsigned long)KmyappDelegate.MainCartArr.count];
+    }
+    else
+    {
+        [CartNotification_LBL setHidden:YES];
+    }
+    CartNotification_LBL.layer.masksToBounds = YES;
+    CartNotification_LBL.layer.cornerRadius = 10.0;
     
     
     UINib *nib = [UINib nibWithNibName:@"OderDetailUperCell" bundle:nil];
