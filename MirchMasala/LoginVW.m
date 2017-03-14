@@ -33,14 +33,15 @@
 {
     
     [super viewDidLoad];
-    if ([ShowBack isEqualToString:@"YES"])
-    {
-        BackBTN.hidden=NO;
-    }
-    else
-    {
-         BackBTN.hidden=YES;
-    }
+//    if ([ShowBack isEqualToString:@"YES"])
+//    {
+//        BackBTN.hidden=NO;
+//    }
+//    else
+//    {
+//         BackBTN.hidden=YES;
+//    }
+     BackBTN.hidden=YES;
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 
     
@@ -205,6 +206,7 @@
 
 - (IBAction)BackBtn_action:(id)sender
 {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)SignUp_Click:(id)sender
