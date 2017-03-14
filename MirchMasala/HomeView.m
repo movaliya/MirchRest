@@ -55,7 +55,7 @@
     
    
     CartNotification_LBL.layer.masksToBounds = YES;
-    CartNotification_LBL.layer.cornerRadius = 10.0;
+    CartNotification_LBL.layer.cornerRadius = 8.0;
     
     self.rootNav = (CCKFNavDrawer *)self.navigationController;
     [self.rootNav setCCKFNavDrawerDelegate:self];

@@ -38,7 +38,7 @@
     [super viewDidLoad];
     
     CartNotification_LBL.layer.masksToBounds = YES;
-    CartNotification_LBL.layer.cornerRadius = 10.0;
+    CartNotification_LBL.layer.cornerRadius = 8.0;
     NSDictionary *UserSaveData=[[NSUserDefaults standardUserDefaults]objectForKey:@"LoginUserDic"];
     NSString *CoustmerID=[[[[[[UserSaveData objectForKey:@"RESPONSE"] objectForKey:@"action"] objectForKey:@"authenticate"] objectForKey:@"result"] objectForKey:@"authenticate"]  objectForKey:@"customerid"];
     if (CoustmerID!=nil)

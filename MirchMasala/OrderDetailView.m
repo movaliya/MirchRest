@@ -38,7 +38,7 @@
         [CartNotification_LBL setHidden:YES];
     }
     CartNotification_LBL.layer.masksToBounds = YES;
-    CartNotification_LBL.layer.cornerRadius = 10.0;
+    CartNotification_LBL.layer.cornerRadius = 8.0;
     
     
     UINib *nib = [UINib nibWithNibName:@"OderDetailUperCell" bundle:nil];

@@ -35,7 +35,7 @@
     [super viewDidLoad];
     
     cartNotification_LBL.layer.masksToBounds = YES;
-    cartNotification_LBL.layer.cornerRadius = 10.0;
+    cartNotification_LBL.layer.cornerRadius = 8.0f;
     
     OptionView.hidden=YES;
     self.OptionTitleView.layer.masksToBounds = NO;
