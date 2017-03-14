@@ -461,36 +461,64 @@
              float integratPRICE=0.00;
             if ([Array isKindOfClass:[NSArray class]])
             {
-                NSString *OptionStr=[[NSString alloc]init];
+                NSString *WithoutStr=[[NSString alloc]init];
+                NSString *WithStr=[[NSString alloc]init];
                
                 for (int i=0; i<Array.count; i++)
                 {
-                   // Total=Total+[[[Array objectAtIndex:i] valueForKey:@"price"] floatValue];
-                    
                     if ([[[Array objectAtIndex:i] valueForKey:@"is_with"] boolValue]==0)
                     {
                         integratPRICE=integratPRICE+[[[Array objectAtIndex:i] valueForKey:@"price_without"] floatValue];
+                        
+                        if ([WithoutStr isEqualToString:@""])
+                        {
+                            WithoutStr=[[Array objectAtIndex:i] valueForKey:@"ingredient_name"];
+                        }
+                        else
+                        {
+                            WithoutStr=[NSString stringWithFormat:@"%@,%@",WithoutStr,[[Array objectAtIndex:i] valueForKey:@"ingredient_name"]];
+                        }
                     }
                     else
                     {
                         integratPRICE=integratPRICE+[[[Array objectAtIndex:i] valueForKey:@"price"] floatValue];
-                    }
-                    if (i==0)
-                    {
-                        OptionStr=[[Array objectAtIndex:i] valueForKey:@"ingredient_name"];
-                    }
-                    else
-                    {
-                        OptionStr=[NSString stringWithFormat:@"%@,%@",OptionStr,[[Array objectAtIndex:i] valueForKey:@"ingredient_name"]];
+                        
+                        if ([WithStr isEqualToString:@""])
+                        {
+                            WithStr=[[Array objectAtIndex:i] valueForKey:@"ingredient_name"];
+                        }
+                        else
+                        {
+                            WithStr=[NSString stringWithFormat:@"%@,%@",WithStr,[[Array objectAtIndex:i] valueForKey:@"ingredient_name"]];
+                        }
                     }
                 }
-                 NSLog(@"integratPRICE===%f",integratPRICE);
-                if (![OptionStr isEqualToString:@""])
+                
+                // Without Lable
+                if ([WithoutStr isEqualToString:@""])
                 {
-                    cell1.Option_LBL.text=OptionStr;
+                    cell1.WithoutOptiion_LBL.text=@"--";
+                }
+                else
+                {
+                    cell1.WithoutOptiion_LBL.text=WithoutStr;
+                }
+                
+                // With Lable
+                if ([WithStr isEqualToString:@""])
+                {
+                    cell1.WithOption_LBL.text=@"--";
+                }
+                else
+                {
+                    cell1.WithOption_LBL.text=WithStr;
                 }
             }
-            
+            else
+            {
+                cell1.WithoutOptiion_LBL.text=@"--";
+                cell1.WithOption_LBL.text=@"--";
+            }
             
             Total=Total*[[[KmyappDelegate.MainCartArr objectAtIndex:indexPath.section]valueForKey:@"quatity"] floatValue];
             NSLog(@"total=%f",Total);
@@ -529,7 +557,7 @@
         {
             return 137;
         }
-        return 90;
+        return 100;
     }    
 }
 

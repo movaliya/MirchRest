@@ -275,8 +275,6 @@
     if (Main==Second)
     {
         cell.Quatity_LBL.text=[NSString stringWithFormat:@"%ld",Main];
-        
-        
     }
     else
     {
