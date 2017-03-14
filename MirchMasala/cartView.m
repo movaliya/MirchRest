@@ -50,7 +50,7 @@
     {
         KmyappDelegate.MainCartArr=[[NSMutableArray alloc]initWithArray:[[NSUserDefaults standardUserDefaults]objectForKey:CoustmerID]];
     }
-    if (KmyappDelegate.MainCartArr.count>0)
+    if (KmyappDelegate.MainCartArr.count>0 && CoustmerID!=nil)
     {
         
         NSLog( @"%@",KmyappDelegate.MainCartArr=[[NSMutableArray alloc]initWithArray:[[NSUserDefaults standardUserDefaults]objectForKey:CoustmerID]]);

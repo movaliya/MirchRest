@@ -20,18 +20,20 @@
     [super viewDidLoad];
     
     NSDictionary *UserSaveData=[[NSUserDefaults standardUserDefaults]objectForKey:@"LoginUserDic"];
+    
     NSString *CoustmerID=[[[[[[UserSaveData objectForKey:@"RESPONSE"] objectForKey:@"action"] objectForKey:@"authenticate"] objectForKey:@"result"] objectForKey:@"authenticate"]  objectForKey:@"customerid"];
     if (CoustmerID!=nil)
     {
         KmyappDelegate.MainCartArr=[[NSMutableArray alloc]initWithArray:[[NSUserDefaults standardUserDefaults]objectForKey:CoustmerID]];
     }
-    if (KmyappDelegate.MainCartArr.count>0)
+    if (KmyappDelegate.MainCartArr.count>0 && CoustmerID!=nil)
     {
         [CartNotification_LBL setHidden:NO];
         CartNotification_LBL.text=[NSString stringWithFormat:@"%lu",(unsigned long)KmyappDelegate.MainCartArr.count];
     }
     else
     {
+         NSLog(@" not UserSaveData");
         [CartNotification_LBL setHidden:YES];
     }
     CartNotification_LBL.layer.masksToBounds = YES;
