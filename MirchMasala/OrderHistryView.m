@@ -30,7 +30,7 @@
     {
         KmyappDelegate.MainCartArr=[[NSMutableArray alloc]initWithArray:[[NSUserDefaults standardUserDefaults]objectForKey:CoustmerID]];
     }
-    if (KmyappDelegate.MainCartArr.count>0)
+    if (KmyappDelegate.MainCartArr.count>0 && CoustmerID!=nil)
     {
         [CartNotification_LBL setHidden:NO];
         CartNotification_LBL.text=[NSString stringWithFormat:@"%lu",(unsigned long)KmyappDelegate.MainCartArr.count];

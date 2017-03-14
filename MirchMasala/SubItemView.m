@@ -41,11 +41,11 @@
     CartNotification_LBL.layer.cornerRadius = 10.0;
     NSDictionary *UserSaveData=[[NSUserDefaults standardUserDefaults]objectForKey:@"LoginUserDic"];
     NSString *CoustmerID=[[[[[[UserSaveData objectForKey:@"RESPONSE"] objectForKey:@"action"] objectForKey:@"authenticate"] objectForKey:@"result"] objectForKey:@"authenticate"]  objectForKey:@"customerid"];
-    if (CoustmerID!=nil)
+    if (CoustmerID!=nil )
     {
         KmyappDelegate.MainCartArr=[[NSMutableArray alloc]initWithArray:[[NSUserDefaults standardUserDefaults]objectForKey:CoustmerID]];
     }
-    if (KmyappDelegate.MainCartArr.count>0)
+    if (KmyappDelegate.MainCartArr.count>0 && CoustmerID!=nil)
     {
         [CartNotification_LBL setHidden:NO];
         CartNotification_LBL.text=[NSString stringWithFormat:@"%lu",(unsigned long)KmyappDelegate.MainCartArr.count];
@@ -377,7 +377,7 @@
         NSLog(@"==%@",KmyappDelegate.MainCartArr);
         [AppDelegate showErrorMessageWithTitle:@"" message:@"Product Added in Cart." delegate:nil];
         
-        if (KmyappDelegate.MainCartArr.count>0)
+        if (KmyappDelegate.MainCartArr.count>0 && CoustmerID!=nil)
         {
             [CartNotification_LBL setHidden:NO];
             CartNotification_LBL.text=[NSString stringWithFormat:@"%lu",(unsigned long)KmyappDelegate.MainCartArr.count];
@@ -596,7 +596,7 @@
         NSLog(@"==%@",KmyappDelegate.MainCartArr);
         [AppDelegate showErrorMessageWithTitle:@"" message:@"Product Added in Cart." delegate:nil];
         
-        if (KmyappDelegate.MainCartArr.count>0)
+        if (KmyappDelegate.MainCartArr.count>0 && CoustmerID!=nil)
         {
             [CartNotification_LBL setHidden:NO];
             CartNotification_LBL.text=[NSString stringWithFormat:@"%lu",(unsigned long)KmyappDelegate.MainCartArr.count];
