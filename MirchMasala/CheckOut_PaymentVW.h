@@ -22,4 +22,5 @@
 @property (weak, nonatomic) IBOutlet UIButton *PayOnCollection_Radio;
 @property (weak, nonatomic) IBOutlet UILabel *CartNotification_LBL;
 @property (weak, nonatomic) IBOutlet UIButton *ProcessOrder_Btn;
+@property (strong, nonatomic) IBOutlet UIButton *Collection_CartBTN;
 @end

@@ -212,6 +212,14 @@
     {
         [AppDelegate showErrorMessageWithTitle:@"Error!" message:@"Please enter country" delegate:nil];
     }
+    else if ([HouseName_TXT.text isEqualToString:@""])
+    {
+        [AppDelegate showErrorMessageWithTitle:@"Error!" message:@"Please enter house name" delegate:nil];
+    }
+    else if ([HouseNo_TXT.text isEqualToString:@""])
+    {
+        [AppDelegate showErrorMessageWithTitle:@"Error!" message:@"Please enter house number" delegate:nil];
+    }
     else
     {
         BOOL internet=[AppDelegate connectedToNetwork];
@@ -287,7 +295,7 @@
         
         [manager POST:kBaseURL parameters:json success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject)
          {
-             
+              [KVNProgress dismiss] ;
              NSString *SUCCESS=[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"putitem"] objectForKey:@"deliveryAddress"] objectForKey:@"SUCCESS"];
              if ([SUCCESS boolValue] ==YES)
              {
@@ -314,9 +322,9 @@
                  [AppDelegate showErrorMessageWithTitle:@"" message:@"Please try after some time." delegate:nil];
              }
              
-             [KVNProgress dismiss] ;
+            
          }
-              failure:^(AFHTTPRequestOperation *operation, NSError *error)
+    failure:^(AFHTTPRequestOperation *operation, NSError *error)
          {
              NSLog(@"Fail");
              [KVNProgress dismiss] ;

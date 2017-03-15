@@ -206,9 +206,9 @@
 {
     if (indexPath.section == 13)
     {
-        return 75;
+        return 68;
     }
-    return 85;
+    return 84;
     
 }
 -(void)GetDiscount
