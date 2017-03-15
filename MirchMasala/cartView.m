@@ -10,6 +10,7 @@
 #import "CartTableCell.h"
 #import "CartGrandTotalCell.h"
 #import "LoginVW.h"
+#import "CheckOut_AddressVIEW.h"
 
 @interface cartView ()
 {
@@ -438,6 +439,7 @@
             cell.SubTotal_LBL.text=[NSString stringWithFormat:@"%.02f",MainTotal];
             cell.Discount_LBL.text=MainDiscount;
             float Gt=[[NSString stringWithFormat:@"%.02f",MainTotal] floatValue] - [MainDiscount floatValue];
+            GandTotal=Gt;
             cell.GrandTotal_LBL.text=[NSString stringWithFormat:@"%.02f",Gt];
             CheckoutTotal_LBL.text=[NSString stringWithFormat:@"£%@",cell.GrandTotal_LBL.text];
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
@@ -762,6 +764,17 @@
     else
     {
         [cartNotification_LBL setHidden:YES];
+    }
+}
+- (IBAction)CheckOutBtn_Action:(id)sender
+{
+    if (KmyappDelegate.MainCartArr.count>0 && CoustmerID!=nil)
+    {
+        CheckOut_AddressVIEW *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CheckOut_AddressVIEW"];
+        NSString *stringWithoutSpaces = [CheckoutTotal_LBL.text
+                                         stringByReplacingOccurrencesOfString:@"£" withString:@""];
+        vcr.CartTotalAmout=stringWithoutSpaces;
+        [self.navigationController pushViewController:vcr animated:YES];
     }
 }
 

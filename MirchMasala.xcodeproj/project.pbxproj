@@ -15,6 +15,7 @@
 		530792461E6FE415005426ED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 530792441E6FE415005426ED /* Main.storyboard */; };
 		5307924A1E702274005426ED /* CartGrandTotalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 530792481E702274005426ED /* CartGrandTotalCell.m */; };
 		5307924B1E702274005426ED /* CartGrandTotalCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 530792491E702274005426ED /* CartGrandTotalCell.xib */; };
+		5307989C1E79947A005BA050 /* successMessageVW.m in Sources */ = {isa = PBXBuildFile; fileRef = 5307989B1E79947A005BA050 /* successMessageVW.m */; };
 		530979DB1E73ECBB00385083 /* ContactUsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 530979DA1E73ECBB00385083 /* ContactUsView.m */; };
 		530979DE1E7420C900385083 /* AboutUS.m in Sources */ = {isa = PBXBuildFile; fileRef = 530979DD1E7420C900385083 /* AboutUS.m */; };
 		530979E11E74276A00385083 /* ProfileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 530979E01E74276A00385083 /* ProfileView.m */; };
@@ -26,6 +27,13 @@
 		530BEF761E718D6700614BF8 /* OderDetailUperCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 530BEF741E718D6700614BF8 /* OderDetailUperCell.xib */; };
 		530BEF7A1E718D8000614BF8 /* OrderDetailLowerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 530BEF781E718D8000614BF8 /* OrderDetailLowerCell.m */; };
 		530BEF7B1E718D8000614BF8 /* OrderDetailLowerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 530BEF791E718D8000614BF8 /* OrderDetailLowerCell.xib */; };
+		530BFA4A1E791B3C00AE5502 /* CheckOut_AddressVIEW.m in Sources */ = {isa = PBXBuildFile; fileRef = 530BFA491E791B3C00AE5502 /* CheckOut_AddressVIEW.m */; };
+		530BFA4D1E791C2F00AE5502 /* CheckOut_OrderSummyVW.m in Sources */ = {isa = PBXBuildFile; fileRef = 530BFA4C1E791C2F00AE5502 /* CheckOut_OrderSummyVW.m */; };
+		530BFA501E791CAC00AE5502 /* CheckOut_PaymentVW.m in Sources */ = {isa = PBXBuildFile; fileRef = 530BFA4F1E791CAC00AE5502 /* CheckOut_PaymentVW.m */; };
+		530BFA551E794B5A00AE5502 /* OrderSummay_Detail.m in Sources */ = {isa = PBXBuildFile; fileRef = 530BFA531E794B5A00AE5502 /* OrderSummay_Detail.m */; };
+		530BFA561E794B5A00AE5502 /* OrderSummay_Detail.xib in Resources */ = {isa = PBXBuildFile; fileRef = 530BFA541E794B5A00AE5502 /* OrderSummay_Detail.xib */; };
+		530BFA5A1E794B7700AE5502 /* OrderSummry_Total.m in Sources */ = {isa = PBXBuildFile; fileRef = 530BFA581E794B7700AE5502 /* OrderSummry_Total.m */; };
+		530BFA5B1E794B7700AE5502 /* OrderSummry_Total.xib in Resources */ = {isa = PBXBuildFile; fileRef = 530BFA591E794B7700AE5502 /* OrderSummry_Total.xib */; };
 		530C39BB1E6BE47C0073AA78 /* Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 530C39BA1E6BE47C0073AA78 /* Logo.png */; };
 		530C39BE1E6BE8040073AA78 /* SignUpView.m in Sources */ = {isa = PBXBuildFile; fileRef = 530C39BD1E6BE8040073AA78 /* SignUpView.m */; };
 		530C39C11E6C340A0073AA78 /* ForgotPasswordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 530C39C01E6C340A0073AA78 /* ForgotPasswordView.m */; };
@@ -123,6 +131,8 @@
 		530792471E702274005426ED /* CartGrandTotalCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartGrandTotalCell.h; sourceTree = "<group>"; };
 		530792481E702274005426ED /* CartGrandTotalCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartGrandTotalCell.m; sourceTree = "<group>"; };
 		530792491E702274005426ED /* CartGrandTotalCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CartGrandTotalCell.xib; sourceTree = "<group>"; };
+		5307989A1E79947A005BA050 /* successMessageVW.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = successMessageVW.h; sourceTree = "<group>"; };
+		5307989B1E79947A005BA050 /* successMessageVW.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = successMessageVW.m; sourceTree = "<group>"; };
 		530979D91E73ECBB00385083 /* ContactUsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactUsView.h; sourceTree = "<group>"; };
 		530979DA1E73ECBB00385083 /* ContactUsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactUsView.m; sourceTree = "<group>"; };
 		530979DC1E7420C900385083 /* AboutUS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutUS.h; sourceTree = "<group>"; };
@@ -142,6 +152,18 @@
 		530BEF771E718D8000614BF8 /* OrderDetailLowerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailLowerCell.h; sourceTree = "<group>"; };
 		530BEF781E718D8000614BF8 /* OrderDetailLowerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailLowerCell.m; sourceTree = "<group>"; };
 		530BEF791E718D8000614BF8 /* OrderDetailLowerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderDetailLowerCell.xib; sourceTree = "<group>"; };
+		530BFA481E791B3C00AE5502 /* CheckOut_AddressVIEW.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckOut_AddressVIEW.h; sourceTree = "<group>"; };
+		530BFA491E791B3C00AE5502 /* CheckOut_AddressVIEW.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckOut_AddressVIEW.m; sourceTree = "<group>"; };
+		530BFA4B1E791C2F00AE5502 /* CheckOut_OrderSummyVW.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckOut_OrderSummyVW.h; sourceTree = "<group>"; };
+		530BFA4C1E791C2F00AE5502 /* CheckOut_OrderSummyVW.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckOut_OrderSummyVW.m; sourceTree = "<group>"; };
+		530BFA4E1E791CAC00AE5502 /* CheckOut_PaymentVW.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckOut_PaymentVW.h; sourceTree = "<group>"; };
+		530BFA4F1E791CAC00AE5502 /* CheckOut_PaymentVW.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckOut_PaymentVW.m; sourceTree = "<group>"; };
+		530BFA521E794B5A00AE5502 /* OrderSummay_Detail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderSummay_Detail.h; sourceTree = "<group>"; };
+		530BFA531E794B5A00AE5502 /* OrderSummay_Detail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderSummay_Detail.m; sourceTree = "<group>"; };
+		530BFA541E794B5A00AE5502 /* OrderSummay_Detail.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderSummay_Detail.xib; sourceTree = "<group>"; };
+		530BFA571E794B7700AE5502 /* OrderSummry_Total.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderSummry_Total.h; sourceTree = "<group>"; };
+		530BFA581E794B7700AE5502 /* OrderSummry_Total.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderSummry_Total.m; sourceTree = "<group>"; };
+		530BFA591E794B7700AE5502 /* OrderSummry_Total.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderSummry_Total.xib; sourceTree = "<group>"; };
 		530C39BA1E6BE47C0073AA78 /* Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logo.png; sourceTree = "<group>"; };
 		530C39BC1E6BE8040073AA78 /* SignUpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpView.h; sourceTree = "<group>"; };
 		530C39BD1E6BE8040073AA78 /* SignUpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpView.m; sourceTree = "<group>"; };
@@ -360,20 +382,49 @@
 			name = OrderDetailCell;
 			sourceTree = "<group>";
 		};
+		530BFA471E791B0800AE5502 /* CheckOut */ = {
+			isa = PBXGroup;
+			children = (
+				530BFA481E791B3C00AE5502 /* CheckOut_AddressVIEW.h */,
+				530BFA491E791B3C00AE5502 /* CheckOut_AddressVIEW.m */,
+				530BFA4B1E791C2F00AE5502 /* CheckOut_OrderSummyVW.h */,
+				530BFA4C1E791C2F00AE5502 /* CheckOut_OrderSummyVW.m */,
+				530BFA4E1E791CAC00AE5502 /* CheckOut_PaymentVW.h */,
+				530BFA4F1E791CAC00AE5502 /* CheckOut_PaymentVW.m */,
+				5307989A1E79947A005BA050 /* successMessageVW.h */,
+				5307989B1E79947A005BA050 /* successMessageVW.m */,
+			);
+			name = CheckOut;
+			sourceTree = "<group>";
+		};
+		530BFA511E794B1500AE5502 /* OrderSummry */ = {
+			isa = PBXGroup;
+			children = (
+				530BFA521E794B5A00AE5502 /* OrderSummay_Detail.h */,
+				530BFA531E794B5A00AE5502 /* OrderSummay_Detail.m */,
+				530BFA541E794B5A00AE5502 /* OrderSummay_Detail.xib */,
+				530BFA571E794B7700AE5502 /* OrderSummry_Total.h */,
+				530BFA581E794B7700AE5502 /* OrderSummry_Total.m */,
+				530BFA591E794B7700AE5502 /* OrderSummry_Total.xib */,
+			);
+			name = OrderSummry;
+			sourceTree = "<group>";
+		};
 		530EA8F01E6DA74800A61A88 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				530BEF701E718B4300614BF8 /* CartCell */,
+				530BEF711E718D2A00614BF8 /* OrderDetailCell */,
+				530BFA511E794B1500AE5502 /* OrderSummry */,
 				530EA8F11E6DA77F00A61A88 /* SubitemCell.h */,
 				530EA8F21E6DA77F00A61A88 /* SubitemCell.m */,
 				530EA8F31E6DA77F00A61A88 /* SubitemCell.xib */,
-				530BEF701E718B4300614BF8 /* CartCell */,
 				5309EDD41E6EC3EB00A216F2 /* CategoriesCell.h */,
 				5309EDD51E6EC3EB00A216F2 /* CategoriesCell.m */,
 				5309EDD61E6EC3EB00A216F2 /* CategoriesCell.xib */,
 				530ECF421E713EBD0004F9AB /* OrderHistry_Cell.h */,
 				530ECF431E713EBD0004F9AB /* OrderHistry_Cell.m */,
 				530ECF441E713EBD0004F9AB /* OrderHistry_Cell.xib */,
-				530BEF711E718D2A00614BF8 /* OrderDetailCell */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
@@ -415,6 +466,7 @@
 				530EA8EE1E6DA68D00A61A88 /* SubItemView.m */,
 				530EA8FC1E6DB64700A61A88 /* cartView.h */,
 				530EA8FD1E6DB64700A61A88 /* cartView.m */,
+				530BFA471E791B0800AE5502 /* CheckOut */,
 				530ECF3F1E71392F0004F9AB /* OrderHistryView.h */,
 				530ECF401E71392F0004F9AB /* OrderHistryView.m */,
 				530BEF6D1E71889300614BF8 /* OrderDetailView.h */,
@@ -762,6 +814,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				530BFA5B1E794B7700AE5502 /* OrderSummry_Total.xib in Resources */,
 				530EA8EC1E6D8B7500A61A88 /* SplashScreen.jpg in Resources */,
 				530BEF7B1E718D8000614BF8 /* OrderDetailLowerCell.xib in Resources */,
 				530EA8F51E6DA77F00A61A88 /* SubitemCell.xib in Resources */,
@@ -771,6 +824,7 @@
 				B15F7A151E6C3665004A4D32 /* IQKeyboardManager.bundle in Resources */,
 				5309EDD81E6EC3EB00A216F2 /* CategoriesCell.xib in Resources */,
 				530ECF461E713EBD0004F9AB /* OrderHistry_Cell.xib in Resources */,
+				530BFA561E794B5A00AE5502 /* OrderSummay_Detail.xib in Resources */,
 				5307924B1E702274005426ED /* CartGrandTotalCell.xib in Resources */,
 				530792431E6FE124005426ED /* MenuCell.xib in Resources */,
 				5310CBEC1E6A957800091333 /* Assets.xcassets in Resources */,
@@ -829,9 +883,12 @@
 				B15F7A7F1E6C3964004A4D32 /* AFURLResponseSerialization.m in Sources */,
 				B15F7A1C1E6C3665004A4D32 /* Reachability.m in Sources */,
 				B15F7A861E6C3964004A4D32 /* UIRefreshControl+AFNetworking.m in Sources */,
+				530BFA501E791CAC00AE5502 /* CheckOut_PaymentVW.m in Sources */,
 				B15F7A301E6C3665004A4D32 /* UIImage+MultiFormat.m in Sources */,
+				530BFA5A1E794B7700AE5502 /* OrderSummry_Total.m in Sources */,
 				B15F7A101E6C3665004A4D32 /* IQBarButtonItem.m in Sources */,
 				B15F7A771E6C3964004A4D32 /* AFHTTPRequestOperation.m in Sources */,
+				5307989C1E79947A005BA050 /* successMessageVW.m in Sources */,
 				B15F7A0C1E6C3665004A4D32 /* IQUIWindow+Hierarchy.m in Sources */,
 				B15F7A131E6C3665004A4D32 /* IQToolbar.m in Sources */,
 				B15F7A161E6C3665004A4D32 /* UIColor+KVNContrast.m in Sources */,
@@ -844,6 +901,7 @@
 				B15F7A111E6C3665004A4D32 /* IQPreviousNextView.m in Sources */,
 				B15F7A081E6C3665004A4D32 /* IQUIScrollView+Additions.m in Sources */,
 				B15F7A871E6C3964004A4D32 /* UIWebView+AFNetworking.m in Sources */,
+				530BFA551E794B5A00AE5502 /* OrderSummay_Detail.m in Sources */,
 				B15F7A311E6C3665004A4D32 /* UIImageView+HighlightedWebCache.m in Sources */,
 				B15F7A0B1E6C3665004A4D32 /* IQUIViewController+Additions.m in Sources */,
 				530BEF6F1E71889300614BF8 /* OrderDetailView.m in Sources */,
@@ -855,9 +913,11 @@
 				530979DB1E73ECBB00385083 /* ContactUsView.m in Sources */,
 				B15F7A0F1E6C3665004A4D32 /* IQTextView.m in Sources */,
 				B15F7A7E1E6C3964004A4D32 /* AFURLRequestSerialization.m in Sources */,
+				530BFA4A1E791B3C00AE5502 /* CheckOut_AddressVIEW.m in Sources */,
 				530EA8F41E6DA77F00A61A88 /* SubitemCell.m in Sources */,
 				530EA8EF1E6DA68D00A61A88 /* SubItemView.m in Sources */,
 				B15F7A321E6C3665004A4D32 /* UIImageView+WebCache.m in Sources */,
+				530BFA4D1E791C2F00AE5502 /* CheckOut_OrderSummyVW.m in Sources */,
 				B15F7A1A1E6C3665004A4D32 /* KVNProgressConfiguration.m in Sources */,
 				B15F7A2B1E6C3665004A4D32 /* SDWebImageDownloaderOperation.m in Sources */,
 				5310CBFE1E6AABC100091333 /* LoginVW.m in Sources */,

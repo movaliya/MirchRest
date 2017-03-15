@@ -1,36 +1,43 @@
 //
-//  ProfileView.m
+//  CheckOut_AddressVIEW.m
 //  MirchMasala
 //
-//  Created by Mango SW on 11/03/2017.
+//  Created by Mango SW on 15/03/2017.
 //  Copyright © 2017 jkinfoway. All rights reserved.
 //
 
-#import "ProfileView.h"
-
-@interface ProfileView ()
+#import "CheckOut_AddressVIEW.h"
+#import "CheckOut_OrderSummyVW.h"
+@interface CheckOut_AddressVIEW ()
 
 @end
 
-@implementation ProfileView
-@synthesize User_TXT,Email_TXT,Street_TXT,PostCode_TXT,Mobile_TXT,Country_TXT,user_View,Email_View,Street_View,PostCode_View,Mobile_View,Country_View,update_Btn;
-
+@implementation CheckOut_AddressVIEW
+@synthesize User_TXT,Email_TXT,Street_TXT,PostCode_TXT,Mobile_TXT,Country_TXT,user_View,Email_View,Street_View,PostCode_View,Mobile_View,Country_View,HouseNo_TXT,HouseName_TXT,HouseNo_View,HouseName_View,SaveNextBtn,CartTotalAmout;
 @synthesize CartNotification_LBL;
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     
     NSDictionary *UserSaveData=[[NSUserDefaults standardUserDefaults]objectForKey:@"LoginUserDic"];
     NSString *CoustmerID=[[[[[[UserSaveData objectForKey:@"RESPONSE"] objectForKey:@"action"] objectForKey:@"authenticate"] objectForKey:@"result"] objectForKey:@"authenticate"]  objectForKey:@"customerid"];
-    
+    if (CoustmerID!=nil)
+    {
+        KmyappDelegate.MainCartArr=[[NSMutableArray alloc]initWithArray:[[NSUserDefaults standardUserDefaults]objectForKey:CoustmerID]];
+    }
+    if (KmyappDelegate.MainCartArr.count>0 && CoustmerID!=nil)
+    {
+        [CartNotification_LBL setHidden:NO];
+        CartNotification_LBL.text=[NSString stringWithFormat:@"%lu",(unsigned long)KmyappDelegate.MainCartArr.count];
+    }
+    else
+    {
+        [CartNotification_LBL setHidden:YES];
+    }
     CartNotification_LBL.layer.masksToBounds = YES;
     CartNotification_LBL.layer.cornerRadius = 8.0;
     
-    self.rootNav = (CCKFNavDrawer *)self.navigationController;
-    [self.rootNav setCCKFNavDrawerDelegate:self];
-    [self.rootNav CheckLoginArr];
-    [self.rootNav.pan_gr setEnabled:YES];
+   
     
     // Corner and Color
     
@@ -64,33 +71,26 @@
     [Country_View.layer setMasksToBounds:YES];
     Country_View.layer.borderColor = [UIColor colorWithRed:(193/255.0) green:(193/255.0) blue:(193/255.0) alpha:1.0].CGColor;
     
-    [update_Btn.layer setCornerRadius:20.0f];
-    [update_Btn.layer setMasksToBounds:YES];
+    [HouseName_View.layer setCornerRadius:25.0f];
+    HouseName_View.layer.borderWidth = 1.0f;
+    [HouseName_View.layer setMasksToBounds:YES];
+    HouseName_View.layer.borderColor = [UIColor colorWithRed:(193/255.0) green:(193/255.0) blue:(193/255.0) alpha:1.0].CGColor;
+    
+    [HouseNo_View.layer setCornerRadius:25.0f];
+    HouseNo_View.layer.borderWidth = 1.0f;
+    [HouseNo_View.layer setMasksToBounds:YES];
+    HouseNo_View.layer.borderColor = [UIColor colorWithRed:(193/255.0) green:(193/255.0) blue:(193/255.0) alpha:1.0].CGColor;
+    
+    [SaveNextBtn.layer setCornerRadius:20.0f];
+    [SaveNextBtn.layer setMasksToBounds:YES];
     
     //Disable a Usertext and EmailText
     User_TXT.enabled = NO;
     Email_TXT.enabled = NO;
-    
-    
-    if (CoustmerID!=nil)
-    {
-        KmyappDelegate.MainCartArr=[[NSMutableArray alloc]initWithArray:[[NSUserDefaults standardUserDefaults]objectForKey:CoustmerID]];
-    }
-    if (KmyappDelegate.MainCartArr.count>0 && CoustmerID!=nil)
-    {
-        [CartNotification_LBL setHidden:NO];
-        CartNotification_LBL.text=[NSString stringWithFormat:@"%lu",(unsigned long)KmyappDelegate.MainCartArr.count];
-    }
-    else
-    {
-        [CartNotification_LBL setHidden:YES];
-    }
-    
-    [self GetUserProfileData];
-   
+    [self GetUserProfileAddress];
 }
 
--(void)GetUserProfileData
+-(void)GetUserProfileAddress
 {
     NSMutableDictionary *UserSaveData = [[[NSUserDefaults standardUserDefaults] objectForKey:@"LoginUserDic"] mutableCopy];
     if (UserSaveData)
@@ -147,11 +147,11 @@
         
         [manager POST:kBaseURL parameters:json success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject)
          {
-            
+             
              NSString *SUCCESS=[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"getitem"] objectForKey:@"myProfile"] objectForKey:@"SUCCESS"];
              if ([SUCCESS boolValue] ==YES)
              {
-                
+                 
                  NSMutableDictionary *myProfileDic=[[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"getitem"] objectForKey:@"myProfile"] objectForKey:@"result"] objectForKey:@"myProfile"];
                  
                  User_TXT.text=[myProfileDic valueForKey:@"customerName"];
@@ -159,15 +159,15 @@
                  
                  if ([myProfileDic valueForKey:@"street"] != (id)[NSNull null])
                  {
-                      Street_TXT.text=[myProfileDic valueForKey:@"street"];
+                     Street_TXT.text=[myProfileDic valueForKey:@"street"];
                  }
                  if ([myProfileDic valueForKey:@"postCode"] != (id)[NSNull null])
                  {
-                      PostCode_TXT.text=[myProfileDic valueForKey:@"postCode"];
+                     PostCode_TXT.text=[myProfileDic valueForKey:@"postCode"];
                  }
                  if ([myProfileDic valueForKey:@"mobile"] != (id)[NSNull null])
                  {
-                      Mobile_TXT.text=[myProfileDic valueForKey:@"mobile"];
+                     Mobile_TXT.text=[myProfileDic valueForKey:@"mobile"];
                  }
                  if ([myProfileDic valueForKey:@"country"] != (id)[NSNull null])
                  {
@@ -181,7 +181,7 @@
              
              [KVNProgress dismiss] ;
          }
-        failure:^(AFHTTPRequestOperation *operation, NSError *error)
+              failure:^(AFHTTPRequestOperation *operation, NSError *error)
          {
              NSLog(@"Fail");
              [KVNProgress dismiss] ;
@@ -190,17 +190,41 @@
     }
     else
     {
-        Street_TXT.enabled = NO;
-        PostCode_TXT.enabled = NO;
-        Mobile_TXT.enabled = NO;
-        Country_TXT.enabled = NO;
-        update_Btn.enabled=NO;
         [AppDelegate showErrorMessageWithTitle:@"" message:@"You are not Login." delegate:nil];
     }
     
 }
+- (IBAction)SaveNextBtn_Action:(id)sender
+{
+    if ([Street_TXT.text isEqualToString:@""])
+    {
+        [AppDelegate showErrorMessageWithTitle:@"Error!" message:@"Please enter street" delegate:nil];
+    }
+    else if ([PostCode_TXT.text isEqualToString:@""])
+    {
+        [AppDelegate showErrorMessageWithTitle:@"Error!" message:@"Please enter post code" delegate:nil];
+    }
+    else if ([Mobile_TXT.text isEqualToString:@""])
+    {
+        [AppDelegate showErrorMessageWithTitle:@"Error!" message:@"Please enter mobile number" delegate:nil];
+    }
+    else if ([Country_TXT.text isEqualToString:@""])
+    {
+        [AppDelegate showErrorMessageWithTitle:@"Error!" message:@"Please enter country" delegate:nil];
+    }
+    else
+    {
+        BOOL internet=[AppDelegate connectedToNetwork];
+        if (internet)
+        {
+            [self checkMinimumAmout];
+        }
+        else
+            [AppDelegate showErrorMessageWithTitle:@"" message:@"Please check your internet connection or try again later." delegate:nil];
+    }
+}
 
--(void)UpdateUserProfileData
+-(void)checkMinimumAmout
 {
     NSMutableDictionary *UserSaveData = [[[NSUserDefaults standardUserDefaults] objectForKey:@"LoginUserDic"] mutableCopy];
     if (UserSaveData)
@@ -216,17 +240,25 @@
         
         NSMutableDictionary *dictInner = [[NSMutableDictionary alloc] init];
         
+        
+        
         [dictInner setObject:CoustmerID forKey:@"CUSTOMERID"];
         [dictInner setObject:Street_TXT.text forKey:@"STREET"];
         [dictInner setObject:PostCode_TXT.text forKey:@"POSTCODE"];
         [dictInner setObject:Country_TXT.text forKey:@"COUNTRY"];
         [dictInner setObject:Mobile_TXT.text forKey:@"MOBILE"];
+        if (![HouseName_TXT.text isEqualToString:@""]) {
+            [dictInner setObject:HouseName_TXT.text forKey:@"HOUSENAME"];
+        }
+        if (![HouseNo_TXT.text isEqualToString:@""]) {
+            [dictInner setObject:HouseNo_TXT.text forKey:@"HOUSENO"];
+        }
         
         NSMutableDictionary *dictSub = [[NSMutableDictionary alloc] init];
         
         [dictSub setObject:@"putitem" forKey:@"MODULE"];
         
-        [dictSub setObject:@"myProfile" forKey:@"METHOD"];
+        [dictSub setObject:@"deliveryAddress" forKey:@"METHOD"];
         
         [dictSub setObject:dictInner forKey:@"PARAMS"];
         
@@ -256,24 +288,35 @@
         [manager POST:kBaseURL parameters:json success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject)
          {
              
-             NSString *SUCCESS=[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"putitem"] objectForKey:@"myProfile"] objectForKey:@"SUCCESS"];
+             NSString *SUCCESS=[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"putitem"] objectForKey:@"deliveryAddress"] objectForKey:@"SUCCESS"];
              if ([SUCCESS boolValue] ==YES)
              {
                  
-                 NSString *SUCCESS=[[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"putitem"] objectForKey:@"myProfile"] objectForKey:@"result"] objectForKey:@"myProfile"];
+                 NSMutableDictionary *AddressRespose=[[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"putitem"] objectForKey:@"deliveryAddress"] objectForKey:@"result"] objectForKey:@"deliveryAddress"];
                  
-                  [AppDelegate showErrorMessageWithTitle:@"" message:SUCCESS delegate:nil];
-                
-                 
+                 float minimumDeliveryAmount=[[AddressRespose valueForKey:@"minimumDeliveryAmount"] floatValue];
+                 float grandtot=[CartTotalAmout floatValue];
+                 if (minimumDeliveryAmount >grandtot)
+                 {
+                     // Cart value is lesser then minimum dilvry
+                     NSString *alterMessage=[NSString stringWithFormat:@"You need to order minimum amount of £%.02f",minimumDeliveryAmount];
+                     [AppDelegate showErrorMessageWithTitle:@"Minimum Requirement not meet." message:alterMessage delegate:nil];
+                 }
+                 else
+                 {
+                     // Push Next View
+                     CheckOut_OrderSummyVW *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CheckOut_OrderSummyVW"];
+                     [self.navigationController pushViewController:vcr animated:YES];
+                 }
              }
              else
              {
-                 [AppDelegate showErrorMessageWithTitle:@"" message:@"Your Profile Data is not Update. Please Try After Some Time" delegate:nil];
+                 [AppDelegate showErrorMessageWithTitle:@"" message:@"Please try after some time." delegate:nil];
              }
              
              [KVNProgress dismiss] ;
          }
-        failure:^(AFHTTPRequestOperation *operation, NSError *error)
+              failure:^(AFHTTPRequestOperation *operation, NSError *error)
          {
              NSLog(@"Fail");
              [KVNProgress dismiss] ;
@@ -284,56 +327,25 @@
     {
         [AppDelegate showErrorMessageWithTitle:@"" message:@"You are not Login." delegate:nil];
     }
-    
+
 }
 
-- (IBAction)Menu_Toggle:(id)sender
-{
-    [self.rootNav drawerToggle];
-}
-
-#pragma mark - photoShotSavedDelegate
-
--(void)CCKFNavDrawerSelection:(NSInteger)selectionIndex
-{
-    NSLog(@"CCKFNavDrawerSelection = %li", (long)selectionIndex);
-}
-
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-- (IBAction)Update_Action:(id)sender
-{
-    if ([Street_TXT.text isEqualToString:@""])
-    {
-        [AppDelegate showErrorMessageWithTitle:@"Error!" message:@"Please enter street" delegate:nil];
-    }
-    else if ([PostCode_TXT.text isEqualToString:@""])
-    {
-        [AppDelegate showErrorMessageWithTitle:@"Error!" message:@"Please enter post code" delegate:nil];
-    }
-    else if ([Mobile_TXT.text isEqualToString:@""])
-    {
-        [AppDelegate showErrorMessageWithTitle:@"Error!" message:@"Please enter mobile number" delegate:nil];
-    }
-    else if ([Country_TXT.text isEqualToString:@""])
-    {
-        [AppDelegate showErrorMessageWithTitle:@"Error!" message:@"Please enter country" delegate:nil];
-    }
-    else
-    {
-        BOOL internet=[AppDelegate connectedToNetwork];
-        if (internet)
-        {
-            [self UpdateUserProfileData];
-        }
-        else
-            [AppDelegate showErrorMessageWithTitle:@"" message:@"Please check your internet connection or try again later." delegate:nil];
-        }
+- (IBAction)BackBtn_Action:(id)sender {
+     [self.navigationController popViewControllerAnimated:YES];
 }
 
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end
