@@ -23,6 +23,8 @@
     NSInteger ButtonTag;
     NSUInteger chechPlusMinus;
     float GandTotal;
+    NSInteger ExtraCellINT;
+    
 }
 @property (weak, nonatomic) IBOutlet UILabel *cartNotification_LBL;
 @property (strong, nonatomic) IBOutlet UILabel *Notavailable_LBL;

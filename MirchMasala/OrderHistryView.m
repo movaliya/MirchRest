@@ -9,6 +9,7 @@
 #import "OrderHistryView.h"
 #import "OrderHistry_Cell.h"
 #import "OrderDetailView.h"
+#import "cartView.h"
 
 
 @interface OrderHistryView ()
@@ -179,7 +180,11 @@
     [self.CancelBtn setTitleColor:[UIColor colorWithRed:(247/255.0) green:(96/255.0) blue:(41/255.0) alpha:1.0] forState:UIControlStateNormal];
     [OrderHistyTableView reloadData];
 }
-
+- (IBAction)TopBarCartBtn_action:(id)sender
+{
+    cartView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"cartView"];
+    [self.navigationController pushViewController:vcr animated:YES];
+}
 - (IBAction)ToggleMenu:(id)sender
 {
     [self.rootNav drawerToggle];

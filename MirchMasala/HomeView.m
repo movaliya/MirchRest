@@ -11,6 +11,7 @@
 #import "MirchMasala.pch"
 #import "AppDelegate.h"
 #import "SubItemView.h"
+#import "cartView.h"
 
 @interface HomeView ()
 {
@@ -315,6 +316,11 @@
     self.AboutLine.backgroundColor=[UIColor colorWithRed:(247/255.0) green:(96/255.0) blue:(41/255.0) alpha:1.0];
     [self.AboutMenuBtn setTitleColor:[UIColor colorWithRed:(247/255.0) green:(96/255.0) blue:(41/255.0) alpha:1.0] forState:UIControlStateNormal];
 
+}
+- (IBAction)TopBarCartBtn_action:(id)sender
+{
+    cartView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"cartView"];
+    [self.navigationController pushViewController:vcr animated:YES];
 }
 
 - (IBAction)NavtoggleBtn_action:(id)sender

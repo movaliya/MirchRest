@@ -7,6 +7,7 @@
 //
 
 #import "AboutUS.h"
+#import "cartView.h"
 
 @interface AboutUS ()
 
@@ -52,6 +53,11 @@
     [WebViewAbout setOpaque:NO];
     [WebViewAbout loadHTMLString:htmlString baseURL:nil];
    
+}
+- (IBAction)TopBarCartBtn_action:(id)sender
+{
+    cartView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"cartView"];
+    [self.navigationController pushViewController:vcr animated:YES];
 }
 - (IBAction)Menu_Toggle:(id)sender {
     [self.rootNav drawerToggle];

@@ -61,12 +61,14 @@
         cellcount=KmyappDelegate.MainCartArr.count;
         [cartNotification_LBL setHidden:NO];
         cartNotification_LBL.text=[NSString stringWithFormat:@"%lu",(unsigned long)KmyappDelegate.MainCartArr.count];
+        ExtraCellINT=1;
     }
     else
     {
         Notavailable_LBL.hidden=NO;
         cartTable.hidden=YES;
         [cartNotification_LBL setHidden:YES];
+        ExtraCellINT=0;
     }
     
     UINib *nib = [UINib nibWithNibName:@"CartTableCell" bundle:nil];
@@ -79,19 +81,22 @@
     cartTable.rowHeight = cell1.frame.size.height;
     [cartTable registerNib:nib1 forCellReuseIdentifier:@"CartGrandTotalCell"];
     
-    arr = [NSMutableArray array];
-    for (int i = 0; i <15; i++)
+    if (KmyappDelegate.MainCartArr.count>0 && CoustmerID!=nil)
     {
-        [arr addObject:@"1"];
+        arr = [[NSMutableArray alloc] init];
+        for (int i = 0; i <KmyappDelegate.MainCartArr.count; i++)
+        {
+            [arr addObject:@"1"];
+        }
+        
+        dic=[[NSMutableDictionary alloc]init];
+        MainCount=[[NSMutableDictionary alloc]init];
+        [dic setObject:arr forKey:@"Count"];
+        [MainCount setObject:arr forKey:@"MainCount"];
+        
+        [self GetDiscount];
     }
     
-    dic=[[NSMutableDictionary alloc]init];
-    MainCount=[[NSMutableDictionary alloc]init];
-    [dic setObject:arr forKey:@"Count"];
-    [MainCount setObject:arr forKey:@"MainCount"];
-    
-    
-    [self GetDiscount];
     
    
 }
@@ -331,7 +336,7 @@
         return 1;
     }
     //NSLog(@"MainCartArr---%d",KmyappDelegate.MainCartArr.count);
-    return KmyappDelegate.MainCartArr.count+1;
+    return KmyappDelegate.MainCartArr.count+ExtraCellINT;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

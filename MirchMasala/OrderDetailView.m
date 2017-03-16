@@ -9,6 +9,8 @@
 #import "OrderDetailView.h"
 #import "OrderDetailLowerCell.h"
 #import "OderDetailUperCell.h"
+#import "cartView.h"
+
 
 @interface OrderDetailView ()
 
@@ -107,6 +109,7 @@
         return cell1;
     }
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0)
@@ -115,6 +118,11 @@
     }
     return 73;
     
+}
+- (IBAction)TopBarCartBtn_action:(id)sender
+{
+    cartView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"cartView"];
+    [self.navigationController pushViewController:vcr animated:YES];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

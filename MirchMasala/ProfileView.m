@@ -7,6 +7,7 @@
 //
 
 #import "ProfileView.h"
+#import "cartView.h"
 
 @interface ProfileView ()
 
@@ -334,6 +335,10 @@
             [AppDelegate showErrorMessageWithTitle:@"" message:@"Please check your internet connection or try again later." delegate:nil];
         }
 }
-
+- (IBAction)TopBarCartBtn_action:(id)sender
+{
+    cartView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"cartView"];
+    [self.navigationController pushViewController:vcr animated:YES];
+}
 
 @end

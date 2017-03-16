@@ -8,6 +8,10 @@
 
 #import "CheckOut_PaymentVW.h"
 #import "successMessageVW.h"
+#import "cartView.h"
+#import "cartView.h"
+
+
 @interface CheckOut_PaymentVW ()
 
 @end
@@ -115,7 +119,11 @@
     successMessageVW *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"successMessageVW"];
     [self.navigationController pushViewController:vcr animated:YES];
 }
-
+- (IBAction)TopBarCartBtn_action:(id)sender
+{
+    cartView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"cartView"];
+    [self.navigationController pushViewController:vcr animated:YES];
+}
 - (IBAction)BackBtn_Action:(id)sender
 {
     [self.navigationController popViewControllerAnimated:YES];

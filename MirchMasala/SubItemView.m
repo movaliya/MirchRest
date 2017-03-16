@@ -11,6 +11,7 @@
 #import "MirchMasala.pch"
 #import "AppDelegate.h"
 #import "LoginVW.h"
+#import "cartView.h"
 
 @interface SubItemView ()
 {
@@ -605,5 +606,9 @@
         }
     }
 }
-
+- (IBAction)TopBarCartBtn_action:(id)sender
+{
+    cartView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"cartView"];
+    [self.navigationController pushViewController:vcr animated:YES];
+}
 @end

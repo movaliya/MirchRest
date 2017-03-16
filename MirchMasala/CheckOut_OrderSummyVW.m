@@ -10,6 +10,7 @@
 #import "OrderSummay_Detail.h"
 #import "OrderSummry_Total.h"
 #import "CheckOut_PaymentVW.h"
+#import "cartView.h"
 
 @interface CheckOut_OrderSummyVW ()
 {
@@ -317,6 +318,11 @@
     CheckOut_PaymentVW *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CheckOut_PaymentVW"];
     vcr.Discount=[NSString stringWithFormat:@"%@",MainDiscount];
     vcr.OrderAmount=[NSString stringWithFormat:@"%.02f",MainTotal];
+    [self.navigationController pushViewController:vcr animated:YES];
+}
+- (IBAction)TopBarCartBtn_action:(id)sender
+{
+    cartView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"cartView"];
     [self.navigationController pushViewController:vcr animated:YES];
 }
 - (void)didReceiveMemoryWarning {

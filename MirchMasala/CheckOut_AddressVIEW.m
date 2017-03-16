@@ -8,6 +8,9 @@
 
 #import "CheckOut_AddressVIEW.h"
 #import "CheckOut_OrderSummyVW.h"
+#import "cartView.h"
+
+
 @interface CheckOut_AddressVIEW ()
 
 @end
@@ -212,10 +215,10 @@
     {
         [AppDelegate showErrorMessageWithTitle:@"Error!" message:@"Please enter country" delegate:nil];
     }
-    else if ([HouseName_TXT.text isEqualToString:@""])
-    {
-        [AppDelegate showErrorMessageWithTitle:@"Error!" message:@"Please enter house name" delegate:nil];
-    }
+    //else if ([HouseName_TXT.text isEqualToString:@""])
+    //{
+       // [AppDelegate showErrorMessageWithTitle:@"Error!" message:@"Please enter house name" delegate:nil];
+   // }
     else if ([HouseNo_TXT.text isEqualToString:@""])
     {
         [AppDelegate showErrorMessageWithTitle:@"Error!" message:@"Please enter house number" delegate:nil];
@@ -341,6 +344,11 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+- (IBAction)TopBarCartBtn_action:(id)sender
+{
+    cartView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"cartView"];
+    [self.navigationController pushViewController:vcr animated:YES];
 }
 - (IBAction)BackBtn_Action:(id)sender {
      [self.navigationController popViewControllerAnimated:YES];
