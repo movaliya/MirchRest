@@ -119,11 +119,14 @@
     
     [manager POST:kBaseURL parameters:json success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject)
      {
+         NSLog(@"responseObject==%@",responseObject);
          NSString *SUCCESS=[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"action"] objectForKey:@"forgotPassword"] objectForKey:@"SUCCESS"];
          if ([SUCCESS boolValue] ==YES)
          {
-             NSString *SUCCESS=[[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"action"] objectForKey:@"forgotPassword"] objectForKey:@"forgotPassword"]objectForKey:@"msg"];
-             [AppDelegate showErrorMessageWithTitle:@"" message:SUCCESS delegate:nil];
+             NSString *SUCCESS=[[[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"action"] objectForKey:@"forgotPassword"] objectForKey:@"result"]objectForKey:@"forgotPassword"] objectForKey:@"msg"];
+             EmailTxt.text=@"";
+            [self.navigationController popViewControllerAnimated:YES];
+             [AppDelegate showErrorMessageWithTitle:@"Successfully" message:SUCCESS delegate:nil];
          }
          else
          {

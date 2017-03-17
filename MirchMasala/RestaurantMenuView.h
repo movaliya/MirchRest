@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MirchMasala.pch"
 
-@interface RestaurantMenuView : UIViewController
+@interface RestaurantMenuView : UIViewController<CCKFNavDrawerDelegate>
+{
+    NSMutableDictionary *topCategoriesDic;
 
+}
+@property (strong, nonatomic) CCKFNavDrawer *rootNav;
+@property (weak, nonatomic) IBOutlet UILabel *CartNotification_LBL;
+@property (weak, nonatomic) IBOutlet UITableView *MenuTableView;
 @end

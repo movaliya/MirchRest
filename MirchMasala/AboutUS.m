@@ -40,6 +40,8 @@
     CartNotification_LBL.layer.masksToBounds = YES;
     CartNotification_LBL.layer.cornerRadius = 8.0f;
     
+    WebViewAbout.scrollView.showsHorizontalScrollIndicator = NO;
+    WebViewAbout.scrollView.showsVerticalScrollIndicator = NO;
     
     
     self.rootNav = (CCKFNavDrawer *)self.navigationController;

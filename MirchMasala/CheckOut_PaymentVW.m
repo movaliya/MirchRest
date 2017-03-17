@@ -105,7 +105,6 @@
 {
     [self.CreditCard_Radio_Brn setImage:[UIImage imageNamed:@"RadioON"] forState:UIControlStateNormal];
     [self.PayOnCollection_Radio setImage:[UIImage imageNamed:@"RadioOFF"] forState:UIControlStateNormal];
-    
 }
 
 - (IBAction)PayOnCollection_action:(id)sender
