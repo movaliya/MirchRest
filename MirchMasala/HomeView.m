@@ -257,6 +257,14 @@
         vcr.CategoryId=[[topCategoriesDic valueForKey:@"id"] objectAtIndex:indexPath.section];
         vcr.categoryName=[[topCategoriesDic valueForKey:@"categoryName"] objectAtIndex:indexPath.section];
         [self.navigationController pushViewController:vcr animated:YES];
+        
+        Pagecontrollypos.constant=160;
+        Pagecontrollhight.constant=37;
+        HeaderScroll.hidden=NO;
+        SearhBR.hidden=YES;
+        [SearhBR resignFirstResponder];
+        topCategoriesDic=[Searchdic mutableCopy];
+        [CategoriesTableView reloadData];
     }
 }
 

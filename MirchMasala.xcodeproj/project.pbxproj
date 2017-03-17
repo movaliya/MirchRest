@@ -22,6 +22,7 @@
 		5309EDD31E6EA8D400A216F2 /* HomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5309EDD21E6EA8D400A216F2 /* HomeView.m */; };
 		5309EDD71E6EC3EB00A216F2 /* CategoriesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5309EDD51E6EC3EB00A216F2 /* CategoriesCell.m */; };
 		5309EDD81E6EC3EB00A216F2 /* CategoriesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5309EDD61E6EC3EB00A216F2 /* CategoriesCell.xib */; };
+		530BA8E31E7C5ACA002FDCA2 /* ShoppingPolicy_View.m in Sources */ = {isa = PBXBuildFile; fileRef = 530BA8E21E7C5ACA002FDCA2 /* ShoppingPolicy_View.m */; };
 		530BEF6F1E71889300614BF8 /* OrderDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 530BEF6E1E71889300614BF8 /* OrderDetailView.m */; };
 		530BEF751E718D6700614BF8 /* OderDetailUperCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 530BEF731E718D6700614BF8 /* OderDetailUperCell.m */; };
 		530BEF761E718D6700614BF8 /* OderDetailUperCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 530BEF741E718D6700614BF8 /* OderDetailUperCell.xib */; };
@@ -145,6 +146,8 @@
 		5309EDD41E6EC3EB00A216F2 /* CategoriesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoriesCell.h; sourceTree = "<group>"; };
 		5309EDD51E6EC3EB00A216F2 /* CategoriesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoriesCell.m; sourceTree = "<group>"; };
 		5309EDD61E6EC3EB00A216F2 /* CategoriesCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoriesCell.xib; sourceTree = "<group>"; };
+		530BA8E11E7C5ACA002FDCA2 /* ShoppingPolicy_View.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingPolicy_View.h; sourceTree = "<group>"; };
+		530BA8E21E7C5ACA002FDCA2 /* ShoppingPolicy_View.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingPolicy_View.m; sourceTree = "<group>"; };
 		530BEF6D1E71889300614BF8 /* OrderDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailView.h; sourceTree = "<group>"; };
 		530BEF6E1E71889300614BF8 /* OrderDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailView.m; sourceTree = "<group>"; };
 		530BEF721E718D6700614BF8 /* OderDetailUperCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OderDetailUperCell.h; sourceTree = "<group>"; };
@@ -482,6 +485,8 @@
 				530979DD1E7420C900385083 /* AboutUS.m */,
 				530979DF1E74276A00385083 /* ProfileView.h */,
 				530979E01E74276A00385083 /* ProfileView.m */,
+				530BA8E11E7C5ACA002FDCA2 /* ShoppingPolicy_View.h */,
+				530BA8E21E7C5ACA002FDCA2 /* ShoppingPolicy_View.m */,
 				530792441E6FE415005426ED /* Main.storyboard */,
 				5310CC001E6AADE700091333 /* CommanClass */,
 				5310CBEB1E6A957800091333 /* Assets.xcassets */,
@@ -929,6 +934,7 @@
 				5310CBFE1E6AABC100091333 /* LoginVW.m in Sources */,
 				B15F7A7A1E6C3964004A4D32 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				530C39BE1E6BE8040073AA78 /* SignUpView.m in Sources */,
+				530BA8E31E7C5ACA002FDCA2 /* ShoppingPolicy_View.m in Sources */,
 				B15F7A0E1E6C3665004A4D32 /* IQKeyboardReturnKeyHandler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

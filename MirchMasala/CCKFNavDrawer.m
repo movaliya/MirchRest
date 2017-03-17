@@ -19,6 +19,7 @@
 #import "AboutUS.h"
 #import "ProfileView.h"
 #import "RestaurantMenuView.h"
+#import "ShoppingPolicy_View.h"
 
 #define SHAWDOW_ALPHA 0.5
 #define MENU_DURATION 0.3
@@ -475,6 +476,11 @@
     else if (indexPath.row==6)
     {
         ContactUsView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ContactUsView"];
+        [super pushViewController:vcr animated:YES];
+    }
+    else if (indexPath.row==7)
+    {
+        ShoppingPolicy_View *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ShoppingPolicy_View"];
         [super pushViewController:vcr animated:YES];
     }
     else if (indexPath.row==8)

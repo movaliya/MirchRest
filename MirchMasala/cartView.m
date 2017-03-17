@@ -813,7 +813,7 @@
     NSIndexPath *changedRow = [NSIndexPath indexPathForRow:0 inSection:senderButton.tag];
     CartTableCell *cell = (CartTableCell *)[cartTable cellForRowAtIndexPath:changedRow];
     
-    if (![cell.Qnt_TXT.text isEqualToString:@"0"])
+    if (![cell.Qnt_TXT.text isEqualToString:@"0"] && ![cell.Qnt_TXT.text isEqualToString:@""])
     {
         NSMutableDictionary *newDict = [[NSMutableDictionary alloc] init];
         NSDictionary *oldDict = (NSDictionary *)[KmyappDelegate.MainCartArr objectAtIndex:senderButton.tag];
@@ -829,7 +829,7 @@
     }
     else
     {
-        [AppDelegate showErrorMessageWithTitle:@"" message:@"Zero Quatity is not Allow." delegate:nil];
+        [AppDelegate showErrorMessageWithTitle:@"" message:@"Invalid Quatity Number." delegate:nil];
         [cartTable reloadData];
     }
     
