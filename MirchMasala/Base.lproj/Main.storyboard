@@ -809,7 +809,7 @@
                                 <color key="textColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <searchBar contentMode="redraw" placeholder="Search menu" translatesAutoresizingMaskIntoConstraints="NO" id="fdI-s4-ilW">
+                            <searchBar contentMode="redraw" placeholder="Search Restaurant Menu" translatesAutoresizingMaskIntoConstraints="NO" id="fdI-s4-ilW">
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="2kO-al-gCT"/>
@@ -940,7 +940,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <searchBar contentMode="redraw" placeholder="Search menu" translatesAutoresizingMaskIntoConstraints="NO" id="e4O-mQ-DNm">
+                            <searchBar contentMode="redraw" placeholder="Search Product" translatesAutoresizingMaskIntoConstraints="NO" id="e4O-mQ-DNm">
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="dQe-P4-ybt"/>
@@ -2731,7 +2731,7 @@
                                     <constraint firstItem="rBD-rK-j2i" firstAttribute="leading" secondItem="0w6-Lb-NMa" secondAttribute="leading" constant="12" id="vxH-Tl-iRI"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="day-6O-fuT">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="day-6O-fuT">
                                 <rect key="frame" x="16" y="138" width="343" height="529"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -2853,7 +2853,7 @@
                                     <constraint firstItem="Uid-Ui-jzp" firstAttribute="centerY" secondItem="U6K-qR-UGK" secondAttribute="centerY" id="xZP-tF-GQ0"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vnd-L2-Q4N">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vnd-L2-Q4N">
                                 <rect key="frame" x="16" y="85" width="343" height="582"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -3703,6 +3703,9 @@
                                             <constraint firstAttribute="height" constant="43" id="eGc-gs-Jjg"/>
                                         </constraints>
                                         <state key="normal" image="SearchIcon"/>
+                                        <connections>
+                                            <action selector="Search_Click:" destination="ZeB-yh-gxN" eventType="touchUpInside" id="93Y-Ws-rGU"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gRZ-0V-aGQ">
                                         <rect key="frame" x="332" y="20" width="43" height="43"/>
@@ -3742,6 +3745,17 @@
                                     <constraint firstAttribute="height" constant="80" id="x1m-6T-Ol4"/>
                                 </constraints>
                             </view>
+                            <searchBar contentMode="redraw" placeholder="Search Restaurant Menu" translatesAutoresizingMaskIntoConstraints="NO" id="Fos-xK-6xS">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="jjD-Gw-NIV"/>
+                                </constraints>
+                                <color key="barTintColor" red="0.98258310559999995" green="0.46677643060000001" blue="0.207449615" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="ZeB-yh-gxN" id="aRw-pY-fMV"/>
+                                </connections>
+                            </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Idi-Ph-3O2">
                                 <rect key="frame" x="16" y="80" width="343" height="585"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -3756,8 +3770,11 @@
                         <constraints>
                             <constraint firstItem="76V-uR-Es3" firstAttribute="top" secondItem="Idi-Ph-3O2" secondAttribute="bottom" constant="2" id="L2K-L1-RcA"/>
                             <constraint firstAttribute="trailing" secondItem="Idi-Ph-3O2" secondAttribute="trailing" constant="16" id="MbO-xi-uhv"/>
+                            <constraint firstItem="Fos-xK-6xS" firstAttribute="leading" secondItem="tWP-9Z-XzU" secondAttribute="leading" id="USV-N1-sUP"/>
                             <constraint firstItem="Idi-Ph-3O2" firstAttribute="top" secondItem="Ty8-B8-8A9" secondAttribute="bottom" id="XOU-ww-YL9"/>
+                            <constraint firstItem="Fos-xK-6xS" firstAttribute="top" secondItem="Kpj-6E-3UD" secondAttribute="bottom" id="XXk-tb-IGa"/>
                             <constraint firstItem="Ty8-B8-8A9" firstAttribute="leading" secondItem="tWP-9Z-XzU" secondAttribute="leading" id="fdc-7A-Gmc"/>
+                            <constraint firstAttribute="trailing" secondItem="Fos-xK-6xS" secondAttribute="trailing" id="gRE-zN-yc7"/>
                             <constraint firstItem="Idi-Ph-3O2" firstAttribute="leading" secondItem="tWP-9Z-XzU" secondAttribute="leading" constant="16" id="kox-hu-85r"/>
                             <constraint firstItem="Ty8-B8-8A9" firstAttribute="top" secondItem="tWP-9Z-XzU" secondAttribute="top" id="lzm-XC-XKf"/>
                             <constraint firstAttribute="trailing" secondItem="Ty8-B8-8A9" secondAttribute="trailing" id="sI1-Ip-h0y"/>
@@ -3767,6 +3784,7 @@
                     <connections>
                         <outlet property="CartNotification_LBL" destination="shX-fQ-j0V" id="wHT-WF-1KW"/>
                         <outlet property="MenuTableView" destination="Idi-Ph-3O2" id="3jd-7j-Mcw"/>
+                        <outlet property="SearchBR" destination="Fos-xK-6xS" id="MN4-HU-RgK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KUJ-Lr-81a" userLabel="First Responder" sceneMemberID="firstResponder"/>

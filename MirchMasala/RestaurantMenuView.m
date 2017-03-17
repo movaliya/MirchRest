@@ -11,11 +11,14 @@
 #import "CategoriesCell.h"
 #import "SubItemView.h"
 @interface RestaurantMenuView ()
-
+{
+    NSMutableDictionary *Searchdic;
+}
 @end
 
 @implementation RestaurantMenuView
 @synthesize CartNotification_LBL,MenuTableView;
+@synthesize SearchBR;
 
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -37,9 +40,14 @@
         [CartNotification_LBL setHidden:YES];
     }
 }
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    SearchBR.hidden=YES;
+    [[UIBarButtonItem appearanceWhenContainedIn: [UISearchBar class], nil] setTintColor:[UIColor whiteColor]];
+
     
     CartNotification_LBL.layer.masksToBounds = YES;
     CartNotification_LBL.layer.cornerRadius = 8.0;
@@ -110,6 +118,7 @@
          if ([SUCCESS boolValue] ==YES)
          {
              topCategoriesDic=[[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"getitem"] objectForKey:@"topCategories"] objectForKey:@"result"] objectForKey:@"topCategories"];
+             Searchdic=[[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"getitem"] objectForKey:@"topCategories"] objectForKey:@"result"] objectForKey:@"topCategories"];
              
              if (topCategoriesDic) {
                  [MenuTableView reloadData];
@@ -199,4 +208,76 @@
 }
 
 
+#pragma mark - SerachBarDelegate
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    SearchBR.hidden=YES;
+    
+    topCategoriesDic=[Searchdic mutableCopy];
+    [SearchBR resignFirstResponder];
+    [MenuTableView reloadData];
+}
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
+{
+    SearchBR.showsCancelButton = YES;
+}
+
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
+{
+    [MenuTableView reloadData];
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    topCategoriesDic=[Searchdic mutableCopy];
+    if([searchText isEqualToString:@""] || searchText==nil)
+    {
+        topCategoriesDic=[Searchdic mutableCopy];
+        [MenuTableView reloadData];
+        return;
+    }
+    
+    NSMutableArray *resultObjectsArray = [NSMutableArray array];
+    for(NSDictionary *wine in topCategoriesDic)
+    {
+        NSString *wineName = [wine objectForKey:@"categoryName"];
+        NSRange range = [wineName rangeOfString:searchText options:NSCaseInsensitiveSearch];
+        if(range.location != NSNotFound)
+            [resultObjectsArray addObject:wine];
+    }
+    
+    topCategoriesDic=[resultObjectsArray mutableCopy];
+    [MenuTableView reloadData];
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    topCategoriesDic=[Searchdic mutableCopy];
+    if([searchBar.text isEqualToString:@""] || searchBar.text==nil)
+    {
+        topCategoriesDic=[Searchdic mutableCopy];
+        [MenuTableView reloadData];
+        return;
+    }
+    NSMutableArray *resultObjectsArray = [NSMutableArray array];
+    for(NSDictionary *wine in topCategoriesDic)
+    {
+        NSString *wineName = [wine objectForKey:@"categoryName"];
+        NSRange range = [wineName rangeOfString:searchBar.text options:NSCaseInsensitiveSearch];
+        if(range.location != NSNotFound)
+            [resultObjectsArray addObject:wine];
+    }
+    
+    topCategoriesDic=[resultObjectsArray mutableCopy];
+    [MenuTableView reloadData];
+    [SearchBR resignFirstResponder];
+}
+
+- (IBAction)Search_Click:(id)sender
+{
+    SearchBR.hidden=NO;
+    SearchBR.text=@"";
+    [SearchBR becomeFirstResponder];
+}
 @end

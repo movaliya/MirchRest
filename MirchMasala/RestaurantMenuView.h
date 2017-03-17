@@ -17,4 +17,6 @@
 @property (strong, nonatomic) CCKFNavDrawer *rootNav;
 @property (weak, nonatomic) IBOutlet UILabel *CartNotification_LBL;
 @property (weak, nonatomic) IBOutlet UITableView *MenuTableView;
+@property (strong, nonatomic) IBOutlet UISearchBar *SearchBR;
+- (IBAction)Search_Click:(id)sender;
 @end
