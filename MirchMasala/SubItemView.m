@@ -694,6 +694,10 @@
                 [self Addcartdatawithoption:FinalArray];
             }
         }
+        else
+        {
+            [self Addcartdatawithoption:FinalArray];
+        }
     }
 }
 
