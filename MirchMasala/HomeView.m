@@ -25,6 +25,7 @@
 @implementation HomeView
 @synthesize CategoriesTableView,MenuView,HeaderScroll,PageControll;
 @synthesize CartNotification_LBL,SearhBR;
+@synthesize Pagecontrollypos,Pagecontrollhight;
 
 - (BOOL)prefersStatusBarHidden
 {
@@ -55,6 +56,9 @@
 {
     [super viewDidLoad];
      [self.navigationController setNavigationBarHidden:YES animated:YES];
+    SearhBR.hidden=YES;
+    [[UIBarButtonItem appearanceWhenContainedIn: [UISearchBar class], nil] setTintColor:[UIColor whiteColor]];
+
     
     CartNotification_LBL.layer.masksToBounds = YES;
     CartNotification_LBL.layer.cornerRadius = 8.0;
@@ -319,6 +323,7 @@
     [self.AboutMenuBtn setTitleColor:[UIColor colorWithRed:(247/255.0) green:(96/255.0) blue:(41/255.0) alpha:1.0] forState:UIControlStateNormal];
 
 }
+
 - (IBAction)TopBarCartBtn_action:(id)sender
 {
     cartView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"cartView"];
@@ -338,11 +343,14 @@
     NSLog(@"CCKFNavDrawerSelection = %li", (long)selectionIndex);
 }
 
-
-
 #pragma mark - SerachBarDelegate
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
+    Pagecontrollypos.constant=160;
+    Pagecontrollhight.constant=37;
+    HeaderScroll.hidden=NO;
+    SearhBR.hidden=YES;
+
     topCategoriesDic=[Searchdic mutableCopy];
     [SearhBR resignFirstResponder];
     [CategoriesTableView reloadData];
@@ -350,15 +358,15 @@
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 {
-    //SearchBar.showsCancelButton = YES;
-    //MainScroll.hidden=YES;
+    Pagecontrollypos.constant=0;
+    Pagecontrollhight.constant=0;
+    HeaderScroll.hidden=YES;
+    
+    SearhBR.showsCancelButton = YES;
 }
 
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
 {
-    // SearchBar.showsCancelButton = NO;
-    //MainScroll.hidden=YES;
-    //SearchDictnory=[MainDic mutableCopy];
     [CategoriesTableView reloadData];
 }
 
@@ -387,7 +395,7 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-    
+    topCategoriesDic=[Searchdic mutableCopy];
     if([searchBar.text isEqualToString:@""] || searchBar.text==nil)
     {
         topCategoriesDic=[Searchdic mutableCopy];
@@ -408,4 +416,10 @@
     [SearhBR resignFirstResponder];
 }
 
+- (IBAction)Search_Click:(id)sender
+{
+    SearhBR.hidden=NO;
+    SearhBR.text=@"";
+    [SearhBR becomeFirstResponder];
+}
 @end

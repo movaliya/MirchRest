@@ -28,4 +28,7 @@
 @property (strong, nonatomic) IBOutlet UIScrollView *HeaderScroll;
 @property (strong, nonatomic) IBOutlet UIPageControl *PageControll;
 @property (strong, nonatomic) IBOutlet UISearchBar *SearhBR;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *Pagecontrollypos;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *Pagecontrollhight;
+- (IBAction)Search_Click:(id)sender;
 @end
