@@ -18,6 +18,7 @@
 #import "ContactUsView.h"
 #import "AboutUS.h"
 #import "ProfileView.h"
+#import "RestaurantMenuView.h"
 
 #define SHAWDOW_ALPHA 0.5
 #define MENU_DURATION 0.3
@@ -422,6 +423,11 @@
     if (indexPath.row==0)
     {
         HomeView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"HomeView"];
+        [super pushViewController:vcr animated:YES];
+    }
+    else if (indexPath.row==1)
+    {
+        RestaurantMenuView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"RestaurantMenuView"];
         [super pushViewController:vcr animated:YES];
     }
     else if (indexPath.row==2)

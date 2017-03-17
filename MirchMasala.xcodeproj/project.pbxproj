@@ -59,6 +59,7 @@
 		5310CC721E6AB12800091333 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5310CC711E6AB12800091333 /* CFNetwork.framework */; };
 		5310CC741E6AB12E00091333 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5310CC731E6AB12E00091333 /* AVFoundation.framework */; };
 		5310CC761E6AB13C00091333 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5310CC751E6AB13C00091333 /* GLKit.framework */; };
+		B13A04621E7BBF430048F36D /* RestaurantMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = B13A04611E7BBF430048F36D /* RestaurantMenuView.m */; };
 		B1451E211E6DE5E800E98C7C /* AFAutoPurgingImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B1451E1E1E6DE5E800E98C7C /* AFAutoPurgingImageCache.m */; };
 		B1451E221E6DE5E800E98C7C /* AFImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = B1451E201E6DE5E800E98C7C /* AFImageDownloader.m */; };
 		B15F7A071E6C3665004A4D32 /* IQNSArray+Sort.m in Sources */ = {isa = PBXBuildFile; fileRef = B15F799A1E6C3665004A4D32 /* IQNSArray+Sort.m */; };
@@ -203,6 +204,8 @@
 		5310CC731E6AB12E00091333 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		5310CC751E6AB13C00091333 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		B12C94EE1E6C2AE100185A7B /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AFNetworking.framework; path = MirchMasala/AFNetworking/AFNetworking.framework; sourceTree = "<group>"; };
+		B13A04601E7BBF430048F36D /* RestaurantMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantMenuView.h; sourceTree = "<group>"; };
+		B13A04611E7BBF430048F36D /* RestaurantMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantMenuView.m; sourceTree = "<group>"; };
 		B1451E1D1E6DE5E800E98C7C /* AFAutoPurgingImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFAutoPurgingImageCache.h; sourceTree = "<group>"; };
 		B1451E1E1E6DE5E800E98C7C /* AFAutoPurgingImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFAutoPurgingImageCache.m; sourceTree = "<group>"; };
 		B1451E1F1E6DE5E800E98C7C /* AFImageDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFImageDownloader.h; sourceTree = "<group>"; };
@@ -460,6 +463,8 @@
 				530C39BD1E6BE8040073AA78 /* SignUpView.m */,
 				530C39BF1E6C340A0073AA78 /* ForgotPasswordView.h */,
 				530C39C01E6C340A0073AA78 /* ForgotPasswordView.m */,
+				B13A04601E7BBF430048F36D /* RestaurantMenuView.h */,
+				B13A04611E7BBF430048F36D /* RestaurantMenuView.m */,
 				5309EDD11E6EA8D400A216F2 /* HomeView.h */,
 				5309EDD21E6EA8D400A216F2 /* HomeView.m */,
 				530EA8ED1E6DA68D00A61A88 /* SubItemView.h */,
@@ -867,6 +872,7 @@
 				530979E11E74276A00385083 /* ProfileView.m in Sources */,
 				B15F7A0A1E6C3665004A4D32 /* IQUIView+Hierarchy.m in Sources */,
 				B15F7A331E6C3665004A4D32 /* UIView+WebCacheOperation.m in Sources */,
+				B13A04621E7BBF430048F36D /* RestaurantMenuView.m in Sources */,
 				530ECF411E71392F0004F9AB /* OrderHistryView.m in Sources */,
 				5307924A1E702274005426ED /* CartGrandTotalCell.m in Sources */,
 				B15F7A271E6C3665004A4D32 /* SDImageCache.m in Sources */,
