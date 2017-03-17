@@ -813,17 +813,27 @@
     NSIndexPath *changedRow = [NSIndexPath indexPathForRow:0 inSection:senderButton.tag];
     CartTableCell *cell = (CartTableCell *)[cartTable cellForRowAtIndexPath:changedRow];
     
-    NSMutableDictionary *newDict = [[NSMutableDictionary alloc] init];
-    NSDictionary *oldDict = (NSDictionary *)[KmyappDelegate.MainCartArr objectAtIndex:senderButton.tag];
-    [newDict addEntriesFromDictionary:oldDict];
-    [newDict setObject:cell.Qnt_TXT.text forKey:@"quatity"];
-    [KmyappDelegate.MainCartArr replaceObjectAtIndex:senderButton.tag withObject:newDict];
-    [[NSUserDefaults standardUserDefaults] setObject:KmyappDelegate.MainCartArr forKey:CoustmerID];
-    KmyappDelegate.MainCartArr=[[NSMutableArray alloc]initWithArray:[[NSUserDefaults standardUserDefaults]objectForKey:CoustmerID]];
-    [self GetDiscount];
-    Total=0.0;
-    MainTotal=0.0;
-    [cartTable reloadData];
+    if (![cell.Qnt_TXT.text isEqualToString:@"0"])
+    {
+        NSMutableDictionary *newDict = [[NSMutableDictionary alloc] init];
+        NSDictionary *oldDict = (NSDictionary *)[KmyappDelegate.MainCartArr objectAtIndex:senderButton.tag];
+        [newDict addEntriesFromDictionary:oldDict];
+        [newDict setObject:cell.Qnt_TXT.text forKey:@"quatity"];
+        [KmyappDelegate.MainCartArr replaceObjectAtIndex:senderButton.tag withObject:newDict];
+        [[NSUserDefaults standardUserDefaults] setObject:KmyappDelegate.MainCartArr forKey:CoustmerID];
+        KmyappDelegate.MainCartArr=[[NSMutableArray alloc]initWithArray:[[NSUserDefaults standardUserDefaults]objectForKey:CoustmerID]];
+        [self GetDiscount];
+        Total=0.0;
+        MainTotal=0.0;
+        [cartTable reloadData];
+    }
+    else
+    {
+        [AppDelegate showErrorMessageWithTitle:@"" message:@"Zero Quatity is not Allow." delegate:nil];
+        [cartTable reloadData];
+    }
+    
+    
 }
 
 -(void)Close_Click:(id)sender

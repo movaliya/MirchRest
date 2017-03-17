@@ -2,12 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "unselected_radio.png",
+      "filename" : "unselected_radio-4.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "unselected_radio-1.png",
+      "filename" : "unselected_radio-3.png",
       "scale" : "2x"
     },
     {

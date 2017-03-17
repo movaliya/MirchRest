@@ -11,7 +11,6 @@
 
 @interface ContactUsView : UIViewController<CCKFNavDrawerDelegate>
 {
-    
 }
 @property (weak, nonatomic) IBOutlet UILabel *CartNotification_LBL;
 @property (strong, nonatomic) CCKFNavDrawer *rootNav;

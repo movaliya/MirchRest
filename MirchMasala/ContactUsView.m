@@ -69,6 +69,8 @@
     
     [Submit_Btn.layer setCornerRadius:20.0f];
     [Submit_Btn.layer setMasksToBounds:YES];
+    
+       
 }
 - (IBAction)Submit_action:(id)sender
 {
@@ -215,7 +217,7 @@
     return YES;
 }
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField{
-    NSLog(@"textFieldShouldEndEditing");
+   
     if (textField == UserName_TXT)
     {
         UserName_TXT.textColor=[UIColor colorWithRed:(193/255.0) green:(193/255.0) blue:(193/255.0) alpha:1.0];
@@ -239,14 +241,30 @@
     Message_TXT.textColor=[UIColor colorWithRed:(247/255.0) green:(96/255.0) blue:(41/255.0) alpha:1.0];
     Message_View.layer.borderColor = [UIColor colorWithRed:(247/255.0) green:(96/255.0) blue:(41/255.0) alpha:1.0].CGColor;
     Message_Icon.image=[UIImage imageNamed:@"MessageIconEnable"];
+    
+    
+    if ([textView.text isEqualToString:@"Your Message"]) {
+        textView.text = @"";
+        //textView.textColor = [UIColor blackColor]; //optional
+    }
+    [textView becomeFirstResponder];
 }
 
 
 -(void)textViewDidEndEditing:(UITextView *)textView
 {
+    
     Message_TXT.textColor=[UIColor colorWithRed:(193/255.0) green:(193/255.0) blue:(193/255.0) alpha:1.0];
     Message_View.layer.borderColor = [UIColor colorWithRed:(193/255.0) green:(193/255.0) blue:(193/255.0) alpha:1.0].CGColor;
     Message_Icon.image=[UIImage imageNamed:@"MessageIconDisable"];
+    
+    
+    if ([textView.text isEqualToString:@""]) {
+        textView.text = @"Your Message";
+        textView.textColor = [UIColor lightGrayColor]; //optional
+    }
+    [textView resignFirstResponder];
+    
 }
 
 - (IBAction)TopBarCartBtn_action:(id)sender

@@ -219,10 +219,10 @@
     //{
        // [AppDelegate showErrorMessageWithTitle:@"Error!" message:@"Please enter house name" delegate:nil];
    // }
-    else if ([HouseNo_TXT.text isEqualToString:@""])
-    {
-        [AppDelegate showErrorMessageWithTitle:@"Error!" message:@"Please enter house number" delegate:nil];
-    }
+  //  else if ([HouseNo_TXT.text isEqualToString:@""])
+   // {
+      //  [AppDelegate showErrorMessageWithTitle:@"Error!" message:@"Please enter house number" delegate:nil];
+    //}
     else
     {
         BOOL internet=[AppDelegate connectedToNetwork];
@@ -316,6 +316,7 @@
                  else
                  {
                      // Push Next View
+                     [KVNProgress dismiss] ;
                      CheckOut_OrderSummyVW *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CheckOut_OrderSummyVW"];
                      [self.navigationController pushViewController:vcr animated:YES];
                  }

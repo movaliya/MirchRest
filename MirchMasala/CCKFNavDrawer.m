@@ -432,8 +432,30 @@
     }
     else if (indexPath.row==2)
     {
-        ProfileView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProfileView"];
-        [super pushViewController:vcr animated:YES];
+        NSDictionary *UserSaveData=[[NSUserDefaults standardUserDefaults]objectForKey:@"LoginUserDic"];
+        
+        NSString *CoustmerID=[[[[[[UserSaveData objectForKey:@"RESPONSE"] objectForKey:@"action"] objectForKey:@"authenticate"] objectForKey:@"result"] objectForKey:@"authenticate"]  objectForKey:@"customerid"];
+        if (CoustmerID!=nil)
+        {
+            KmyappDelegate.MainCartArr=[[NSMutableArray alloc]initWithArray:[[NSUserDefaults standardUserDefaults]objectForKey:CoustmerID]];
+        }
+        if (KmyappDelegate.MainCartArr.count>0 && CoustmerID!=nil)
+        {
+            ProfileView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProfileView"];
+            [super pushViewController:vcr animated:YES];
+            
+        }
+        else
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please First Login"
+                                                            message:@""
+                                                           delegate:self
+                                                  cancelButtonTitle:@"Cancel"
+                                                  otherButtonTitles:@"Login",nil];
+            alert.tag=51;
+            [alert show];
+        }
+       
     }
     else if (indexPath.row==3)
     {
@@ -474,57 +496,6 @@
         }
         
     }
-    /*
-    else if (indexPath.row==1)
-    {
-        MapNearbyPlace *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MapNearbyPlace"];
-        [super pushViewController:vcr animated:YES];
-    }
-    else if (indexPath.row==2)
-    {
-        SearchByShop *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"SearchByShop"];
-        [super pushViewController:vcr animated:YES];
-    }
-    else if (indexPath.row==3)
-    {
-        if ([self.appDelegate isUserLoggedIn] == NO)
-        {
-            [self performSelector:@selector(checkLoginAndPresentContainer) withObject:nil afterDelay:0.0];
-        }
-        else
-        {
-            ShoppingCartView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ShoppingCartView"];
-            [super pushViewController:vcr animated:YES];
-        }
-        
-    }
-    else if (indexPath.row==4)
-    {
-        if ([self.appDelegate isUserLoggedIn] == NO)
-        {
-            [self performSelector:@selector(checkLoginAndPresentContainer) withObject:nil afterDelay:0.0];
-        }
-        else
-        {
-            OrderHistoryView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"OrderHistoryView"];
-            [super pushViewController:vcr animated:YES];
-        }
-        
-    }
-    else if (indexPath.row==5)
-    {
-        if ([self.appDelegate isUserLoggedIn] == NO)
-        {
-            [self performSelector:@selector(checkLoginAndPresentContainer) withObject:nil afterDelay:0.0];
-        }
-        else
-        {
-            ProfileView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProfileView"];
-            [super pushViewController:vcr animated:YES];
-        }
-       
-    }
-    */
     [self closeNavigationDrawer];
 }
 -(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -547,6 +518,13 @@
             [super popToRootViewControllerAnimated:NO];
             
             //[self checkLoginAndPresentContainer];
+        }
+    }
+    if (alertView.tag==51)
+    {
+        if (buttonIndex == 1)
+        {
+             [self checkLoginAndPresentContainer];
         }
     }
 }

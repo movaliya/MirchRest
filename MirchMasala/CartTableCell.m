@@ -17,7 +17,7 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-    NSCharacterSet *numbersOnly = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
+    NSCharacterSet *numbersOnly = [NSCharacterSet characterSetWithCharactersInString:@"123456789"];
     NSCharacterSet *characterSetFromTextField = [NSCharacterSet characterSetWithCharactersInString:textField.text];
     
     BOOL stringIsValid = [numbersOnly isSupersetOfSet:characterSetFromTextField];
