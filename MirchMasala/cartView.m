@@ -96,9 +96,6 @@
         
         [self GetDiscount];
     }
-    
-    
-   
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -336,7 +333,7 @@
         return 1;
     }
     //NSLog(@"MainCartArr---%d",KmyappDelegate.MainCartArr.count);
-    return KmyappDelegate.MainCartArr.count+ExtraCellINT;
+    return KmyappDelegate.MainCartArr.count+ExtraCellINT+1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -450,6 +447,26 @@
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
             return cell;
         }
+        else if(indexPath.section == cellcount+1)
+        {
+            static NSString *CellIdentifier1 = @"Cell";
+            UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier1];
+            cell=nil;
+            if (cell == nil)
+            {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+                cell.accessoryView = nil;
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            }
+            UILabel *clearCart=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, cartTable.frame.size.width, 44)];
+            clearCart.text=@"Clear Cart";
+            clearCart.textColor=[UIColor redColor];
+            clearCart.textAlignment=NSTextAlignmentCenter;
+            [cell addSubview:clearCart];
+            
+            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+            return cell;
+        }
         else
         {
             static NSString *CellIdentifier = @"CartTableCell";
@@ -548,8 +565,10 @@
 
             return cell1;
         }
+        
+        
     }
-    
+    return nil;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -564,7 +583,15 @@
         {
             return 137;
         }
-        return 100;
+        else if (indexPath.section==cellcount+1)
+        {
+            return 44;
+        }
+        else
+        {
+            return 100;
+        }
+        
     }    
 }
 
@@ -603,7 +630,60 @@
         
         [WithTBL reloadData];
     }
+    else if (indexPath.section==cellcount+1)
+    {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle: @""
+                                                       message: @"Are you want to clear cart?"
+                                                      delegate: self
+                                             cancelButtonTitle:@"Cancel"
+                                             otherButtonTitles:@"OK",nil];
+        
+        [alert setTag:1];
+        [alert show];
+    }
 
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag == 1) { // UIAlertView with tag 1 detected
+        if (buttonIndex == 0)
+        {
+            NSLog(@"user pressed Button Indexed 0");
+            // Any action can be performed here
+        }
+        else
+        {
+            [KmyappDelegate.MainCartArr removeAllObjects];
+            KmyappDelegate.MainCartArr=[[NSMutableArray alloc]init];
+            [[NSUserDefaults standardUserDefaults] setObject:KmyappDelegate.MainCartArr forKey:CoustmerID];
+            KmyappDelegate.MainCartArr=[[NSMutableArray alloc]initWithArray:[[NSUserDefaults standardUserDefaults]objectForKey:CoustmerID]];
+            cellcount=KmyappDelegate.MainCartArr.count;
+            
+            [self GetDiscount];
+            
+            Total=0.0;
+            MainTotal=0.0;
+            [cartTable reloadData];
+            
+            if (KmyappDelegate.MainCartArr.count>0)
+            {
+                Notavailable_LBL.hidden=YES;
+                cartTable.hidden=NO;
+                
+                [cartNotification_LBL setHidden:NO];
+                cartNotification_LBL.text=[NSString stringWithFormat:@"%lu",(unsigned long)KmyappDelegate.MainCartArr.count];
+            }
+            else
+            {
+                Notavailable_LBL.hidden=NO;
+                cartTable.hidden=YES;
+                
+                [cartNotification_LBL setHidden:YES];
+            }
+
+        }
+    }
 }
 
 -(void)WithoutChkbox_click:(id)sender
@@ -763,11 +843,17 @@
     
     if (KmyappDelegate.MainCartArr.count>0)
     {
+        Notavailable_LBL.hidden=YES;
+        cartTable.hidden=NO;
+
         [cartNotification_LBL setHidden:NO];
         cartNotification_LBL.text=[NSString stringWithFormat:@"%lu",(unsigned long)KmyappDelegate.MainCartArr.count];
     }
     else
     {
+        Notavailable_LBL.hidden=NO;
+        cartTable.hidden=YES;
+
         [cartNotification_LBL setHidden:YES];
     }
 }
