@@ -215,14 +215,10 @@
     {
         [AppDelegate showErrorMessageWithTitle:@"Error!" message:@"Please enter country" delegate:nil];
     }
-    //else if ([HouseName_TXT.text isEqualToString:@""])
-    //{
-       // [AppDelegate showErrorMessageWithTitle:@"Error!" message:@"Please enter house name" delegate:nil];
-   // }
-  //  else if ([HouseNo_TXT.text isEqualToString:@""])
-   // {
-      //  [AppDelegate showErrorMessageWithTitle:@"Error!" message:@"Please enter house number" delegate:nil];
-    //}
+    else if ([HouseName_TXT.text isEqualToString:@""] && [HouseNo_TXT.text isEqualToString:@""])
+    {
+        [AppDelegate showErrorMessageWithTitle:@"Error!" message:@"Please enter house name or house number" delegate:nil];
+    }
     else
     {
         BOOL internet=[AppDelegate connectedToNetwork];

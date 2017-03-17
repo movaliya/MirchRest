@@ -27,4 +27,5 @@
 
 @property (strong, nonatomic) IBOutlet UIScrollView *HeaderScroll;
 @property (strong, nonatomic) IBOutlet UIPageControl *PageControll;
+@property (strong, nonatomic) IBOutlet UISearchBar *SearhBR;
 @end

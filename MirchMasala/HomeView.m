@@ -16,6 +16,7 @@
 @interface HomeView ()
 {
     UIImageView *Headerimg;
+    NSMutableDictionary *Searchdic;
 }
 @property AppDelegate *appDelegate;
 
@@ -23,7 +24,7 @@
 
 @implementation HomeView
 @synthesize CategoriesTableView,MenuView,HeaderScroll,PageControll;
-@synthesize CartNotification_LBL;
+@synthesize CartNotification_LBL,SearhBR;
 
 - (BOOL)prefersStatusBarHidden
 {
@@ -49,12 +50,12 @@
         [CartNotification_LBL setHidden:YES];
     }
 }
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
      [self.navigationController setNavigationBarHidden:YES animated:YES];
     
-   
     CartNotification_LBL.layer.masksToBounds = YES;
     CartNotification_LBL.layer.cornerRadius = 8.0;
     
@@ -173,6 +174,7 @@
          {
              topCategoriesDic=[[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"getitem"] objectForKey:@"topCategories"] objectForKey:@"result"] objectForKey:@"topCategories"];
              
+             Searchdic =[[[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"getitem"] objectForKey:@"topCategories"] objectForKey:@"result"] objectForKey:@"topCategories"] mutableCopy];
              if (topCategoriesDic) {
                  [CategoriesTableView reloadData];
              }
@@ -334,6 +336,76 @@
 -(void)CCKFNavDrawerSelection:(NSInteger)selectionIndex
 {
     NSLog(@"CCKFNavDrawerSelection = %li", (long)selectionIndex);
+}
+
+
+
+#pragma mark - SerachBarDelegate
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    topCategoriesDic=[Searchdic mutableCopy];
+    [SearhBR resignFirstResponder];
+    [CategoriesTableView reloadData];
+}
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
+{
+    //SearchBar.showsCancelButton = YES;
+    //MainScroll.hidden=YES;
+}
+
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
+{
+    // SearchBar.showsCancelButton = NO;
+    //MainScroll.hidden=YES;
+    //SearchDictnory=[MainDic mutableCopy];
+    [CategoriesTableView reloadData];
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+     topCategoriesDic=[Searchdic mutableCopy];
+    if([searchText isEqualToString:@""] || searchText==nil)
+    {
+        topCategoriesDic=[Searchdic mutableCopy];
+        [CategoriesTableView reloadData];
+        return;
+    }
+    
+   NSMutableArray *resultObjectsArray = [NSMutableArray array];
+    for(NSDictionary *wine in topCategoriesDic)
+    {
+        NSString *wineName = [wine objectForKey:@"categoryName"];
+        NSRange range = [wineName rangeOfString:searchText options:NSCaseInsensitiveSearch];
+        if(range.location != NSNotFound)
+            [resultObjectsArray addObject:wine];
+    }
+    
+    topCategoriesDic=[resultObjectsArray mutableCopy];
+    [CategoriesTableView reloadData];
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    
+    if([searchBar.text isEqualToString:@""] || searchBar.text==nil)
+    {
+        topCategoriesDic=[Searchdic mutableCopy];
+        [CategoriesTableView reloadData];
+        return;
+    }
+   NSMutableArray *resultObjectsArray = [NSMutableArray array];
+    for(NSDictionary *wine in topCategoriesDic)
+    {
+        NSString *wineName = [wine objectForKey:@"categoryName"];
+        NSRange range = [wineName rangeOfString:searchBar.text options:NSCaseInsensitiveSearch];
+        if(range.location != NSNotFound)
+            [resultObjectsArray addObject:wine];
+    }
+    
+    topCategoriesDic=[resultObjectsArray mutableCopy];
+    [CategoriesTableView reloadData];
+    [SearhBR resignFirstResponder];
 }
 
 @end
