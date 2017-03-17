@@ -908,6 +908,9 @@
                                     <constraint firstAttribute="height" constant="43" id="bQR-2N-aY8"/>
                                 </constraints>
                                 <state key="normal" image="SearchIcon"/>
+                                <connections>
+                                    <action selector="Search_Click:" destination="xpg-dR-zf0" eventType="touchUpInside" id="Hmh-qv-Q2X"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fOC-8R-wgj">
                                 <rect key="frame" x="332" y="20" width="43" height="43"/>
@@ -937,6 +940,17 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <searchBar contentMode="redraw" placeholder="Search menu" translatesAutoresizingMaskIntoConstraints="NO" id="e4O-mQ-DNm">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="dQe-P4-ybt"/>
+                                </constraints>
+                                <color key="barTintColor" red="0.98258310559999995" green="0.46677643060000001" blue="0.207449615" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="xpg-dR-zf0" id="Nsx-rl-25d"/>
+                                </connections>
+                            </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4FR-EZ-Vit">
                                 <rect key="frame" x="8" y="190" width="359" height="477"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -976,7 +990,7 @@
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1rW-wL-qgY">
-                                                <rect key="frame" x="0.0" y="583" width="172.5" height="44"/>
+                                                <rect key="frame" x="0.0" y="583" width="173" height="44"/>
                                                 <color key="backgroundColor" red="0.14901960784313725" green="0.60392156862745094" blue="0.73725490196078436" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="gON-jD-Rzr"/>
@@ -988,7 +1002,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="osQ-wW-n9t">
-                                                <rect key="frame" x="172.5" y="583" width="172.5" height="44"/>
+                                                <rect key="frame" x="172" y="583" width="173" height="44"/>
                                                 <color key="backgroundColor" red="0.29803921568627451" green="0.68235294117647061" blue="0.29803921568627451" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="uCw-00-zLn"/>
@@ -1097,6 +1111,7 @@
                             <constraint firstItem="u0m-xr-bnu" firstAttribute="leading" secondItem="jxI-ei-jNX" secondAttribute="leading" id="6qW-Op-ru6"/>
                             <constraint firstAttribute="trailing" secondItem="4FR-EZ-Vit" secondAttribute="trailing" constant="8" id="Ant-W2-soV"/>
                             <constraint firstItem="4FR-EZ-Vit" firstAttribute="leading" secondItem="jxI-ei-jNX" secondAttribute="leading" constant="8" id="Bmf-gj-jWq"/>
+                            <constraint firstItem="e4O-mQ-DNm" firstAttribute="top" secondItem="jxI-ei-jNX" secondAttribute="top" constant="20" id="BwW-M1-dft"/>
                             <constraint firstItem="9Oe-Uj-fa0" firstAttribute="top" secondItem="jxI-ei-jNX" secondAttribute="top" id="DD5-IE-xEc"/>
                             <constraint firstAttribute="trailing" secondItem="OPB-Rh-hZZ" secondAttribute="trailing" constant="10" id="Jmr-SJ-qjI"/>
                             <constraint firstItem="uM5-56-mfq" firstAttribute="centerY" secondItem="fOC-8R-wgj" secondAttribute="centerY" id="LnF-QH-5c0"/>
@@ -1106,6 +1121,8 @@
                             <constraint firstAttribute="trailing" secondItem="wzy-jQ-WOG" secondAttribute="trailing" id="UsA-nn-fFz"/>
                             <constraint firstAttribute="trailing" secondItem="fOC-8R-wgj" secondAttribute="trailing" id="a1f-2F-iBg"/>
                             <constraint firstItem="1pE-Ph-V9s" firstAttribute="top" secondItem="9Oe-Uj-fa0" secondAttribute="bottom" id="caL-5u-Cof"/>
+                            <constraint firstItem="e4O-mQ-DNm" firstAttribute="leading" secondItem="jxI-ei-jNX" secondAttribute="leading" id="dkO-3M-vch"/>
+                            <constraint firstAttribute="trailing" secondItem="e4O-mQ-DNm" secondAttribute="trailing" id="eNe-p2-WNn"/>
                             <constraint firstItem="1pE-Ph-V9s" firstAttribute="top" secondItem="4FR-EZ-Vit" secondAttribute="bottom" id="lb2-mp-wg5"/>
                             <constraint firstItem="wzy-jQ-WOG" firstAttribute="top" secondItem="jxI-ei-jNX" secondAttribute="top" id="llZ-c6-vVd"/>
                             <constraint firstItem="OPB-Rh-hZZ" firstAttribute="top" secondItem="tn4-iA-chy" secondAttribute="bottom" id="mcw-YX-pwF"/>
@@ -1117,16 +1134,19 @@
                     <connections>
                         <outlet property="CartNotification_LBL" destination="OPB-Rh-hZZ" id="OYp-nx-dfH"/>
                         <outlet property="CategoryTitleLBL" destination="ygq-0y-9iK" id="2Ng-AG-kdt"/>
+                        <outlet property="HeaderViewHight" destination="a75-mf-oVO" id="jYU-Bi-X0l"/>
+                        <outlet property="HraderTitleY" destination="Ur1-Pf-zbg" id="c1d-5k-lE5"/>
                         <outlet property="ItemTableView" destination="4FR-EZ-Vit" id="508-7r-F5H"/>
                         <outlet property="OptionTitleView" destination="PhB-hl-aHk" id="U87-A3-XdN"/>
                         <outlet property="OptionView" destination="9Oe-Uj-fa0" id="aNN-tC-pBx"/>
+                        <outlet property="SearchBR" destination="e4O-mQ-DNm" id="SV7-Vp-eNb"/>
                         <outlet property="WithTBL" destination="jCw-1M-sYT" id="pnX-ix-2d5"/>
                         <outlet property="WithoutTBL" destination="TFG-Zx-70w" id="PRA-ob-sm7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fX0-0Z-yf0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-864.375" y="302.5"/>
+            <point key="canvasLocation" x="-864.79999999999995" y="301.79910044977515"/>
         </scene>
         <!--Cart View-->
         <scene sceneID="gdr-h4-Q7D">

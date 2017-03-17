@@ -38,5 +38,9 @@
 @property (strong, nonatomic) IBOutlet UITableView *WithoutTBL;
 @property (strong, nonatomic) IBOutlet UIView *OptionTitleView;
 
+@property (strong, nonatomic) IBOutlet UISearchBar *SearchBR;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *HeaderViewHight;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *HraderTitleY;
+- (IBAction)Search_Click:(id)sender;
 
 @end

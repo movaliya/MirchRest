@@ -17,6 +17,7 @@
 {
     NSMutableArray *WithSelectArr,*WithoutSelectArr;
     NSMutableArray *withSelectMain,*withoutselectMain;
+    NSMutableDictionary *Searchdic;
 }
 
 @property (strong, nonatomic) NSMutableDictionary *dic,*MainCount;
@@ -27,7 +28,7 @@
 @synthesize CategoryId,categoryName,CategoryTitleLBL;
 @synthesize dic,MainCount;
 @synthesize OptionView,WithTBL,WithoutTBL,CartNotification_LBL;
-
+@synthesize HeaderViewHight,HraderTitleY,SearchBR;
 
 - (BOOL)prefersStatusBarHidden
 {
@@ -37,6 +38,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    SearchBR.hidden=YES;
+    [[UIBarButtonItem appearanceWhenContainedIn: [UISearchBar class], nil] setTintColor:[UIColor whiteColor]];
     
     CartNotification_LBL.layer.masksToBounds = YES;
     CartNotification_LBL.layer.cornerRadius = 8.0;
@@ -121,9 +125,13 @@
          if ([SUCCESS boolValue] ==YES)
          {
              subCategoryDic=[[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"getitem"] objectForKey:@"products"] objectForKey:@"result"] objectForKey:@"products"];
+             
+             Searchdic= subCategoryDic;
+             
              AllProductIngredientsDIC=[subCategoryDic valueForKey:@"ingredients"];
              arrayInt = [[NSMutableArray alloc] init];
-             for (int i = 0; i <subCategoryDic.count; i++) {
+             for (int i = 0; i <subCategoryDic.count; i++)
+             {
                  [arrayInt addObject:@"1"];
              }
              
@@ -742,5 +750,83 @@
 {
     cartView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"cartView"];
     [self.navigationController pushViewController:vcr animated:YES];
+}
+
+#pragma mark - SerachBarDelegate
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    HeaderViewHight.constant=190;
+    HraderTitleY.constant=40;
+    searchBar.hidden=YES;
+    
+    subCategoryDic=[Searchdic mutableCopy];
+    [SearchBR resignFirstResponder];
+    [ItemTableView reloadData];
+}
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
+{
+    HeaderViewHight.constant=98;
+    HraderTitleY.constant=3;
+    
+    searchBar.showsCancelButton = YES;
+}
+
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
+{
+    [ItemTableView reloadData];
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    subCategoryDic=[Searchdic mutableCopy];
+    if([searchText isEqualToString:@""] || searchText==nil)
+    {
+        subCategoryDic=[Searchdic mutableCopy];
+        [ItemTableView reloadData];
+        return;
+    }
+    
+    NSMutableArray *resultObjectsArray = [NSMutableArray array];
+    for(NSDictionary *wine in subCategoryDic)
+    {
+        NSString *wineName = [wine objectForKey:@"productName"];
+        NSRange range = [wineName rangeOfString:searchText options:NSCaseInsensitiveSearch];
+        if(range.location != NSNotFound)
+            [resultObjectsArray addObject:wine];
+    }
+    
+    subCategoryDic=[resultObjectsArray mutableCopy];
+    [ItemTableView reloadData];
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    subCategoryDic=[Searchdic mutableCopy];
+    if([searchBar.text isEqualToString:@""] || searchBar.text==nil)
+    {
+        subCategoryDic=[Searchdic mutableCopy];
+        [ItemTableView reloadData];
+        return;
+    }
+    NSMutableArray *resultObjectsArray = [NSMutableArray array];
+    for(NSDictionary *wine in subCategoryDic)
+    {
+        NSString *wineName = [wine objectForKey:@"productName"];
+        NSRange range = [wineName rangeOfString:searchBar.text options:NSCaseInsensitiveSearch];
+        if(range.location != NSNotFound)
+            [resultObjectsArray addObject:wine];
+    }
+    
+    subCategoryDic=[resultObjectsArray mutableCopy];
+    [ItemTableView reloadData];
+    [searchBar resignFirstResponder];
+}
+
+- (IBAction)Search_Click:(id)sender
+{
+    SearchBR.hidden=NO;
+    SearchBR.text=@"";
+    [SearchBR becomeFirstResponder];
 }
 @end

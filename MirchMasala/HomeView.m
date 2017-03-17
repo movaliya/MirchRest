@@ -418,6 +418,7 @@
 
 - (IBAction)Search_Click:(id)sender
 {
+    
     SearhBR.hidden=NO;
     SearhBR.text=@"";
     [SearhBR becomeFirstResponder];
