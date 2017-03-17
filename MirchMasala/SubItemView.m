@@ -340,6 +340,9 @@
 
 -(void)Cart_Click:(id)sender
 {
+    NSDictionary *UserSaveData=[[NSUserDefaults standardUserDefaults]objectForKey:@"LoginUserDic"];
+    NSString *CoustmerID=[[[[[[UserSaveData objectForKey:@"RESPONSE"] objectForKey:@"action"] objectForKey:@"authenticate"] objectForKey:@"result"] objectForKey:@"authenticate"]  objectForKey:@"customerid"];
+    
     UIButton *senderButton = (UIButton *)sender;
     
     if ([KmyappDelegate isUserLoggedIn] == NO)
@@ -352,40 +355,92 @@
         [WithTBL reloadData];
         [WithoutTBL reloadData];
         
-        NSString *prductNM=[[subCategoryDic valueForKey:@"productName"] objectAtIndex:senderButton.tag];
-        NSString *prductPRICE=[[subCategoryDic valueForKey:@"price"] objectAtIndex:senderButton.tag];
         NSString *Quatity=[[MainCount valueForKey:@"MainCount"] objectAtIndex:senderButton.tag];
         NSString *Productid=[[subCategoryDic valueForKey:@"id"] objectAtIndex:senderButton.tag];
         
-        NSMutableDictionary *AddTocardDic = [[NSMutableDictionary alloc] init];
-        [AddTocardDic setObject:prductNM forKey:@"productName"];
-        [AddTocardDic setObject:prductPRICE forKey:@"price"];
-        [AddTocardDic setObject:Quatity forKey:@"quatity"];
-        [AddTocardDic setObject:Productid forKey:@"Productid"];
-        [AddTocardDic setObject:CategoryId forKey:@"CategoryId"];
-        
-        [AddTocardDic setObject:@"" forKey:@"ingredient"];
-        NSLog(@"AddTocardDic===%@",AddTocardDic);
-        
-        NSDictionary *UserSaveData=[[NSUserDefaults standardUserDefaults]objectForKey:@"LoginUserDic"];
-        NSString *CoustmerID=[[[[[[UserSaveData objectForKey:@"RESPONSE"] objectForKey:@"action"] objectForKey:@"authenticate"] objectForKey:@"result"] objectForKey:@"authenticate"]  objectForKey:@"customerid"];
-        
-        KmyappDelegate.MainCartArr=[[NSMutableArray alloc]initWithArray:[[NSUserDefaults standardUserDefaults]objectForKey:CoustmerID]];
-        [KmyappDelegate.MainCartArr addObject:AddTocardDic];
-        [[NSUserDefaults standardUserDefaults] setObject:KmyappDelegate.MainCartArr forKey:CoustmerID];
-        NSLog(@"==%@",KmyappDelegate.MainCartArr);
-        [AppDelegate showErrorMessageWithTitle:@"" message:@"Product Added in Cart." delegate:nil];
-        
-        if (KmyappDelegate.MainCartArr.count>0 && CoustmerID!=nil)
+        NSArray *CategoryIdArr=[KmyappDelegate.MainCartArr valueForKey:@"CategoryId"];
+        NSLog(@"=== %@",KmyappDelegate.MainCartArr);
+        if ([CategoryIdArr containsObject:CategoryId])
         {
-            [CartNotification_LBL setHidden:NO];
-            CartNotification_LBL.text=[NSString stringWithFormat:@"%lu",(unsigned long)KmyappDelegate.MainCartArr.count];
+            NSArray *ProductidArr=[KmyappDelegate.MainCartArr valueForKey:@"Productid"];
+            if ([ProductidArr containsObject:Productid])
+            {
+                NSInteger Catint=[ProductidArr indexOfObject:Productid];
+                if ([[[KmyappDelegate.MainCartArr valueForKey:@"Productid"] objectAtIndex:Catint] isEqualToString:Productid])
+                {
+                    NSArray *ingredientArr=[[KmyappDelegate.MainCartArr valueForKey:@"ingredient"] objectAtIndex:Catint];
+                    if (![ingredientArr isKindOfClass:[NSArray class]])
+                    {
+                        NSString *addqnt=[NSString stringWithFormat:@"%d",[Quatity integerValue]+[[[KmyappDelegate.MainCartArr valueForKey:@"quatity"] objectAtIndex:Catint] integerValue]];
+                        NSMutableDictionary *newDict = [[NSMutableDictionary alloc] init];
+                        NSDictionary *oldDict = (NSDictionary *)[KmyappDelegate.MainCartArr objectAtIndex:Catint];
+                        [newDict addEntriesFromDictionary:oldDict];
+                        [newDict setObject:addqnt forKey:@"quatity"];
+                        [KmyappDelegate.MainCartArr replaceObjectAtIndex:Catint withObject:newDict];
+                        [[NSUserDefaults standardUserDefaults] setObject:KmyappDelegate.MainCartArr forKey:CoustmerID];
+                        KmyappDelegate.MainCartArr=[[NSMutableArray alloc]initWithArray:[[NSUserDefaults standardUserDefaults]objectForKey:CoustmerID]];
+                        [AppDelegate showErrorMessageWithTitle:@"" message:@"Product Added in Cart." delegate:nil];
+                        
+                        if (KmyappDelegate.MainCartArr.count>0 && CoustmerID!=nil)
+                        {
+                            [CartNotification_LBL setHidden:NO];
+                            CartNotification_LBL.text=[NSString stringWithFormat:@"%lu",(unsigned long)KmyappDelegate.MainCartArr.count];
+                        }
+                        else
+                        {
+                            [CartNotification_LBL setHidden:YES];
+                        }
+                    }
+                }
+            }
+            else
+            {
+                [self Addnewitemincart:senderButton.tag];
+            }
         }
         else
         {
-            [CartNotification_LBL setHidden:YES];
+            [self Addnewitemincart:senderButton.tag];
         }
-        
+    }
+}
+
+-(void)Addnewitemincart :(NSInteger)btntag
+{
+    NSDictionary *UserSaveData=[[NSUserDefaults standardUserDefaults]objectForKey:@"LoginUserDic"];
+    NSString *CoustmerID=[[[[[[UserSaveData objectForKey:@"RESPONSE"] objectForKey:@"action"] objectForKey:@"authenticate"] objectForKey:@"result"] objectForKey:@"authenticate"]  objectForKey:@"customerid"];
+    
+    NSString *prductNM=[[subCategoryDic valueForKey:@"productName"] objectAtIndex:btntag];
+    NSString *prductPRICE=[[subCategoryDic valueForKey:@"price"] objectAtIndex:btntag];
+    NSString *Quatity=[[MainCount valueForKey:@"MainCount"] objectAtIndex:btntag];
+    NSString *Productid=[[subCategoryDic valueForKey:@"id"] objectAtIndex:btntag];
+    
+    NSMutableDictionary *AddTocardDic = [[NSMutableDictionary alloc] init];
+    [AddTocardDic setObject:prductNM forKey:@"productName"];
+    [AddTocardDic setObject:prductPRICE forKey:@"price"];
+    [AddTocardDic setObject:Quatity forKey:@"quatity"];
+    [AddTocardDic setObject:Productid forKey:@"Productid"];
+    [AddTocardDic setObject:CategoryId forKey:@"CategoryId"];
+    
+    [AddTocardDic setObject:@"" forKey:@"ingredient"];
+    NSLog(@"AddTocardDic===%@",AddTocardDic);
+    
+    
+    
+    KmyappDelegate.MainCartArr=[[NSMutableArray alloc]initWithArray:[[NSUserDefaults standardUserDefaults]objectForKey:CoustmerID]];
+    [KmyappDelegate.MainCartArr addObject:AddTocardDic];
+    [[NSUserDefaults standardUserDefaults] setObject:KmyappDelegate.MainCartArr forKey:CoustmerID];
+    NSLog(@"==%@",KmyappDelegate.MainCartArr);
+    [AppDelegate showErrorMessageWithTitle:@"" message:@"Product Added in Cart." delegate:nil];
+    
+    if (KmyappDelegate.MainCartArr.count>0 && CoustmerID!=nil)
+    {
+        [CartNotification_LBL setHidden:NO];
+        CartNotification_LBL.text=[NSString stringWithFormat:@"%lu",(unsigned long)KmyappDelegate.MainCartArr.count];
+    }
+    else
+    {
+        [CartNotification_LBL setHidden:YES];
     }
 }
 
@@ -548,6 +603,9 @@
 
 - (IBAction)Confirm_Click:(id)sender
 {
+    NSDictionary *UserSaveData=[[NSUserDefaults standardUserDefaults]objectForKey:@"LoginUserDic"];
+    NSString *CoustmerID=[[[[[[UserSaveData objectForKey:@"RESPONSE"] objectForKey:@"action"] objectForKey:@"authenticate"] objectForKey:@"result"] objectForKey:@"authenticate"]  objectForKey:@"customerid"];
+    
     if ([KmyappDelegate isUserLoggedIn] == NO)
     {
         [self performSelector:@selector(checkLoginAndPresentContainer) withObject:nil afterDelay:0.0];
@@ -571,41 +629,111 @@
         [WithTBL reloadData];
         [WithoutTBL reloadData];
         
-        NSString *prductNM=[[subCategoryDic valueForKey:@"productName"] objectAtIndex:subItemIndex];
-        NSString *prductPRICE=[[subCategoryDic valueForKey:@"price"] objectAtIndex:subItemIndex];
+//        NSString *prductNM=[[subCategoryDic valueForKey:@"productName"] objectAtIndex:subItemIndex];
+//        NSString *prductPRICE=[[subCategoryDic valueForKey:@"price"] objectAtIndex:subItemIndex];
         NSString *Quatity=[[MainCount valueForKey:@"MainCount"] objectAtIndex:subItemIndex];
         NSString *Productid=[[subCategoryDic valueForKey:@"id"] objectAtIndex:subItemIndex];
         
-        NSMutableDictionary *AddTocardDic = [[NSMutableDictionary alloc] init];
-        [AddTocardDic setObject:prductNM forKey:@"productName"];
-        [AddTocardDic setObject:prductPRICE forKey:@"price"];
-        [AddTocardDic setObject:Quatity forKey:@"quatity"];
-        [AddTocardDic setObject:Productid forKey:@"Productid"];
-        [AddTocardDic setObject:CategoryId forKey:@"CategoryId"];
-        
-        [AddTocardDic setObject:FinalArray forKey:@"ingredient"];
-        NSLog(@"AddTocardDic===%@",AddTocardDic);
-        
-        NSDictionary *UserSaveData=[[NSUserDefaults standardUserDefaults]objectForKey:@"LoginUserDic"];
-        NSString *CoustmerID=[[[[[[UserSaveData objectForKey:@"RESPONSE"] objectForKey:@"action"] objectForKey:@"authenticate"] objectForKey:@"result"] objectForKey:@"authenticate"]  objectForKey:@"customerid"];
-        
-        KmyappDelegate.MainCartArr=[[NSMutableArray alloc]initWithArray:[[NSUserDefaults standardUserDefaults]objectForKey:CoustmerID]];
-        [KmyappDelegate.MainCartArr addObject:AddTocardDic];
-        [[NSUserDefaults standardUserDefaults] setObject:KmyappDelegate.MainCartArr forKey:CoustmerID];
-        NSLog(@"==%@",KmyappDelegate.MainCartArr);
-        [AppDelegate showErrorMessageWithTitle:@"" message:@"Product Added in Cart." delegate:nil];
-        
-        if (KmyappDelegate.MainCartArr.count>0 && CoustmerID!=nil)
+        NSArray *CategoryIdArr=[KmyappDelegate.MainCartArr valueForKey:@"CategoryId"];
+        NSLog(@"=== %@",KmyappDelegate.MainCartArr);
+        if ([CategoryIdArr containsObject:CategoryId])
         {
-            [CartNotification_LBL setHidden:NO];
-            CartNotification_LBL.text=[NSString stringWithFormat:@"%lu",(unsigned long)KmyappDelegate.MainCartArr.count];
-        }
-        else
-        {
-            [CartNotification_LBL setHidden:YES];
+            NSArray *ProductidArr=[KmyappDelegate.MainCartArr valueForKey:@"Productid"];
+            if ([ProductidArr containsObject:Productid])
+            {
+                NSString *ChkStr=[[NSString alloc]init];
+                for (int i=0; i<ProductidArr.count; i++)
+                {
+                    if ([[[KmyappDelegate.MainCartArr valueForKey:@"Productid"] objectAtIndex:i] isEqualToString:Productid])
+                    {
+                        NSArray *ingredientArr=[[KmyappDelegate.MainCartArr valueForKey:@"ingredient"] objectAtIndex:i];
+                        if ([ingredientArr isKindOfClass:[NSArray class]])
+                        {
+                            NSSet *set1 = [NSSet setWithArray:ingredientArr];
+                            NSSet *set2 = [NSSet setWithArray:FinalArray];
+                            
+                            if([set1 isEqualToSet:set2])
+                            {
+                                ChkStr=@"YES";
+                                NSString *addqnt=[NSString stringWithFormat:@"%d",[Quatity integerValue]+[[[KmyappDelegate.MainCartArr valueForKey:@"quatity"] objectAtIndex:i] integerValue]];
+                                NSMutableDictionary *newDict = [[NSMutableDictionary alloc] init];
+                                NSDictionary *oldDict = (NSDictionary *)[KmyappDelegate.MainCartArr objectAtIndex:i];
+                                [newDict addEntriesFromDictionary:oldDict];
+                                [newDict setObject:addqnt forKey:@"quatity"];
+                                [KmyappDelegate.MainCartArr replaceObjectAtIndex:i withObject:newDict];
+                                [[NSUserDefaults standardUserDefaults] setObject:KmyappDelegate.MainCartArr forKey:CoustmerID];
+                                KmyappDelegate.MainCartArr=[[NSMutableArray alloc]initWithArray:[[NSUserDefaults standardUserDefaults]objectForKey:CoustmerID]];
+                                [AppDelegate showErrorMessageWithTitle:@"" message:@"Product Added in Cart." delegate:nil];
+                                
+                                if (KmyappDelegate.MainCartArr.count>0 && CoustmerID!=nil)
+                                {
+                                    [CartNotification_LBL setHidden:NO];
+                                    CartNotification_LBL.text=[NSString stringWithFormat:@"%lu",(unsigned long)KmyappDelegate.MainCartArr.count];
+                                }
+                                else
+                                {
+                                    [CartNotification_LBL setHidden:YES];
+                                }
+                                
+                                break;
+                                
+                            }
+                            else
+                            {
+                                NSLog(@"Not Same");
+                                [self Addcartdatawithoption:FinalArray];
+                                break;
+                               
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                [self Addcartdatawithoption:FinalArray];
+            }
         }
     }
 }
+
+-(void)Addcartdatawithoption :(NSArray *)finalArr
+{
+    NSDictionary *UserSaveData=[[NSUserDefaults standardUserDefaults]objectForKey:@"LoginUserDic"];
+    NSString *CoustmerID=[[[[[[UserSaveData objectForKey:@"RESPONSE"] objectForKey:@"action"] objectForKey:@"authenticate"] objectForKey:@"result"] objectForKey:@"authenticate"]  objectForKey:@"customerid"];
+    
+    NSString *prductNM=[[subCategoryDic valueForKey:@"productName"] objectAtIndex:subItemIndex];
+    NSString *prductPRICE=[[subCategoryDic valueForKey:@"price"] objectAtIndex:subItemIndex];
+    NSString *Quatity=[[MainCount valueForKey:@"MainCount"] objectAtIndex:subItemIndex];
+    NSString *Productid=[[subCategoryDic valueForKey:@"id"] objectAtIndex:subItemIndex];
+    
+    NSMutableDictionary *AddTocardDic = [[NSMutableDictionary alloc] init];
+    [AddTocardDic setObject:prductNM forKey:@"productName"];
+    [AddTocardDic setObject:prductPRICE forKey:@"price"];
+    [AddTocardDic setObject:Quatity forKey:@"quatity"];
+    [AddTocardDic setObject:Productid forKey:@"Productid"];
+    [AddTocardDic setObject:CategoryId forKey:@"CategoryId"];
+    
+    [AddTocardDic setObject:finalArr forKey:@"ingredient"];
+    NSLog(@"AddTocardDic===%@",AddTocardDic);
+    
+    KmyappDelegate.MainCartArr=[[NSMutableArray alloc]initWithArray:[[NSUserDefaults standardUserDefaults]objectForKey:CoustmerID]];
+    [KmyappDelegate.MainCartArr addObject:AddTocardDic];
+    [[NSUserDefaults standardUserDefaults] setObject:KmyappDelegate.MainCartArr forKey:CoustmerID];
+    NSLog(@"==%@",KmyappDelegate.MainCartArr);
+    [AppDelegate showErrorMessageWithTitle:@"" message:@"Product Added in Cart." delegate:nil];
+    
+    if (KmyappDelegate.MainCartArr.count>0 && CoustmerID!=nil)
+    {
+        [CartNotification_LBL setHidden:NO];
+        CartNotification_LBL.text=[NSString stringWithFormat:@"%lu",(unsigned long)KmyappDelegate.MainCartArr.count];
+    }
+    else
+    {
+        [CartNotification_LBL setHidden:YES];
+    }
+}
+
 - (IBAction)TopBarCartBtn_action:(id)sender
 {
     cartView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"cartView"];
