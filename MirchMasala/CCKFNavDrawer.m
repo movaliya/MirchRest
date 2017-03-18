@@ -436,11 +436,8 @@
         NSDictionary *UserSaveData=[[NSUserDefaults standardUserDefaults]objectForKey:@"LoginUserDic"];
         
         NSString *CoustmerID=[[[[[[UserSaveData objectForKey:@"RESPONSE"] objectForKey:@"action"] objectForKey:@"authenticate"] objectForKey:@"result"] objectForKey:@"authenticate"]  objectForKey:@"customerid"];
+        
         if (CoustmerID!=nil)
-        {
-            KmyappDelegate.MainCartArr=[[NSMutableArray alloc]initWithArray:[[NSUserDefaults standardUserDefaults]objectForKey:CoustmerID]];
-        }
-        if (KmyappDelegate.MainCartArr.count>0 || CoustmerID!=nil)
         {
             ProfileView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProfileView"];
             [super pushViewController:vcr animated:YES];
@@ -465,8 +462,27 @@
     }
     else if (indexPath.row==4)
     {
-        OrderHistryView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"OrderHistryView"];
-        [super pushViewController:vcr animated:YES];
+        NSDictionary *UserSaveData=[[NSUserDefaults standardUserDefaults]objectForKey:@"LoginUserDic"];
+        
+        NSString *CoustmerID=[[[[[[UserSaveData objectForKey:@"RESPONSE"] objectForKey:@"action"] objectForKey:@"authenticate"] objectForKey:@"result"] objectForKey:@"authenticate"]  objectForKey:@"customerid"];
+        
+        if (CoustmerID!=nil)
+        {
+            OrderHistryView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"OrderHistryView"];
+            [super pushViewController:vcr animated:YES];
+            
+        }
+        else
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please First Login"
+                                                            message:@""
+                                                           delegate:self
+                                                  cancelButtonTitle:@"Cancel"
+                                                  otherButtonTitles:@"Login",nil];
+            alert.tag=52;
+            [alert show];
+        }
+       
     }
     else if (indexPath.row==5)
     {
@@ -531,6 +547,13 @@
         if (buttonIndex == 1)
         {
              [self checkLoginAndPresentContainer];
+        }
+    }
+    if (alertView.tag==52)
+    {
+        if (buttonIndex == 1)
+        {
+            [self checkLoginAndPresentContainer];
         }
     }
 }

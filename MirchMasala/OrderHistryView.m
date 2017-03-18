@@ -25,6 +25,9 @@
 {
     [super viewDidLoad];
     
+    [self GetOrderHistory];
+    
+    
     NSDictionary *UserSaveData=[[NSUserDefaults standardUserDefaults]objectForKey:@"LoginUserDic"];
     NSString *CoustmerID=[[[[[[UserSaveData objectForKey:@"RESPONSE"] objectForKey:@"action"] objectForKey:@"authenticate"] objectForKey:@"result"] objectForKey:@"authenticate"]  objectForKey:@"customerid"];
     if (CoustmerID!=nil)
@@ -69,7 +72,90 @@
     self.LBL_cancel.backgroundColor=[UIColor whiteColor];
     [self.CancelBtn setTitleColor:[UIColor colorWithRed:(161/255.0) green:(156/255.0) blue:(156/255.0) alpha:1.0] forState:UIControlStateNormal];
 }
-
+-(void)GetOrderHistory
+{
+    NSMutableDictionary *UserSaveData = [[[NSUserDefaults standardUserDefaults] objectForKey:@"LoginUserDic"] mutableCopy];
+    if (UserSaveData)
+    {
+        NSString *CoustmerID=[[[[[[UserSaveData objectForKey:@"RESPONSE"] objectForKey:@"action"] objectForKey:@"authenticate"] objectForKey:@"result"] objectForKey:@"authenticate"]  objectForKey:@"customerid"];
+        
+        
+        [KVNProgress show] ;
+        NSMutableDictionary *dict1 = [[NSMutableDictionary alloc] init];
+        
+        [dict1 setValue:KAPIKEY forKey:@"APIKEY"];
+        
+        
+        NSMutableDictionary *dictInner = [[NSMutableDictionary alloc] init];
+        
+        [dictInner setObject:CoustmerID forKey:@"CUSTOMERID"];
+        
+        
+        
+        NSMutableDictionary *dictSub = [[NSMutableDictionary alloc] init];
+        
+        [dictSub setObject:@"getitem" forKey:@"MODULE"];
+        
+        [dictSub setObject:@"orderHistory" forKey:@"METHOD"];
+        
+        [dictSub setObject:dictInner forKey:@"PARAMS"];
+        
+        
+        NSMutableArray *arr = [[NSMutableArray alloc] initWithObjects:dictSub, nil];
+        NSMutableDictionary *dictREQUESTPARAM = [[NSMutableDictionary alloc] init];
+        
+        [dictREQUESTPARAM setObject:arr forKey:@"REQUESTPARAM"];
+        [dictREQUESTPARAM setObject:dict1 forKey:@"RESTAURANT"];
+        
+        
+        NSError* error = nil;
+        
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dictREQUESTPARAM options:NSJSONWritingPrettyPrinted error:&error];
+        // NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        
+        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                             options:NSJSONReadingMutableContainers
+                                                               error:&error];
+        
+        
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        manager.responseSerializer.acceptableContentTypes=[NSSet setWithObjects:@"text/html",@"application/json", nil];
+        AFJSONRequestSerializer *serializer = [AFJSONRequestSerializer serializer];
+        [serializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [serializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+        manager.requestSerializer = serializer;
+        manager.requestSerializer = [AFJSONRequestSerializer serializer];
+        
+        [manager POST:kBaseURL parameters:json success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject)
+         {
+             
+             NSString *SUCCESS=[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"getitem"] objectForKey:@"orderHistory"] objectForKey:@"SUCCESS"];
+             if ([SUCCESS boolValue] ==YES)
+             {
+                NSMutableDictionary *OrderHistryResult=[[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"getitem"] objectForKey:@"orderHistory"] objectForKey:@"result"] objectForKey:@"orderHistory"];
+                 NSLog(@"OrderHistryResult=%@",OrderHistryResult);
+             }
+             else
+             {
+                 [AppDelegate showErrorMessageWithTitle:@"" message:@"Server Error Please After Some Time." delegate:nil];
+             }
+             
+             [KVNProgress dismiss] ;
+         }
+              failure:^(AFHTTPRequestOperation *operation, NSError *error)
+         {
+             NSLog(@"Fail");
+             [KVNProgress dismiss] ;
+         }];
+        
+    }
+    else
+    {
+        [AppDelegate showErrorMessageWithTitle:@"" message:@"You are not Login." delegate:nil];
+    }
+    
+}
 #pragma mark UITableView delegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {

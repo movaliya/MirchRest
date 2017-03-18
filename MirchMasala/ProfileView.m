@@ -77,6 +77,10 @@
     {
         KmyappDelegate.MainCartArr=[[NSMutableArray alloc]initWithArray:[[NSUserDefaults standardUserDefaults]objectForKey:CoustmerID]];
     }
+    else
+    {
+        [self.navigationController popToRootViewControllerAnimated:NO];
+    }
     if (KmyappDelegate.MainCartArr.count>0 && CoustmerID!=nil)
     {
         [CartNotification_LBL setHidden:NO];
