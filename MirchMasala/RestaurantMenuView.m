@@ -46,6 +46,8 @@
     [super viewDidLoad];
     
     SearchBR.hidden=YES;
+    SearchBR.layer.borderWidth = 1;
+    SearchBR.layer.borderColor = [UIColor colorWithRed:(247/255.0) green:(96/255.0) blue:(41/255.0) alpha:1.0].CGColor;
     [[UIBarButtonItem appearanceWhenContainedIn: [UISearchBar class], nil] setTintColor:[UIColor whiteColor]];
 
     

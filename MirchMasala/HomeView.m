@@ -57,6 +57,8 @@
     [super viewDidLoad];
      [self.navigationController setNavigationBarHidden:YES animated:YES];
     SearhBR.hidden=YES;
+    SearhBR.layer.borderWidth = 1;
+    SearhBR.layer.borderColor = [UIColor colorWithRed:(247/255.0) green:(96/255.0) blue:(41/255.0) alpha:1.0].CGColor;
     [[UIBarButtonItem appearanceWhenContainedIn: [UISearchBar class], nil] setTintColor:[UIColor whiteColor]];
 
     
@@ -362,6 +364,8 @@
     topCategoriesDic=[Searchdic mutableCopy];
     [SearhBR resignFirstResponder];
     [CategoriesTableView reloadData];
+    
+    [statusBarView removeFromSuperview];
 }
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
@@ -376,6 +380,7 @@
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
 {
     [CategoriesTableView reloadData];
+    [statusBarView removeFromSuperview];
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
@@ -430,5 +435,12 @@
     SearhBR.hidden=NO;
     SearhBR.text=@"";
     [SearhBR becomeFirstResponder];
+    
+    UIApplication *app = [UIApplication sharedApplication];
+    CGFloat statusBarHeight = app.statusBarFrame.size.height;
+    
+   statusBarView =  [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, statusBarHeight)];
+    statusBarView.backgroundColor  =  [UIColor colorWithRed:(247/255.0) green:(96/255.0) blue:(41/255.0) alpha:1.0];
+    [self.view addSubview:statusBarView];
 }
 @end
