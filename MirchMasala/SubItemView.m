@@ -412,7 +412,6 @@
                         }
                     }
                 }
-//                NSInteger Catint=[ProductidArr indexOfObject:Productid];
             }
             else
             {
@@ -662,7 +661,6 @@
             NSArray *ProductidArr=[KmyappDelegate.MainCartArr valueForKey:@"Productid"];
             if ([ProductidArr containsObject:Productid])
             {
-                NSString *ChkStr=[[NSString alloc]init];
                 for (int i=0; i<ProductidArr.count; i++)
                 {
                     if ([[[KmyappDelegate.MainCartArr valueForKey:@"Productid"] objectAtIndex:i] isEqualToString:Productid])
@@ -675,7 +673,6 @@
                             
                             if([set1 isEqualToSet:set2])
                             {
-                                ChkStr=@"YES";
                                 NSString *addqnt=[NSString stringWithFormat:@"%d",[Quatity integerValue]+[[[KmyappDelegate.MainCartArr valueForKey:@"quatity"] objectAtIndex:i] integerValue]];
                                 NSMutableDictionary *newDict = [[NSMutableDictionary alloc] init];
                                 NSDictionary *oldDict = (NSDictionary *)[KmyappDelegate.MainCartArr objectAtIndex:i];
@@ -697,14 +694,15 @@
                                 }
                                 
                                 break;
-                                
                             }
                             else
                             {
-                                NSLog(@"Not Same");
-                                [self Addcartdatawithoption:FinalArray];
-                                break;
-                               
+                                if (i==ProductidArr.count-1)
+                                {
+                                    NSLog(@"Not Same");
+                                    [self Addcartdatawithoption:FinalArray];
+                                    break;
+                                }
                             }
                         }
                     }
