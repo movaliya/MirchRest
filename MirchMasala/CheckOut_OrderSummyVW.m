@@ -189,12 +189,13 @@
             cell.Without_LBL.text=@"--";
             cell.With_LBL.text=@"--";
         }
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         
         Total=Total*[[[KmyappDelegate.MainCartArr objectAtIndex:indexPath.section]valueForKey:@"quatity"] floatValue];
-        NSLog(@"total=%f",Total);
         MainTotal=MainTotal+Total+integratPRICE;
-        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-        cell.ProductPrice_LBL.text=[[KmyappDelegate.MainCartArr objectAtIndex:indexPath.section]valueForKey:@"productName"];
+        cell.ProductName_LBL.text=[[KmyappDelegate.MainCartArr objectAtIndex:indexPath.section]valueForKey:@"productName"];
+        
+       // NSLog(@"MainCartArr=%@",cell.ProductPrice_LBL.text);
         
         cell.Quatity_LBL.text=[[KmyappDelegate.MainCartArr objectAtIndex:indexPath.section]valueForKey:@"quatity"];
         cell.Quatity_LBL.tag=indexPath.section;

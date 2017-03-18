@@ -13,6 +13,7 @@
     NSMutableDictionary *topCategoriesDic;
     BOOL CheckMenuBool;
     NSAttributedString *AboutMessage;
+    UIView *statusBarView;
    
 }
 @property (weak, nonatomic) IBOutlet UILabel *CartNotification_LBL;

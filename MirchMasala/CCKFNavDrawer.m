@@ -440,7 +440,7 @@
         {
             KmyappDelegate.MainCartArr=[[NSMutableArray alloc]initWithArray:[[NSUserDefaults standardUserDefaults]objectForKey:CoustmerID]];
         }
-        if (KmyappDelegate.MainCartArr.count>0 && CoustmerID!=nil)
+        if (KmyappDelegate.MainCartArr.count>0 || CoustmerID!=nil)
         {
             ProfileView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProfileView"];
             [super pushViewController:vcr animated:YES];
