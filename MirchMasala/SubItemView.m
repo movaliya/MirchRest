@@ -373,33 +373,46 @@
             NSArray *ProductidArr=[KmyappDelegate.MainCartArr valueForKey:@"Productid"];
             if ([ProductidArr containsObject:Productid])
             {
-                NSInteger Catint=[ProductidArr indexOfObject:Productid];
-                if ([[[KmyappDelegate.MainCartArr valueForKey:@"Productid"] objectAtIndex:Catint] isEqualToString:Productid])
+                for (int i=0; i<ProductidArr.count; i++)
                 {
-                    NSArray *ingredientArr=[[KmyappDelegate.MainCartArr valueForKey:@"ingredient"] objectAtIndex:Catint];
-                    if (![ingredientArr isKindOfClass:[NSArray class]])
+                    if ([[[KmyappDelegate.MainCartArr valueForKey:@"Productid"] objectAtIndex:i] isEqualToString:Productid])
                     {
-                        NSString *addqnt=[NSString stringWithFormat:@"%d",[Quatity integerValue]+[[[KmyappDelegate.MainCartArr valueForKey:@"quatity"] objectAtIndex:Catint] integerValue]];
-                        NSMutableDictionary *newDict = [[NSMutableDictionary alloc] init];
-                        NSDictionary *oldDict = (NSDictionary *)[KmyappDelegate.MainCartArr objectAtIndex:Catint];
-                        [newDict addEntriesFromDictionary:oldDict];
-                        [newDict setObject:addqnt forKey:@"quatity"];
-                        [KmyappDelegate.MainCartArr replaceObjectAtIndex:Catint withObject:newDict];
-                        [[NSUserDefaults standardUserDefaults] setObject:KmyappDelegate.MainCartArr forKey:CoustmerID];
-                        KmyappDelegate.MainCartArr=[[NSMutableArray alloc]initWithArray:[[NSUserDefaults standardUserDefaults]objectForKey:CoustmerID]];
-                        [AppDelegate showErrorMessageWithTitle:@"" message:@"Product Added in Cart." delegate:nil];
-                        
-                        if (KmyappDelegate.MainCartArr.count>0 && CoustmerID!=nil)
+                        NSArray *ingredientArr=[[KmyappDelegate.MainCartArr valueForKey:@"ingredient"] objectAtIndex:i];
+                        if (![ingredientArr isKindOfClass:[NSArray class]])
                         {
-                            [CartNotification_LBL setHidden:NO];
-                            CartNotification_LBL.text=[NSString stringWithFormat:@"%lu",(unsigned long)KmyappDelegate.MainCartArr.count];
+                            NSString *addqnt=[NSString stringWithFormat:@"%d",[Quatity integerValue]+[[[KmyappDelegate.MainCartArr valueForKey:@"quatity"] objectAtIndex:i] integerValue]];
+                            NSMutableDictionary *newDict = [[NSMutableDictionary alloc] init];
+                            NSDictionary *oldDict = (NSDictionary *)[KmyappDelegate.MainCartArr objectAtIndex:i];
+                            [newDict addEntriesFromDictionary:oldDict];
+                            [newDict setObject:addqnt forKey:@"quatity"];
+                            [KmyappDelegate.MainCartArr replaceObjectAtIndex:i withObject:newDict];
+                            [[NSUserDefaults standardUserDefaults] setObject:KmyappDelegate.MainCartArr forKey:CoustmerID];
+                            KmyappDelegate.MainCartArr=[[NSMutableArray alloc]initWithArray:[[NSUserDefaults standardUserDefaults]objectForKey:CoustmerID]];
+                            [AppDelegate showErrorMessageWithTitle:@"" message:@"Product Added in Cart." delegate:nil];
+                            
+                            if (KmyappDelegate.MainCartArr.count>0 && CoustmerID!=nil)
+                            {
+                                [CartNotification_LBL setHidden:NO];
+                                CartNotification_LBL.text=[NSString stringWithFormat:@"%lu",(unsigned long)KmyappDelegate.MainCartArr.count];
+                            }
+                            else
+                            {
+                                [CartNotification_LBL setHidden:YES];
+                            }
+                            break;
                         }
                         else
                         {
-                            [CartNotification_LBL setHidden:YES];
+                            if (i==ProductidArr.count-1)
+                            {
+                                [self Addnewitemincart:senderButton.tag];
+                                break;
+                            }
+                            
                         }
                     }
                 }
+//                NSInteger Catint=[ProductidArr indexOfObject:Productid];
             }
             else
             {
