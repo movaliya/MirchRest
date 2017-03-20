@@ -138,12 +138,13 @@
              }
              else
              {
-                 [AppDelegate showErrorMessageWithTitle:@"" message:@"Server Error Please After Some Time." delegate:nil];
+                 NSString *Errormsg=[[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"getitem"] objectForKey:@"orderHistory"] objectForKey:@"ERROR"] objectForKey:@"DESCRIPTION"];
+                 [AppDelegate showErrorMessageWithTitle:@"" message:Errormsg delegate:nil];
              }
              
              [KVNProgress dismiss] ;
          }
-              failure:^(AFHTTPRequestOperation *operation, NSError *error)
+    failure:^(AFHTTPRequestOperation *operation, NSError *error)
          {
              NSLog(@"Fail");
              [KVNProgress dismiss] ;
