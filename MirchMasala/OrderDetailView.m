@@ -120,7 +120,7 @@
         cell1.ProductName_LBL.text=[[[childerDic valueForKey:@"product"] valueForKey:@"productName"]objectAtIndex:indexPath.section-1];
         cell1.ProductPrice_LBL.text=[[[childerDic valueForKey:@"product"] valueForKey:@"price"]objectAtIndex:indexPath.section-1];
         
-        NSInteger qutInt=[[[[childerDic valueForKey:@"product"] valueForKey:@"quantity"]objectAtIndex:indexPath.section-1] integerValue];
+        NSInteger qutInt=[[[childerDic valueForKey:@"quantity"] objectAtIndex:indexPath.section-1] integerValue];
         cell1.ProductQuatity_LBL.text=[NSString stringWithFormat:@"%ld",(long)qutInt];
         [cell1 setSelectionStyle:UITableViewCellSelectionStyleNone];
         return cell1;
