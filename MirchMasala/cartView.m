@@ -230,7 +230,7 @@
     [KVNProgress show] ;
     MainDiscount =@"0.00";
     NSMutableArray *ProdArr=[[NSMutableArray alloc]init];
-    NSLog(@"===%@",KmyappDelegate.MainCartArr);
+    //NSLog(@"===%@",KmyappDelegate.MainCartArr);
     for (int k=0; k<KmyappDelegate.MainCartArr.count; k++)
     {
         NSMutableArray *Array=[[[KmyappDelegate.MainCartArr objectAtIndex:k] valueForKey:@"ingredient"] mutableCopy];
@@ -238,7 +238,7 @@
         NSMutableArray *Withoutindgarr=[[NSMutableArray alloc]init];
         NSMutableDictionary *inddic=[[NSMutableDictionary alloc]init];
         
-        ProdArr=[[NSMutableArray alloc]init];
+        //ProdArr=[[NSMutableArray alloc]init];
         NSString *ProdidSr=[[NSString alloc]init];
         if ([Array isKindOfClass:[NSArray class]])
         {
@@ -276,7 +276,7 @@
     
     NSMutableDictionary *dictInner = [[NSMutableDictionary alloc] init];
     
-    [dictInner setObject:@"Collection" forKey:@"ORDERTYPE"];
+    [dictInner setObject:@"collection" forKey:@"ORDERTYPE"];
     [dictInner setObject:ProdArr forKey:@"PRODUCTS"];
     
     NSMutableDictionary *dictSub = [[NSMutableDictionary alloc] init];

@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-
+//@import Stripe;
 @interface AppDelegate ()
 
 @end
@@ -20,6 +20,7 @@
     
     // Override point for customization after application launch.
     //Kaushik
+   // [[STPPaymentConfiguration sharedConfiguration] setPublishableKey:@"pk_test_vz5YYPN2Vvk3J7Jvjd9FlEJ0"];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     return YES;
 }

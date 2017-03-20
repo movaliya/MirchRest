@@ -21,11 +21,11 @@
 @end
 
 @implementation CheckOut_OrderSummyVW
-@synthesize TableVW,CartNotification_LBL,paymentBtn;
+@synthesize TableVW,CartNotification_LBL,paymentBtn,deliveryCharge1;
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self GetDiscount];
+   
 }
 - (void)viewDidLoad
 {
@@ -65,6 +65,8 @@
     [TableVW registerNib:nib1 forCellReuseIdentifier:@"OrderSummry_Total"];
     
      Total=0.00,MainTotal=0.00;
+    
+     [self GetDiscount];
     
 }
 
@@ -226,7 +228,7 @@
         NSMutableArray *Withoutindgarr=[[NSMutableArray alloc]init];
         NSMutableDictionary *inddic=[[NSMutableDictionary alloc]init];
         
-        ProdArr=[[NSMutableArray alloc]init];
+       // ProdArr=[[NSMutableArray alloc]init];
         NSString *ProdidSr=[[NSString alloc]init];
         if ([Array isKindOfClass:[NSArray class]])
         {
@@ -305,6 +307,7 @@
          {
               NSLog(@"responseObjectjson===%@",responseObject);
              MainDiscount=[NSString stringWithFormat:@"%@",[[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"getitem"] objectForKey:@"calculateDiscount"]  objectForKey:@"result"] objectForKey:@"calculateDiscount"]];
+             //[TableVW reloadData];
          }
      }
           failure:^(AFHTTPRequestOperation *operation, NSError *error)
@@ -319,6 +322,7 @@
     CheckOut_PaymentVW *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CheckOut_PaymentVW"];
     vcr.Discount=[NSString stringWithFormat:@"%@",MainDiscount];
     vcr.OrderAmount=[NSString stringWithFormat:@"%.02f",MainTotal];
+    vcr.deliveryCharge=deliveryCharge1;
     [self.navigationController pushViewController:vcr animated:YES];
 }
 - (IBAction)TopBarCartBtn_action:(id)sender

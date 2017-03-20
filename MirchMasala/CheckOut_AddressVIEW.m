@@ -300,6 +300,7 @@
              {
                  
                  NSMutableDictionary *AddressRespose=[[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"putitem"] objectForKey:@"deliveryAddress"] objectForKey:@"result"] objectForKey:@"deliveryAddress"];
+                 NSLog(@"AddressRespose==%@",AddressRespose);
                  
                  float minimumDeliveryAmount=[[AddressRespose valueForKey:@"minimumDeliveryAmount"] floatValue];
                  float grandtot=[CartTotalAmout floatValue];
@@ -314,6 +315,7 @@
                      // Push Next View
                      [KVNProgress dismiss] ;
                      CheckOut_OrderSummyVW *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CheckOut_OrderSummyVW"];
+                     vcr.deliveryCharge1=[AddressRespose valueForKey:@"deliveryCharge"];
                      [self.navigationController pushViewController:vcr animated:YES];
                  }
              }

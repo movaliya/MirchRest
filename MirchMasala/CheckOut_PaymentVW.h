@@ -10,9 +10,13 @@
 #import "MirchMasala.pch"
 @interface CheckOut_PaymentVW : UIViewController
 {
+    NSString *OrderType;
+    NSString *PAIDAMOUNT;
+    NSString *PAYMENTTYPE;
 }
 @property (strong, nonatomic) NSString *Discount;
 @property (strong, nonatomic) NSString *OrderAmount;
+@property (strong, nonatomic) NSString *deliveryCharge;
 
 @property (weak, nonatomic) IBOutlet UILabel *Discount_LBL;
 @property (weak, nonatomic) IBOutlet UILabel *OrderAmount_LBL;

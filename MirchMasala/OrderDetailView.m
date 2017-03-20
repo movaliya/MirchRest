@@ -19,10 +19,14 @@
 @implementation OrderDetailView
 @synthesize OrderDetailTableView;
 @synthesize StatusMsg,CartNotification_LBL;
-
+@synthesize OrderHistryDetailDic;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    childerDic=[OrderHistryDetailDic objectForKey:@"children"];
+    NSLog(@"childerDic==%@",childerDic);
     
     NSDictionary *UserSaveData=[[NSUserDefaults standardUserDefaults]objectForKey:@"LoginUserDic"];
     NSString *CoustmerID=[[[[[[UserSaveData objectForKey:@"RESPONSE"] objectForKey:@"action"] objectForKey:@"authenticate"] objectForKey:@"result"] objectForKey:@"authenticate"]  objectForKey:@"customerid"];
@@ -52,6 +56,7 @@
     OrderDetailLowerCell *cell1 = [[nib instantiateWithOwner:nil options:nil] objectAtIndex:0];
     OrderDetailTableView.rowHeight = cell1.frame.size.height;
     [OrderDetailTableView registerNib:nib1 forCellReuseIdentifier:@"OrderDetailLowerCell"];
+    //NSLog(@"mainoder=%@",OrderHistryDetailDic);
     
 }
 
@@ -59,7 +64,7 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     //  return topCategoriesDic.count;
-    return 11;
+    return childerDic.count+1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -92,6 +97,12 @@
             cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
             
         }
+        NSString *orderDate=[[OrderHistryDetailDic valueForKey:@"orderDate"] valueForKey:@"date"];
+        
+        cell.OrderNumber_LBL.text=[OrderHistryDetailDic valueForKey:@"id"];
+        cell.OrderAmount_LBL.text=[OrderHistryDetailDic valueForKey:@"total"];
+         cell.Discount_LBL.text=[OrderHistryDetailDic valueForKey:@"discount"];
+        cell.OrderDate_LBL.text=orderDate;
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         cell.OrderStatus_LBL.text=StatusMsg;
         return cell;
@@ -105,6 +116,12 @@
         {
             cell1 = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         }
+        
+        cell1.ProductName_LBL.text=[[[childerDic valueForKey:@"product"] valueForKey:@"productName"]objectAtIndex:indexPath.section-1];
+        cell1.ProductPrice_LBL.text=[[[childerDic valueForKey:@"product"] valueForKey:@"price"]objectAtIndex:indexPath.section-1];
+        
+        NSInteger qutInt=[[[[childerDic valueForKey:@"product"] valueForKey:@"quantity"]objectAtIndex:indexPath.section-1] integerValue];
+        cell1.ProductQuatity_LBL.text=[NSString stringWithFormat:@"%ld",(long)qutInt];
         [cell1 setSelectionStyle:UITableViewCellSelectionStyleNone];
         return cell1;
     }
@@ -116,7 +133,7 @@
     {
         return 130;
     }
-    return 73;
+    return 90;
     
 }
 - (IBAction)TopBarCartBtn_action:(id)sender

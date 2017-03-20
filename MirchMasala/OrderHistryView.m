@@ -13,6 +13,9 @@
 
 
 @interface OrderHistryView ()
+{
+    NSMutableDictionary *CompleteOrderArr,*PendingOrderArr,*CancelOrderArr,*MainOrderHisrty;
+}
 
 @end
 
@@ -25,7 +28,9 @@
 {
     [super viewDidLoad];
     
-    [self GetOrderHistory];
+    CompleteOrderArr=[[NSMutableDictionary alloc]init];
+    PendingOrderArr=[[NSMutableDictionary alloc]init];
+    CancelOrderArr=[[NSMutableDictionary alloc]init];
     
     
     NSDictionary *UserSaveData=[[NSUserDefaults standardUserDefaults]objectForKey:@"LoginUserDic"];
@@ -71,6 +76,8 @@
     [self.pendingBtn setTitleColor:[UIColor colorWithRed:(161/255.0) green:(156/255.0) blue:(156/255.0) alpha:1.0] forState:UIControlStateNormal];
     self.LBL_cancel.backgroundColor=[UIColor whiteColor];
     [self.CancelBtn setTitleColor:[UIColor colorWithRed:(161/255.0) green:(156/255.0) blue:(156/255.0) alpha:1.0] forState:UIControlStateNormal];
+    
+    [self GetOrderHistory];
 }
 -(void)GetOrderHistory
 {
@@ -133,8 +140,11 @@
              NSString *SUCCESS=[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"getitem"] objectForKey:@"orderHistory"] objectForKey:@"SUCCESS"];
              if ([SUCCESS boolValue] ==YES)
              {
-                NSMutableDictionary *OrderHistryResult=[[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"getitem"] objectForKey:@"orderHistory"] objectForKey:@"result"] objectForKey:@"orderHistory"];
-                 NSLog(@"OrderHistryResult=%@",OrderHistryResult);
+                 MainOrderHisrty=[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"getitem"] objectForKey:@"orderHistory"] objectForKey:@"result"];
+                 
+                 PendingOrderArr=[[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"getitem"] objectForKey:@"orderHistory"] objectForKey:@"result"] objectForKey:@"orderHistory"];
+                 //NSLog(@"OrderHistryResult=%@",PendingOrderArr);
+                 [OrderHistyTableView reloadData];
              }
              else
              {
@@ -160,7 +170,21 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     //  return topCategoriesDic.count;
-    return 10;
+    
+    NSInteger SectionIndex;
+    if([OrderStatus isEqualToString:@"Completed"])
+    {
+        SectionIndex=CompleteOrderArr.count;
+    }
+    else if([OrderStatus isEqualToString:@"Pending"])
+    {
+        SectionIndex=PendingOrderArr.count;
+    }
+    else
+    {
+        SectionIndex=CancelOrderArr.count;
+    }
+    return SectionIndex;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -170,6 +194,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
+    
     return 15;
 }
 
@@ -201,7 +226,13 @@
          [cell.CancelBtn setHidden:YES];
         [cell.CancleIMG setHidden:YES];
     }
+    //
+    NSString *orderDate=[[[PendingOrderArr valueForKey:@"orderDate"] valueForKey:@"date"] objectAtIndex:indexPath.section];
+    
     cell.OrderStatus_LBL.text=OrderStatus;
+    cell.OderNumber_LBL.text=[[PendingOrderArr valueForKey:@"id"]objectAtIndex:indexPath.section];
+    cell.OrderAmount_LBL.text=[[PendingOrderArr valueForKey:@"total"]objectAtIndex:indexPath.section];
+    cell.OderDate_LBL.text=orderDate;
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     return cell;
     
@@ -211,6 +242,7 @@
 {
     OrderDetailView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"OrderDetailView"];
     vcr.StatusMsg=OrderStatus;
+    vcr.OrderHistryDetailDic=[[MainOrderHisrty valueForKey:@"orderHistory"] objectAtIndex:indexPath.section];
     [self.navigationController pushViewController:vcr animated:YES];
 }
 

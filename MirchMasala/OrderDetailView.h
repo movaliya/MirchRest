@@ -12,8 +12,10 @@
 @interface OrderDetailView : UIViewController
 {
     NSString *StatusMsg;
-  
+    NSMutableDictionary *childerDic;
 }
+@property (strong, nonatomic) NSMutableDictionary *OrderHistryDetailDic;
+
 @property (weak, nonatomic) IBOutlet UILabel *CartNotification_LBL;
 @property (strong, nonatomic) NSString *StatusMsg;
 @property (weak, nonatomic) IBOutlet UITableView *OrderDetailTableView;

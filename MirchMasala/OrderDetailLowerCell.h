@@ -9,5 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface OrderDetailLowerCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *ProductName_LBL;
+@property (weak, nonatomic) IBOutlet UILabel *ProductPrice_LBL;
+@property (weak, nonatomic) IBOutlet UILabel *ProductQuatity_LBL;
+@property (weak, nonatomic) IBOutlet UILabel *withIntegrate_LBL;
+@property (weak, nonatomic) IBOutlet UILabel *WithoutIntegrate_LBL;
 
 @end

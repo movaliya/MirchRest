@@ -1,11 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,11 +13,10 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="129"/>
+                <frame key="frameInset" width="320" height="129"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Order Number   :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="koP-Tg-rNc">
-                        <rect key="frame" x="12" y="12" width="90" height="13"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="90" id="f1g-WK-M9V"/>
                             <constraint firstAttribute="height" constant="13" id="iXq-mU-4Bj"/>
@@ -30,7 +26,6 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status                  :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oqu-mC-7eC">
-                        <rect key="frame" x="12" y="35" width="90" height="13"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="13" id="BlD-8V-BUL"/>
                             <constraint firstAttribute="width" constant="90" id="z1D-nq-GwS"/>
@@ -40,7 +35,6 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Order Amount   :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uv5-p1-ucJ">
-                        <rect key="frame" x="12" y="81" width="90" height="13"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="13" id="9DK-ob-aW7"/>
                             <constraint firstAttribute="width" constant="90" id="Qm5-0Q-ZIY"/>
@@ -50,7 +44,6 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Order Date         :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xHK-Q1-LJW">
-                        <rect key="frame" x="12" y="104" width="90" height="13"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="90" id="CLZ-bY-4cG"/>
                             <constraint firstAttribute="height" constant="13" id="s8E-0W-J4j"/>
@@ -60,7 +53,6 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#Mirch123456745232017" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CkP-u4-uU5">
-                        <rect key="frame" x="103" y="12" width="209" height="13"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="13" id="rm2-Kh-38R"/>
                         </constraints>
@@ -69,7 +61,6 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Completed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Mw-Jx-amF">
-                        <rect key="frame" x="103" y="35" width="209" height="13"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="13" id="Xi2-z9-9GY"/>
                         </constraints>
@@ -78,7 +69,6 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Discount             :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mvx-ZY-I3O">
-                        <rect key="frame" x="12" y="58" width="90" height="13"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="90" id="ZfU-d9-ULO"/>
                             <constraint firstAttribute="height" constant="13" id="uKX-ps-FX2"/>
@@ -88,7 +78,6 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="£1.95" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AB5-fd-igj">
-                        <rect key="frame" x="103" y="58" width="209" height="13"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="13" id="uKi-QV-SiT"/>
                         </constraints>
@@ -97,7 +86,6 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="£100.95" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i2f-5v-jjL">
-                        <rect key="frame" x="103" y="81" width="209" height="13"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="13" id="xf8-gZ-gAr"/>
                         </constraints>
@@ -106,7 +94,6 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="02/03/2017" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Faj-lw-xfG">
-                        <rect key="frame" x="103" y="104" width="209" height="13"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="13" id="ePY-6k-TH1"/>
                         </constraints>
@@ -144,6 +131,10 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="Discount_LBL" destination="AB5-fd-igj" id="7Wo-oc-gwf"/>
+                <outlet property="OrderAmount_LBL" destination="i2f-5v-jjL" id="ZOw-oU-gKa"/>
+                <outlet property="OrderDate_LBL" destination="Faj-lw-xfG" id="FyN-bJ-lsT"/>
+                <outlet property="OrderNumber_LBL" destination="CkP-u4-uU5" id="aRe-o6-s3k"/>
                 <outlet property="OrderStatus_LBL" destination="4Mw-Jx-amF" id="jD5-nf-xRV"/>
             </connections>
             <point key="canvasLocation" x="-271" y="-28"/>

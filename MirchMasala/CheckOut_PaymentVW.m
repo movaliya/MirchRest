@@ -10,21 +10,28 @@
 #import "successMessageVW.h"
 #import "cartView.h"
 #import "cartView.h"
-
+//@import Stripe;
 
 @interface CheckOut_PaymentVW ()
-
+{
+   // STPPaymentContext *paymentContext;
+}
+//@property (nonatomic) STPAPIClient *apiClient;
+//@property (strong, nonatomic) STPPaymentContext *paymentContext;
 @end
 
 @implementation CheckOut_PaymentVW
 @synthesize CartNotification_LBL,ProcessOrder_Btn,Discount_LBL,OrderAmount_LBL,Collection_CartBTN;
-@synthesize Discount,OrderAmount;
+@synthesize Discount,OrderAmount,deliveryCharge;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
     [self AcceptedOrderTypes];
+    OrderType=@"Collection";
+    PAYMENTTYPE=@"";
+    
     NSDictionary *UserSaveData=[[NSUserDefaults standardUserDefaults]objectForKey:@"LoginUserDic"];
     NSString *CoustmerID=[[[[[[UserSaveData objectForKey:@"RESPONSE"] objectForKey:@"action"] objectForKey:@"authenticate"] objectForKey:@"result"] objectForKey:@"authenticate"]  objectForKey:@"customerid"];
     if (CoustmerID!=nil)
@@ -50,6 +57,126 @@
     Discount_LBL.text=[NSString stringWithFormat:@"£%.02f",disct];;
     OrderAmount_LBL.text=[NSString stringWithFormat:@"£%@",OrderAmount];
     
+}
+
+-(void)PlaceOrderServiceCall
+{
+    [KVNProgress show] ;
+    NSMutableArray *ProdArr=[[NSMutableArray alloc]init];
+    //NSLog(@"===%@",KmyappDelegate.MainCartArr);
+    
+    NSDictionary *UserSaveData=[[NSUserDefaults standardUserDefaults]objectForKey:@"LoginUserDic"];
+    
+    NSString *CoustmerID=[[[[[[UserSaveData objectForKey:@"RESPONSE"] objectForKey:@"action"] objectForKey:@"authenticate"] objectForKey:@"result"] objectForKey:@"authenticate"]  objectForKey:@"customerid"];
+    
+    for (int k=0; k<KmyappDelegate.MainCartArr.count; k++)
+    {
+        NSMutableArray *Array=[[[KmyappDelegate.MainCartArr objectAtIndex:k] valueForKey:@"ingredient"] mutableCopy];
+        NSMutableArray *Withindgarr=[[NSMutableArray alloc]init];
+        NSMutableArray *Withoutindgarr=[[NSMutableArray alloc]init];
+        NSMutableDictionary *inddic=[[NSMutableDictionary alloc]init];
+       
+        
+       // ProdArr=[[NSMutableArray alloc]init];
+        NSString *ProdidSr=[[NSString alloc]init];
+        if ([Array isKindOfClass:[NSArray class]])
+        {
+            //NSLog(@"Array===%@",Array);
+            for (int i=0; i<Array.count; i++)
+            {
+                if ([[[Array objectAtIndex:i] valueForKey:@"is_with"] isEqualToString:@"1"])
+                {
+                    [Withindgarr addObject:[[Array objectAtIndex:i] valueForKey:@"ingredient_id"]];
+                }
+                else
+                {
+                    [Withoutindgarr addObject:[[Array objectAtIndex:i] valueForKey:@"ingredient_id"]];
+                }
+                ProdidSr=[[Array objectAtIndex:i] valueForKey:@"product_id"];
+            }
+            if (Withindgarr.count>0)
+            {
+                [inddic setObject:Withindgarr forKey:@"WITHINGREDIENTID"];
+            }
+            if (Withoutindgarr.count>0)
+            {
+                [inddic setObject:Withoutindgarr forKey:@"WITHOUTINGREDIENTID"];
+            }
+        }
+        
+        [inddic setObject:[[KmyappDelegate.MainCartArr objectAtIndex:k] valueForKey:@"Productid"] forKey:@"ID"];
+        [inddic setObject:[[KmyappDelegate.MainCartArr objectAtIndex:k] valueForKey:@"quatity"] forKey:@"QUANTITY"];
+        [ProdArr addObject:inddic];
+    }
+    
+    
+    NSMutableDictionary *dict1 = [[NSMutableDictionary alloc] init];
+    
+    [dict1 setValue:KAPIKEY forKey:@"APIKEY"];
+    
+    NSMutableDictionary *dictInner = [[NSMutableDictionary alloc] init];
+    [dictInner setObject:CoustmerID forKey:@"CUSTOMERID"];
+    [dictInner setObject:OrderType forKey:@"ORDERTYPE"];
+    [dictInner setObject:@"0" forKey:@"USEALTERNATEADDRESS"];
+    [dictInner setObject:PAYMENTTYPE forKey:@"PAYMENTTYPE"];
+    [dictInner setObject:PAIDAMOUNT forKey:@"PAIDAMOUNT"];
+    [dictInner setObject:ProdArr forKey:@"PRODUCTS"];
+    
+    NSMutableDictionary *dictSub = [[NSMutableDictionary alloc] init];
+    
+    [dictSub setObject:@"putitem" forKey:@"MODULE"];
+    
+    [dictSub setObject:@"webOrder" forKey:@"METHOD"];
+    
+    [dictSub setObject:dictInner forKey:@"PARAMS"];
+    
+    
+    NSMutableArray *arrs = [[NSMutableArray alloc] initWithObjects:dictSub, nil];
+    NSMutableDictionary *dictREQUESTPARAM = [[NSMutableDictionary alloc] init];
+    
+    [dictREQUESTPARAM setObject:arrs forKey:@"REQUESTPARAM"];
+    [dictREQUESTPARAM setObject:dict1 forKey:@"RESTAURANT"];
+    
+    
+    NSLog(@"dictREQUESTPARAM===%@",dictREQUESTPARAM);
+    
+    
+    NSError* error = nil;
+    
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dictREQUESTPARAM options:NSJSONWritingPrettyPrinted error:&error];
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers  error:&error];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer.acceptableContentTypes=[NSSet setWithObjects:@"text/html",@"application/json", nil];
+    AFJSONRequestSerializer *serializer = [AFJSONRequestSerializer serializer];
+    [serializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [serializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    manager.requestSerializer = serializer;
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    [manager POST:kBaseURL parameters:json success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject)
+     {
+         [KVNProgress dismiss];
+         
+         NSString *SUCCESS=[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"putitem"] objectForKey:@"webOrder"] objectForKey:@"SUCCESS"];
+         if ([SUCCESS boolValue] ==YES)
+         {
+            NSString *result=[[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"putitem"] objectForKey:@"webOrder"] objectForKey:@"result"] objectForKey:@"webOrder"];
+             NSLog(@"place order result=%@",result);
+              [AppDelegate showErrorMessageWithTitle:@"" message:result delegate:nil];
+             
+             [KmyappDelegate.MainCartArr removeAllObjects];
+             KmyappDelegate.MainCartArr=[[NSMutableArray alloc]init];
+             [[NSUserDefaults standardUserDefaults] setObject:KmyappDelegate.MainCartArr forKey:CoustmerID];
+             KmyappDelegate.MainCartArr=[[NSMutableArray alloc]initWithArray:[[NSUserDefaults standardUserDefaults]objectForKey:CoustmerID]];
+             [self.navigationController popToRootViewControllerAnimated:YES];
+         }
+     }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error)
+     {
+         NSLog(@"Fail");
+         [KVNProgress dismiss] ;
+     }];
 }
 -(void)AcceptedOrderTypes
 {
@@ -116,6 +243,7 @@
                 [self.Collection_CartBTN setImage:[UIImage imageNamed:@"RadioON"] forState:UIControlStateNormal];
             }
             else{
+                OrderType=@"Collection";
                 [self.Collection_Radio_Btn setImage:[UIImage imageNamed:@"RadioON"] forState:UIControlStateNormal];
                 [self.Delivery_Radio_Btn setImage:[UIImage imageNamed:@"RadioOFF"] forState:UIControlStateNormal];
                 [self.Collection_CartBTN setImage:[UIImage imageNamed:@"RadioOFF"] forState:UIControlStateNormal];
@@ -131,6 +259,7 @@
                 
             }
             else{
+                 OrderType=@"Delivery";
                 [self.Delivery_Radio_Btn setImage:[UIImage imageNamed:@"RadioON"] forState:UIControlStateNormal];
                 [self.Collection_Radio_Btn setImage:[UIImage imageNamed:@"RadioOFF"] forState:UIControlStateNormal];
                 [self.Collection_CartBTN setImage:[UIImage imageNamed:@"RadioOFF"] forState:UIControlStateNormal];
@@ -145,6 +274,7 @@
                 
             }
             else{
+                OrderType=@"Collection & Delivery";
                 [self.Delivery_Radio_Btn setImage:[UIImage imageNamed:@"RadioOFF"] forState:UIControlStateNormal];
                 [self.Collection_Radio_Btn setImage:[UIImage imageNamed:@"RadioOFF"] forState:UIControlStateNormal];
                 [self.Collection_CartBTN setImage:[UIImage imageNamed:@"RadioON"] forState:UIControlStateNormal];
@@ -153,33 +283,109 @@
         default:
             break;
     }
+    NSLog(@"OrderType=%@",OrderType);
 }
 
 - (IBAction)CreditCard_action:(id)sender
 {
+    PAIDAMOUNT=OrderAmount;
+    PAYMENTTYPE=@"stripe";
     [self.CreditCard_Radio_Brn setImage:[UIImage imageNamed:@"RadioON"] forState:UIControlStateNormal];
     [self.PayOnCollection_Radio setImage:[UIImage imageNamed:@"RadioOFF"] forState:UIControlStateNormal];
 }
 
 - (IBAction)PayOnCollection_action:(id)sender
 {
+    PAIDAMOUNT=@"0";
+    PAYMENTTYPE=@"pay_on_collection";
     [self.CreditCard_Radio_Brn setImage:[UIImage imageNamed:@"RadioOFF"] forState:UIControlStateNormal];
     [self.PayOnCollection_Radio setImage:[UIImage imageNamed:@"RadioON"] forState:UIControlStateNormal];
 }
 
 - (IBAction)ProcessOrder_Action:(id)sender
 {
+    
+    if ([PAYMENTTYPE isEqualToString:@""])
+    {
+         [AppDelegate showErrorMessageWithTitle:@"" message:@"Please select Payment Type." delegate:nil];
+    }
+    else if ([OrderType isEqualToString:@"Delivery"])
+    {
+        if (([deliveryCharge isEqualToString:@"-1"] ||[deliveryCharge isEqualToString:@"-2"])) {
+             [AppDelegate showErrorMessageWithTitle:@"Address Problem" message:@"We are not able to calculate Distance from our Restaurant to your Provided Address for some reason. Please check your provided address again." delegate:nil];
+        }
+        else
+        {
+             [self PlaceOrderServiceCall];
+        }
+       
+    }
+    //else if ([PAYMENTTYPE isEqualToString:@"stripe"])
+    //{
+       // [self.paymentContext presentPaymentMethodsViewController];
+    //}
+    else
+    {
+        [self PlaceOrderServiceCall];
+    }
+    
     NSDictionary *UserSaveData=[[NSUserDefaults standardUserDefaults]objectForKey:@"LoginUserDic"];
     NSString *CoustmerID=[[[[[[UserSaveData objectForKey:@"RESPONSE"] objectForKey:@"action"] objectForKey:@"authenticate"] objectForKey:@"result"] objectForKey:@"authenticate"]  objectForKey:@"customerid"];
     
-    [KmyappDelegate.MainCartArr removeAllObjects];
-    KmyappDelegate.MainCartArr=[[NSMutableArray alloc]init];
-    [[NSUserDefaults standardUserDefaults] setObject:KmyappDelegate.MainCartArr forKey:CoustmerID];
-    KmyappDelegate.MainCartArr=[[NSMutableArray alloc]initWithArray:[[NSUserDefaults standardUserDefaults]objectForKey:CoustmerID]];
-    
-    successMessageVW *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"successMessageVW"];
-    [self.navigationController pushViewController:vcr animated:YES];
+   // successMessageVW *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"successMessageVW"];
+   // [self.navigationController pushViewController:vcr animated:YES];
 }
+
+#pragma mark - Stripe delegate
+/*
+- (void)paymentContext:(STPPaymentContext *)paymentContext
+didCreatePaymentResult:(STPPaymentResult *)paymentResult
+            completion:(STPErrorBlock)completion {
+    //[self.apiClient createCharge:paymentResult.source.stripeID completion:^(NSError *error) {
+      //  if (error) {
+        //    completion(error);
+      //  } else {
+        //    completion(nil);
+      //  }
+    //}];
+}
+
+- (void)paymentContext:(STPPaymentContext *)paymentContext
+   didFinishWithStatus:(STPPaymentStatus)status
+                 error:(NSError *)error {
+    switch (status) {
+        case STPPaymentStatusSuccess:
+           // [self showReceipt];
+        case STPPaymentStatusError:
+            //[self showError:error];
+        case STPPaymentStatusUserCancellation:
+            return; // Do nothing
+    }
+}
+
+- (void)paymentContext:(STPPaymentContext *)paymentContext didUpdateShippingAddress:(STPAddress *)address completion:(STPShippingMethodsCompletionBlock)completion {
+    PKShippingMethod *upsGround = [PKShippingMethod new];
+    upsGround.amount = [NSDecimalNumber decimalNumberWithString:@"0"];
+    upsGround.label = @"UPS Ground";
+    upsGround.detail = @"Arrives in 3-5 days";
+    upsGround.identifier = @"ups_ground";
+    PKShippingMethod *fedEx = [PKShippingMethod new];
+    fedEx.amount = [NSDecimalNumber decimalNumberWithString:@"5.99"];
+    fedEx.label = @"FedEx";
+    fedEx.detail = @"Arrives tomorrow";
+    fedEx.identifier = @"fedex";
+    if ([address.country isEqualToString:@"US"]) {
+        completion(STPShippingStatusValid, nil, @[upsGround, fedEx], upsGround);
+    }
+    else {
+        completion(STPShippingStatusInvalid, nil, nil, nil);
+    }
+}
+- (void)paymentContext:(STPPaymentContext *)paymentContext didFailToLoadWithError:(NSError *)error {
+    [self.navigationController popViewControllerAnimated:YES];
+    // Show the error to your user, etc.
+}
+ */
 - (IBAction)TopBarCartBtn_action:(id)sender
 {
     cartView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"cartView"];
