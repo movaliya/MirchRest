@@ -707,6 +707,15 @@
                                 }
                             }
                         }
+                        else
+                        {
+                            if (i==ProductidArr.count-1)
+                            {
+                                NSLog(@"Not Same");
+                                [self Addcartdatawithoption:FinalArray];
+                                break;
+                            }
+                        }
                     }
                 }
             }
