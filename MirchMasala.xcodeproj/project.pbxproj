@@ -38,11 +38,6 @@
 		530C39BB1E6BE47C0073AA78 /* Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 530C39BA1E6BE47C0073AA78 /* Logo.png */; };
 		530C39BE1E6BE8040073AA78 /* SignUpView.m in Sources */ = {isa = PBXBuildFile; fileRef = 530C39BD1E6BE8040073AA78 /* SignUpView.m */; };
 		530C39C11E6C340A0073AA78 /* ForgotPasswordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 530C39C01E6C340A0073AA78 /* ForgotPasswordView.m */; };
-		530D67D11E80E8DA0045EAD7 /* Stripe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 530D67D01E80E8DA0045EAD7 /* Stripe.framework */; };
-		530D67D31E80E8E60045EAD7 /* Stripe.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 530D67D21E80E8E60045EAD7 /* Stripe.bundle */; };
-		530D67D51E80E9BE0045EAD7 /* Stripe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 530D67D01E80E8DA0045EAD7 /* Stripe.framework */; };
-		530D67D61E80E9BE0045EAD7 /* Stripe.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 530D67D01E80E8DA0045EAD7 /* Stripe.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		530D67D81E80E9C70045EAD7 /* Stripe.bundle in Embed PlugIns */ = {isa = PBXBuildFile; fileRef = 530D67D21E80E8E60045EAD7 /* Stripe.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		530EA8EC1E6D8B7500A61A88 /* SplashScreen.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 530EA8EB1E6D8B7500A61A88 /* SplashScreen.jpg */; };
 		530EA8EF1E6DA68D00A61A88 /* SubItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 530EA8EE1E6DA68D00A61A88 /* SubItemView.m */; };
 		530EA8F41E6DA77F00A61A88 /* SubitemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 530EA8F21E6DA77F00A61A88 /* SubitemCell.m */; };
@@ -125,31 +120,6 @@
 		B1C4EBAD1E6B06CE00111837 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1C4EBAC1E6B06CE00111837 /* Accelerate.framework */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		530D67D71E80E9BF0045EAD7 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				530D67D61E80E9BE0045EAD7 /* Stripe.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		530D67D91E80E9C80045EAD7 /* Embed PlugIns */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				530D67D81E80E9C70045EAD7 /* Stripe.bundle in Embed PlugIns */,
-			);
-			name = "Embed PlugIns";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		530792371E6FE124005426ED /* CCKFNavDrawer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCKFNavDrawer.h; sourceTree = "<group>"; };
 		530792381E6FE124005426ED /* CCKFNavDrawer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCKFNavDrawer.m; sourceTree = "<group>"; };
@@ -203,9 +173,6 @@
 		530C39BD1E6BE8040073AA78 /* SignUpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpView.m; sourceTree = "<group>"; };
 		530C39BF1E6C340A0073AA78 /* ForgotPasswordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPasswordView.h; sourceTree = "<group>"; };
 		530C39C01E6C340A0073AA78 /* ForgotPasswordView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotPasswordView.m; sourceTree = "<group>"; };
-		530D67D01E80E8DA0045EAD7 /* Stripe.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Stripe.framework; sourceTree = "<group>"; };
-		530D67D21E80E8E60045EAD7 /* Stripe.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Stripe.bundle; sourceTree = "<group>"; };
-		530D67DA1E8112190045EAD7 /* Constant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constant.h; sourceTree = "<group>"; };
 		530EA8EB1E6D8B7500A61A88 /* SplashScreen.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = SplashScreen.jpg; sourceTree = "<group>"; };
 		530EA8ED1E6DA68D00A61A88 /* SubItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubItemView.h; sourceTree = "<group>"; };
 		530EA8EE1E6DA68D00A61A88 /* SubItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubItemView.m; sourceTree = "<group>"; };
@@ -368,13 +335,11 @@
 				B1C4EBAD1E6B06CE00111837 /* Accelerate.framework in Frameworks */,
 				5310CC701E6AB12200091333 /* Security.framework in Frameworks */,
 				5310CC741E6AB12E00091333 /* AVFoundation.framework in Frameworks */,
-				530D67D11E80E8DA0045EAD7 /* Stripe.framework in Frameworks */,
 				B1C4EBAB1E6B069C00111837 /* CoreLocation.framework in Frameworks */,
 				5310CC761E6AB13C00091333 /* GLKit.framework in Frameworks */,
 				5310CC721E6AB12800091333 /* CFNetwork.framework in Frameworks */,
 				5310CC6E1E6AB11500091333 /* CoreGraphics.framework in Frameworks */,
 				5310CC6C1E6AB10700091333 /* SystemConfiguration.framework in Frameworks */,
-				530D67D51E80E9BE0045EAD7 /* Stripe.framework in Frameworks */,
 				5310CC6A1E6AB10100091333 /* MobileCoreServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -451,14 +416,6 @@
 			name = OrderSummry;
 			sourceTree = "<group>";
 		};
-		530D67DB1E81127B0045EAD7 /* StripePay */ = {
-			isa = PBXGroup;
-			children = (
-				530D67DA1E8112190045EAD7 /* Constant.h */,
-			);
-			name = StripePay;
-			sourceTree = "<group>";
-		};
 		530EA8F01E6DA74800A61A88 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -501,7 +458,6 @@
 				530792361E6FE104005426ED /* Side Menu */,
 				5310CBF81E6A95BE00091333 /* Images */,
 				530EA8F01E6DA74800A61A88 /* Cell */,
-				530D67DB1E81127B0045EAD7 /* StripePay */,
 				5310CBE21E6A957800091333 /* AppDelegate.h */,
 				5310CBE31E6A957800091333 /* AppDelegate.m */,
 				5310CBFC1E6AABC100091333 /* LoginVW.h */,
@@ -582,8 +538,6 @@
 		5310CC681E6AB10100091333 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				530D67D21E80E8E60045EAD7 /* Stripe.bundle */,
-				530D67D01E80E8DA0045EAD7 /* Stripe.framework */,
 				B12C94EE1E6C2AE100185A7B /* AFNetworking.framework */,
 				B1C4EBAC1E6B06CE00111837 /* Accelerate.framework */,
 				B1C4EBAA1E6B069C00111837 /* CoreLocation.framework */,
@@ -821,8 +775,6 @@
 				5310CBD81E6A957800091333 /* Sources */,
 				5310CBD91E6A957800091333 /* Frameworks */,
 				5310CBDA1E6A957800091333 /* Resources */,
-				530D67D71E80E9BF0045EAD7 /* Embed Frameworks */,
-				530D67D91E80E9C80045EAD7 /* Embed PlugIns */,
 			);
 			buildRules = (
 			);
@@ -886,7 +838,6 @@
 				5307924B1E702274005426ED /* CartGrandTotalCell.xib in Resources */,
 				530792431E6FE124005426ED /* MenuCell.xib in Resources */,
 				5310CBEC1E6A957800091333 /* Assets.xcassets in Resources */,
-				530D67D31E80E8E60045EAD7 /* Stripe.bundle in Resources */,
 				530EA9031E6DBB1000A61A88 /* CartTableCell.xib in Resources */,
 				B15F7A1B1E6C3665004A4D32 /* KVNProgressView.xib in Resources */,
 				530BEF761E718D6700614BF8 /* OderDetailUperCell.xib in Resources */,

@@ -2545,7 +2545,7 @@
                                             <constraint firstAttribute="height" constant="30" id="Rvl-sT-tvb"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <state key="normal">
+                                        <state key="normal" title="Completed">
                                             <color key="titleColor" red="0.96862745100000003" green="0.37647058820000001" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
@@ -2558,9 +2558,12 @@
                                             <constraint firstAttribute="height" constant="30" id="P1E-SN-CRl"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <state key="normal">
+                                        <state key="normal" title="Pending">
                                             <color key="titleColor" red="0.63137254901960782" green="0.61176470588235299" blue="0.61176470588235299" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="Pending_tabAction:" destination="epB-tf-RoG" eventType="touchUpInside" id="KGk-0V-hDT"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AUv-My-Rpw">
                                         <constraints>
@@ -2568,12 +2571,15 @@
                                             <constraint firstAttribute="height" constant="30" id="f8y-Eg-UuV"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <state key="normal">
+                                        <state key="normal" title="Canceled">
                                             <color key="titleColor" red="0.63137254901960782" green="0.61176470588235299" blue="0.61176470588235299" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="Cancel_TabAction:" destination="epB-tf-RoG" eventType="touchUpInside" id="VBV-Oa-FWd"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8gf-xY-Q41">
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" red="0.96862745100000003" green="0.37647058820000001" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="2" id="dlB-XG-Nmu"/>
                                             <constraint firstAttribute="width" constant="77" id="r3Q-O9-rxf"/>
@@ -2583,7 +2589,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gpa-p6-saj">
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="2" id="tgG-et-uAE"/>
                                             <constraint firstAttribute="width" constant="77" id="z82-5M-aac"/>
@@ -2593,7 +2599,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3t6-UB-jE4">
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="2" id="IEr-J5-a5R"/>
                                             <constraint firstAttribute="width" constant="77" id="Pyf-ue-4dw"/>
@@ -2606,7 +2612,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="RmO-za-o1A" firstAttribute="top" secondItem="0w6-Lb-NMa" secondAttribute="top" constant="11" id="68G-n1-VW9"/>
-                                    <constraint firstAttribute="height" id="7Hc-lM-e22"/>
+                                    <constraint firstAttribute="height" constant="50" id="7Hc-lM-e22"/>
                                     <constraint firstItem="RmO-za-o1A" firstAttribute="centerX" secondItem="0w6-Lb-NMa" secondAttribute="centerX" id="9vh-xL-kU6"/>
                                     <constraint firstAttribute="trailing" secondItem="AUv-My-Rpw" secondAttribute="trailing" constant="12" id="GXx-4i-TLf"/>
                                     <constraint firstAttribute="bottom" secondItem="8gf-xY-Q41" secondAttribute="bottom" id="J6n-4p-iAY"/>
@@ -2644,10 +2650,15 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="CancelBtn" destination="AUv-My-Rpw" id="h96-t3-2hQ"/>
                         <outlet property="CartNotification_LBL" destination="aIw-mn-e4S" id="97j-Ko-kJA"/>
                         <outlet property="CompleteBtn" destination="rBD-rK-j2i" id="kby-28-FeJ"/>
+                        <outlet property="LBL_cancel" destination="3t6-UB-jE4" id="Xvo-Vx-wGu"/>
+                        <outlet property="LBL_complete" destination="8gf-xY-Q41" id="TT7-1r-eax"/>
+                        <outlet property="LBL_pending" destination="Gpa-p6-saj" id="cwe-nS-u0Z"/>
                         <outlet property="MenuView" destination="0w6-Lb-NMa" id="gD5-ND-CvC"/>
                         <outlet property="OrderHistyTableView" destination="day-6O-fuT" id="yJQ-3e-c8L"/>
+                        <outlet property="pendingBtn" destination="RmO-za-o1A" id="Ihg-c3-ivZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hxu-0v-bU8" userLabel="First Responder" sceneMemberID="firstResponder"/>
