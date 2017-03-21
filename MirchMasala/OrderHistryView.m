@@ -170,8 +170,8 @@
 #pragma mark UITableView delegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    //  return topCategoriesDic.count;
-    
+   
+    /*
     NSInteger SectionIndex;
     if([OrderStatus isEqualToString:@"Completed"])
     {
@@ -184,8 +184,9 @@
     else
     {
         SectionIndex=CancelOrderArr.count;
-    }
-    return SectionIndex;
+    }*/
+    
+    return PendingOrderArr.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
