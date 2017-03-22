@@ -9,13 +9,16 @@
 #import "CheckOut_PaymentVW.h"
 #import "successMessageVW.h"
 #import "cartView.h"
+#import "CardExampleViewController.h"
 
 @import Stripe;
 
-@interface CheckOut_PaymentVW ()<STPAddCardViewControllerDelegate,STPPaymentContextDelegate>
+@interface CheckOut_PaymentVW ()<STPAddCardViewControllerDelegate,STPPaymentContextDelegate,ExampleViewControllerDelegate>
 {
     STPPaymentContext *paymentContext;
 }
+-(void)submitTokenToBackend:(STPToken *)token;
+
 @property (nonatomic) STPAPIClient *apiClient;
 @property (strong, nonatomic) STPPaymentContext *paymentContext;
 @end
@@ -324,8 +327,11 @@
     {
          NSLog(@"PAYMENTTYPE=%@",PAYMENTTYPE);
         
-        STPAddCardViewController *addCardViewController = [[STPAddCardViewController alloc] init];
-        addCardViewController.delegate = self;
+        
+        
+        CardExampleViewController *addCardViewController = [[CardExampleViewController alloc] init];
+       addCardViewController.delegate = self;
+         addCardViewController.amount=[NSDecimalNumber decimalNumberWithString:OrderAmount];
         // STPAddCardViewController must be shown inside a UINavigationController.
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:addCardViewController];
         [self presentViewController:navigationController animated:YES completion:nil];
@@ -341,6 +347,83 @@
 
 #pragma mark STPAddCardViewControllerDelegate
 
+#pragma mark - STPBackendCharging
+
+- (void)createBackendChargeWithSource:(NSString *)sourceID completion:(STPSourceSubmissionHandler)completion {
+    
+    NSLog(@"Token==%@",sourceID);
+    completion(STPBackendChargeResultSuccess, nil);
+    [self PlaceOrderServiceCall];
+    
+    return;
+    
+    /*
+    if (!kBaseURL) {
+        NSError *error = [NSError errorWithDomain:StripeDomain
+                                             code:STPInvalidRequestError
+                                         userInfo:@{NSLocalizedDescriptionKey: @"You must set a backend base URL in Constants.m to create a charge."}];
+        completion(STPBackendChargeResultFailure, error);
+        return;
+    }
+    
+    // This passes the token off to our payment backend, which will then actually complete charging the card using your Stripe account's secret key
+    NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:config];
+    
+    NSString *urlString = [kBaseURL stringByAppendingPathComponent:@"create_charge"];
+    NSURL *url = [NSURL URLWithString:urlString];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+    request.HTTPMethod = @"POST";
+    NSString *postBody = [NSString stringWithFormat:@"source=%@&amount=%@", sourceID, @1099];
+    NSData *data = [postBody dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSURLSessionUploadTask *uploadTask = [session uploadTaskWithRequest:request
+                                                               fromData:data
+                                                      completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                                          NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+                                                          if (!error && httpResponse.statusCode != 200) {
+                                                              error = [NSError errorWithDomain:StripeDomain
+                                                                                          code:STPInvalidRequestError
+                                                                                      userInfo:@{NSLocalizedDescriptionKey: @"There was an error connecting to your payment backend."}];
+                                                          }
+                                                          if (error) {
+                                                              completion(STPBackendChargeResultFailure, error);
+                                                          } else {
+                                                              completion(STPBackendChargeResultSuccess, nil);
+                                                          }
+                                                      }];
+    
+    [uploadTask resume];*/
+}
+
+#pragma mark - ExampleViewControllerDelegate
+
+- (void)exampleViewController:(UIViewController *)controller didFinishWithMessage:(NSString *)message {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *action = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(__unused UIAlertAction *action) {
+            [self.navigationController popToRootViewControllerAnimated:YES];
+             [controller dismissViewControllerAnimated:YES completion:nil];
+        }];
+        [alertController addAction:action];
+        [controller presentViewController:alertController animated:YES completion:nil];
+    });
+}
+
+- (void)exampleViewController:(UIViewController *)controller didFinishWithError:(NSError *)error {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:[error localizedDescription] preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *action = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(__unused UIAlertAction *action) {
+            [controller dismissViewControllerAnimated:YES completion:nil];
+            [self.navigationController popViewControllerAnimated:YES];
+        }];
+        [alertController addAction:action];
+        [controller presentViewController:alertController animated:YES completion:nil];
+    });
+}
+
+
+/*
 - (void)addCardViewControllerDidCancel:(STPAddCardViewController *)addCardViewController {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -348,17 +431,24 @@
 - (void)addCardViewController:(STPAddCardViewController *)addCardViewController
                didCreateToken:(STPToken *)token
                    completion:(STPErrorBlock)completion {
-    //[self submitTokenToBackend:token completion:^(NSError *error) {
-      //  if (error) {
-         //   completion(error);
-       // } else {
-          //  [self dismissViewControllerAnimated:YES completion:^{
-              //  [self showReceiptPage];
-           // }];
-      //  }
-   // }];
+    
+    NSLog(@"Token=%@",token);
+    if (token)
+    {
+        [self dismissViewControllerAnimated:YES completion:nil];
+        [self PlaceOrderServiceCall];
+        [AppDelegate showErrorMessageWithTitle:@"Payment Successfully" message:[NSString stringWithFormat:@"%@",token] delegate:nil];
+       
+    }
+    else
+    {
+         [self dismissViewControllerAnimated:YES completion:nil];
+        [AppDelegate showErrorMessageWithTitle:@"Payment Failures" message:@"Keep calm and retry!" delegate:nil];
+    }
+    
+    
 }
-
+*/
 - (IBAction)TopBarCartBtn_action:(id)sender
 {
     cartView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"cartView"];

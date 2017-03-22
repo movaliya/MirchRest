@@ -8,6 +8,21 @@
 
 #import <UIKit/UIKit.h>
 #import "MirchMasala.pch"
+#import <Stripe/Stripe.h>
+
+typedef NS_ENUM(NSInteger, STPBackendChargeResult) {
+    STPBackendChargeResultSuccess,
+    STPBackendChargeResultFailure,
+};
+typedef void (^STPSourceSubmissionHandler)(STPBackendChargeResult status, NSError *error);
+@protocol ExampleViewControllerDelegate <NSObject>
+
+- (void)exampleViewController:(UIViewController *)controller didFinishWithMessage:(NSString *)message;
+- (void)exampleViewController:(UIViewController *)controller didFinishWithError:(NSError *)error;
+- (void)createBackendChargeWithSource:(NSString *)sourceID completion:(STPSourceSubmissionHandler)completion;
+
+@end
+
 @interface CheckOut_PaymentVW : UIViewController
 {
     NSString *OrderType;
@@ -27,4 +42,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *CartNotification_LBL;
 @property (weak, nonatomic) IBOutlet UIButton *ProcessOrder_Btn;
 @property (strong, nonatomic) IBOutlet UIButton *Collection_CartBTN;
+
 @end

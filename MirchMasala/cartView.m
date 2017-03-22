@@ -438,12 +438,13 @@
                 cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
             }
             
-            cell.SubTotal_LBL.text=[NSString stringWithFormat:@"%.02f",MainTotal];
-            cell.Discount_LBL.text=MainDiscount;
-            float Gt=[[NSString stringWithFormat:@"%.02f",MainTotal] floatValue] - [MainDiscount floatValue];
+            cell.SubTotal_LBL.text=[NSString stringWithFormat:@"£%.02f",MainTotal];
+            cell.Discount_LBL.text=[NSString stringWithFormat:@"£%@",MainDiscount];
+            float Gt = MainTotal - [MainDiscount floatValue];
+            NSLog(@"Gt==%f",Gt);
             GandTotal=Gt;
-            cell.GrandTotal_LBL.text=[NSString stringWithFormat:@"%.02f",Gt];
-            CheckoutTotal_LBL.text=[NSString stringWithFormat:@"£%@",cell.GrandTotal_LBL.text];
+            cell.GrandTotal_LBL.text=[NSString stringWithFormat:@"£%.02f",Gt];
+            CheckoutTotal_LBL.text=[NSString stringWithFormat:@"%@",cell.GrandTotal_LBL.text];
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
             return cell;
         }
@@ -546,7 +547,9 @@
             
             Total=Total*[[[KmyappDelegate.MainCartArr objectAtIndex:indexPath.section]valueForKey:@"quatity"] floatValue];
             NSLog(@"total=%f",Total);
-            MainTotal=MainTotal+Total+integratPRICE;
+            float QUATIntegate=integratPRICE*[[[KmyappDelegate.MainCartArr objectAtIndex:indexPath.section]valueForKey:@"quatity"] floatValue];
+             NSLog(@"QUATIntegate=%f",QUATIntegate);
+            MainTotal=MainTotal+Total+QUATIntegate;
             [cell1 setSelectionStyle:UITableViewCellSelectionStyleNone];
             cell1.Title_LBL.text=[[KmyappDelegate.MainCartArr objectAtIndex:indexPath.section]valueForKey:@"productName"];
             
@@ -822,13 +825,15 @@
         [KmyappDelegate.MainCartArr replaceObjectAtIndex:senderButton.tag withObject:newDict];
         [[NSUserDefaults standardUserDefaults] setObject:KmyappDelegate.MainCartArr forKey:CoustmerID];
         KmyappDelegate.MainCartArr=[[NSMutableArray alloc]initWithArray:[[NSUserDefaults standardUserDefaults]objectForKey:CoustmerID]];
-        [self GetDiscount];
+       // [self GetDiscount];
         Total=0.0;
         MainTotal=0.0;
         [cartTable reloadData];
     }
     else
     {
+        Total=0.0;
+        MainTotal=0.0;
         [AppDelegate showErrorMessageWithTitle:@"" message:@"Invalid Quatity Number." delegate:nil];
         [cartTable reloadData];
     }

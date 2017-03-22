@@ -14,7 +14,7 @@
     [super awakeFromNib];
     // Initialization code
 }
-
+/*
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
     NSCharacterSet *numbersOnly = [NSCharacterSet characterSetWithCharactersInString:@"123456789"];
@@ -23,7 +23,7 @@
     BOOL stringIsValid = [numbersOnly isSupersetOfSet:characterSetFromTextField];
     return stringIsValid;
 }
-
+*/
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
     // Configure the view for the selected state
