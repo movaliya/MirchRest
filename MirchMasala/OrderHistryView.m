@@ -233,7 +233,7 @@
     
     cell.OrderStatus_LBL.text=OrderStatus;
     cell.OderNumber_LBL.text=[[PendingOrderArr valueForKey:@"id"]objectAtIndex:indexPath.section];
-    cell.OrderAmount_LBL.text=[[PendingOrderArr valueForKey:@"total"]objectAtIndex:indexPath.section];
+    cell.OrderAmount_LBL.text=[NSString stringWithFormat:@"£%@",[[PendingOrderArr valueForKey:@"total"]objectAtIndex:indexPath.section]];
     cell.OderDate_LBL.text=orderDate;
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     return cell;

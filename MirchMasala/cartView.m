@@ -315,8 +315,9 @@
          if ([SUCCESS boolValue] ==YES)
          {
              MainDiscount=[NSString stringWithFormat:@"%@",[[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"getitem"] objectForKey:@"calculateDiscount"]  objectForKey:@"result"] objectForKey:@"calculateDiscount"]];
+             [cartTable reloadData];
          }
-         //[cartTable reloadData];
+         
      }
     failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
@@ -662,8 +663,6 @@
             [[NSUserDefaults standardUserDefaults] setObject:KmyappDelegate.MainCartArr forKey:CoustmerID];
             KmyappDelegate.MainCartArr=[[NSMutableArray alloc]initWithArray:[[NSUserDefaults standardUserDefaults]objectForKey:CoustmerID]];
             cellcount=KmyappDelegate.MainCartArr.count;
-            
-            [self GetDiscount];
             
             Total=0.0;
             MainTotal=0.0;

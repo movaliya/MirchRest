@@ -108,10 +108,10 @@
         }
         [cell1 setSelectionStyle:UITableViewCellSelectionStyleNone];
         
-        cell1.Discount_LBL.text=MainDiscount;
+        cell1.Discount_LBL.text=[NSString stringWithFormat:@"£%@",MainDiscount];
         float Gt=[[NSString stringWithFormat:@"%.02f",MainTotal] floatValue] - [MainDiscount floatValue];
         
-        cell1.OrderAmount_LBL.text=[NSString stringWithFormat:@"%.02f",Gt];
+        cell1.OrderAmount_LBL.text=[NSString stringWithFormat:@"£%.02f",Gt];
        
         
         return cell1;
@@ -194,7 +194,8 @@
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         
         Total=Total*[[[KmyappDelegate.MainCartArr objectAtIndex:indexPath.section]valueForKey:@"quatity"] floatValue];
-        MainTotal=MainTotal+Total+integratPRICE;
+        float QUATIntegate=integratPRICE*[[[KmyappDelegate.MainCartArr objectAtIndex:indexPath.section]valueForKey:@"quatity"] floatValue];
+        MainTotal=MainTotal+Total+QUATIntegate;
         cell.ProductName_LBL.text=[[KmyappDelegate.MainCartArr objectAtIndex:indexPath.section]valueForKey:@"productName"];
         
        // NSLog(@"MainCartArr=%@",cell.ProductPrice_LBL.text);

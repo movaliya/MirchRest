@@ -100,8 +100,8 @@
         NSString *orderDate=[[OrderHistryDetailDic valueForKey:@"orderDate"] valueForKey:@"date"];
         
         cell.OrderNumber_LBL.text=[OrderHistryDetailDic valueForKey:@"id"];
-        cell.OrderAmount_LBL.text=[OrderHistryDetailDic valueForKey:@"total"];
-         cell.Discount_LBL.text=[OrderHistryDetailDic valueForKey:@"discount"];
+        cell.OrderAmount_LBL.text=[NSString stringWithFormat:@"£%@",[OrderHistryDetailDic valueForKey:@"total"]];
+         cell.Discount_LBL.text=[NSString stringWithFormat:@"£%@",[OrderHistryDetailDic valueForKey:@"discount"]];
         cell.OrderDate_LBL.text=orderDate;
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         cell.OrderStatus_LBL.text=StatusMsg;
@@ -118,7 +118,7 @@
         }
         
         cell1.ProductName_LBL.text=[[[childerDic valueForKey:@"product"] valueForKey:@"productName"]objectAtIndex:indexPath.section-1];
-        cell1.ProductPrice_LBL.text=[[[childerDic valueForKey:@"product"] valueForKey:@"price"]objectAtIndex:indexPath.section-1];
+        cell1.ProductPrice_LBL.text=[NSString stringWithFormat:@"£%@",[[[childerDic valueForKey:@"product"] valueForKey:@"price"]objectAtIndex:indexPath.section-1]];
         
         NSInteger qutInt=[[[childerDic valueForKey:@"quantity"] objectAtIndex:indexPath.section-1] integerValue];
         cell1.ProductQuatity_LBL.text=[NSString stringWithFormat:@"%ld",(long)qutInt];

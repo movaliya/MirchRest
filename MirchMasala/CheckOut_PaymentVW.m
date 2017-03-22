@@ -58,8 +58,8 @@
     
     float disct=[Discount floatValue];
     Discount_LBL.text=[NSString stringWithFormat:@"£%.02f",disct];;
-    OrderAmount_LBL.text=[NSString stringWithFormat:@"£%@",OrderAmount];
-    
+    OrderAmount_LBL.text=[NSString stringWithFormat:@"£%.02f",[OrderAmount floatValue]-disct];
+    OrderAmount=[NSString stringWithFormat:@"£%.02f",[OrderAmount floatValue]-disct];
 }
 
 -(void)PlaceOrderServiceCall
