@@ -460,6 +460,8 @@
                 cell.accessoryView = nil;
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
             }
+            Total=0.0;
+            MainTotal=0.0;
             UILabel *clearCart=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, cartTable.frame.size.width, 44)];
             clearCart.text=@"Clear Cart";
             clearCart.textColor=[UIColor redColor];
