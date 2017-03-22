@@ -21,7 +21,7 @@
 @end
 
 @implementation CardExampleViewController
-
+@synthesize amount;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
@@ -29,7 +29,7 @@
     if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
-    NSString *titleamount = [NSString stringWithFormat:@"Pay £%@", self.amount];
+    NSString *titleamount = [NSString stringWithFormat:@"Pay %@", amount];
     UIBarButtonItem *buyButton = [[UIBarButtonItem alloc] initWithTitle:titleamount style:UIBarButtonItemStyleDone target:self action:@selector(pay)];
     buyButton.enabled = NO;
     

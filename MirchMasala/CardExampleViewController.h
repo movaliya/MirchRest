@@ -11,8 +11,10 @@
 @protocol ExampleViewControllerDelegate;
 
 @interface CardExampleViewController : UIViewController
-
+{
+    NSString *amount;
+}
 @property (nonatomic, weak) id<ExampleViewControllerDelegate> delegate;
-@property (nonatomic) NSDecimalNumber *amount;
+@property (nonatomic, strong) NSString *amount;
 
 @end
