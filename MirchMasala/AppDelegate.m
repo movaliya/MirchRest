@@ -7,7 +7,8 @@
 //
 
 #import "AppDelegate.h"
-//@import Stripe;
+#import "Constant.h"
+@import Stripe;
 @interface AppDelegate ()
 
 @end
@@ -20,7 +21,13 @@
     
     // Override point for customization after application launch.
     //Kaushik
-   // [[STPPaymentConfiguration sharedConfiguration] setPublishableKey:@"pk_test_vz5YYPN2Vvk3J7Jvjd9FlEJ0"];
+    
+    if (kstrStripePublishableKey != nil) {
+        [[STPPaymentConfiguration sharedConfiguration] setPublishableKey:kstrStripePublishableKey];
+    }
+
+    [[STPPaymentConfiguration sharedConfiguration] setSmsAutofillDisabled:YES];
+    
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     return YES;
 }

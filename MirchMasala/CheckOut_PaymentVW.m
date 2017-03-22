@@ -9,15 +9,15 @@
 #import "CheckOut_PaymentVW.h"
 #import "successMessageVW.h"
 #import "cartView.h"
-#import "cartView.h"
-//@import Stripe;
 
-@interface CheckOut_PaymentVW ()
+@import Stripe;
+
+@interface CheckOut_PaymentVW ()<STPAddCardViewControllerDelegate,STPPaymentContextDelegate>
 {
-   // STPPaymentContext *paymentContext;
+    STPPaymentContext *paymentContext;
 }
-//@property (nonatomic) STPAPIClient *apiClient;
-//@property (strong, nonatomic) STPPaymentContext *paymentContext;
+@property (nonatomic) STPAPIClient *apiClient;
+@property (strong, nonatomic) STPPaymentContext *paymentContext;
 @end
 
 @implementation CheckOut_PaymentVW
@@ -320,72 +320,45 @@
         }
        
     }
-    //else if ([PAYMENTTYPE isEqualToString:@"stripe"])
-    //{
-       // [self.paymentContext presentPaymentMethodsViewController];
-    //}
+    else if ([PAYMENTTYPE isEqualToString:@"stripe"])
+    {
+         NSLog(@"PAYMENTTYPE=%@",PAYMENTTYPE);
+        
+        STPAddCardViewController *addCardViewController = [[STPAddCardViewController alloc] init];
+        addCardViewController.delegate = self;
+        // STPAddCardViewController must be shown inside a UINavigationController.
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:addCardViewController];
+        [self presentViewController:navigationController animated:YES completion:nil];
+    }
     else
     {
         [self PlaceOrderServiceCall];
     }
     
-    NSDictionary *UserSaveData=[[NSUserDefaults standardUserDefaults]objectForKey:@"LoginUserDic"];
-    NSString *CoustmerID=[[[[[[UserSaveData objectForKey:@"RESPONSE"] objectForKey:@"action"] objectForKey:@"authenticate"] objectForKey:@"result"] objectForKey:@"authenticate"]  objectForKey:@"customerid"];
-    
    // successMessageVW *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"successMessageVW"];
    // [self.navigationController pushViewController:vcr animated:YES];
 }
 
-#pragma mark - Stripe delegate
-/*
-- (void)paymentContext:(STPPaymentContext *)paymentContext
-didCreatePaymentResult:(STPPaymentResult *)paymentResult
-            completion:(STPErrorBlock)completion {
-    //[self.apiClient createCharge:paymentResult.source.stripeID completion:^(NSError *error) {
+#pragma mark STPAddCardViewControllerDelegate
+
+- (void)addCardViewControllerDidCancel:(STPAddCardViewController *)addCardViewController {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)addCardViewController:(STPAddCardViewController *)addCardViewController
+               didCreateToken:(STPToken *)token
+                   completion:(STPErrorBlock)completion {
+    //[self submitTokenToBackend:token completion:^(NSError *error) {
       //  if (error) {
-        //    completion(error);
-      //  } else {
-        //    completion(nil);
+         //   completion(error);
+       // } else {
+          //  [self dismissViewControllerAnimated:YES completion:^{
+              //  [self showReceiptPage];
+           // }];
       //  }
-    //}];
+   // }];
 }
 
-- (void)paymentContext:(STPPaymentContext *)paymentContext
-   didFinishWithStatus:(STPPaymentStatus)status
-                 error:(NSError *)error {
-    switch (status) {
-        case STPPaymentStatusSuccess:
-           // [self showReceipt];
-        case STPPaymentStatusError:
-            //[self showError:error];
-        case STPPaymentStatusUserCancellation:
-            return; // Do nothing
-    }
-}
-
-- (void)paymentContext:(STPPaymentContext *)paymentContext didUpdateShippingAddress:(STPAddress *)address completion:(STPShippingMethodsCompletionBlock)completion {
-    PKShippingMethod *upsGround = [PKShippingMethod new];
-    upsGround.amount = [NSDecimalNumber decimalNumberWithString:@"0"];
-    upsGround.label = @"UPS Ground";
-    upsGround.detail = @"Arrives in 3-5 days";
-    upsGround.identifier = @"ups_ground";
-    PKShippingMethod *fedEx = [PKShippingMethod new];
-    fedEx.amount = [NSDecimalNumber decimalNumberWithString:@"5.99"];
-    fedEx.label = @"FedEx";
-    fedEx.detail = @"Arrives tomorrow";
-    fedEx.identifier = @"fedex";
-    if ([address.country isEqualToString:@"US"]) {
-        completion(STPShippingStatusValid, nil, @[upsGround, fedEx], upsGround);
-    }
-    else {
-        completion(STPShippingStatusInvalid, nil, nil, nil);
-    }
-}
-- (void)paymentContext:(STPPaymentContext *)paymentContext didFailToLoadWithError:(NSError *)error {
-    [self.navigationController popViewControllerAnimated:YES];
-    // Show the error to your user, etc.
-}
- */
 - (IBAction)TopBarCartBtn_action:(id)sender
 {
     cartView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"cartView"];
