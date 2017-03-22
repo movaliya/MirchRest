@@ -315,9 +315,9 @@
          if ([SUCCESS boolValue] ==YES)
          {
              MainDiscount=[NSString stringWithFormat:@"%@",[[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"getitem"] objectForKey:@"calculateDiscount"]  objectForKey:@"result"] objectForKey:@"calculateDiscount"]];
+             [self CalculateTotal];
              [cartTable reloadData];
          }
-         
      }
     failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
@@ -326,6 +326,40 @@
      }];
 }
 
+-(void)CalculateTotal
+{
+    for (int i = 0; i < KmyappDelegate.MainCartArr.count; i ++)
+    {
+        NSMutableArray *Array=[[[KmyappDelegate.MainCartArr objectAtIndex:i] valueForKey:@"ingredient"] mutableCopy];
+        
+        Total=[[[KmyappDelegate.MainCartArr objectAtIndex:i]valueForKey:@"price"] floatValue];
+        float integratPRICE=0.00;
+        if ([Array isKindOfClass:[NSArray class]])
+        {
+            
+            for (int i=0; i<Array.count; i++)
+            {
+                if ([[[Array objectAtIndex:i] valueForKey:@"is_with"] boolValue]==0)
+                {
+                    integratPRICE=integratPRICE+[[[Array objectAtIndex:i] valueForKey:@"price_without"] floatValue];
+                  
+                }
+                
+            }
+            
+            // Without Lable
+           
+        }
+        
+        Total=Total*[[[KmyappDelegate.MainCartArr objectAtIndex:i]valueForKey:@"quatity"] floatValue];
+        NSLog(@"total=%f",Total);
+        float QUATIntegate=integratPRICE*[[[KmyappDelegate.MainCartArr objectAtIndex:i]valueForKey:@"quatity"] floatValue];
+        NSLog(@"QUATIntegate=%f",QUATIntegate);
+        MainTotal=MainTotal+Total+QUATIntegate;
+    }
+    
+    
+}
 #pragma mark UITableView delegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -485,7 +519,7 @@
             
             NSMutableArray *Array=[[[KmyappDelegate.MainCartArr objectAtIndex:indexPath.section] valueForKey:@"ingredient"] mutableCopy];
             
-            Total=[[[KmyappDelegate.MainCartArr objectAtIndex:indexPath.section]valueForKey:@"price"] floatValue];
+           // Total=[[[KmyappDelegate.MainCartArr objectAtIndex:indexPath.section]valueForKey:@"price"] floatValue];
              float integratPRICE=0.00;
             if ([Array isKindOfClass:[NSArray class]])
             {
@@ -548,11 +582,13 @@
                 cell1.WithOption_LBL.text=@"--";
             }
             
-            Total=Total*[[[KmyappDelegate.MainCartArr objectAtIndex:indexPath.section]valueForKey:@"quatity"] floatValue];
-            NSLog(@"total=%f",Total);
-            float QUATIntegate=integratPRICE*[[[KmyappDelegate.MainCartArr objectAtIndex:indexPath.section]valueForKey:@"quatity"] floatValue];
-             NSLog(@"QUATIntegate=%f",QUATIntegate);
-            MainTotal=MainTotal+Total+QUATIntegate;
+            //Total=Total*[[[KmyappDelegate.MainCartArr objectAtIndex:indexPath.section]valueForKey:@"quatity"] floatValue];
+            //NSLog(@"total=%f",Total);
+           // float QUATIntegate=integratPRICE*[[[KmyappDelegate.MainCartArr objectAtIndex:indexPath.section]valueForKey:@"quatity"] floatValue];
+           //  NSLog(@"QUATIntegate=%f",QUATIntegate);
+           // MainTotal=MainTotal+Total+QUATIntegate;
+            
+            
             [cell1 setSelectionStyle:UITableViewCellSelectionStyleNone];
             cell1.Title_LBL.text=[[KmyappDelegate.MainCartArr objectAtIndex:indexPath.section]valueForKey:@"productName"];
             
@@ -826,7 +862,7 @@
         [KmyappDelegate.MainCartArr replaceObjectAtIndex:senderButton.tag withObject:newDict];
         [[NSUserDefaults standardUserDefaults] setObject:KmyappDelegate.MainCartArr forKey:CoustmerID];
         KmyappDelegate.MainCartArr=[[NSMutableArray alloc]initWithArray:[[NSUserDefaults standardUserDefaults]objectForKey:CoustmerID]];
-       // [self GetDiscount];
+        [self GetDiscount];
         Total=0.0;
         MainTotal=0.0;
         [cartTable reloadData];
