@@ -126,6 +126,8 @@
             cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
             
         }
+        Total=0.0;
+        MainTotal=0.0;
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         NSMutableArray *Array=[[[KmyappDelegate.MainCartArr objectAtIndex:indexPath.section] valueForKey:@"ingredient"] mutableCopy];
         
@@ -308,7 +310,7 @@
          {
               NSLog(@"responseObjectjson===%@",responseObject);
              MainDiscount=[NSString stringWithFormat:@"%@",[[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"getitem"] objectForKey:@"calculateDiscount"]  objectForKey:@"result"] objectForKey:@"calculateDiscount"]];
-             //[TableVW reloadData];
+             [TableVW reloadData];
          }
      }
           failure:^(AFHTTPRequestOperation *operation, NSError *error)

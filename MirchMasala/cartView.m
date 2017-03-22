@@ -460,8 +460,8 @@
                 cell.accessoryView = nil;
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
             }
-            //Total=0.0;
-           // MainTotal=0.0;
+            Total=0.0;
+            MainTotal=0.0;
             UILabel *clearCart=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, cartTable.frame.size.width, 44)];
             clearCart.text=@"Clear Cart";
             clearCart.textColor=[UIColor redColor];
@@ -826,7 +826,7 @@
         [KmyappDelegate.MainCartArr replaceObjectAtIndex:senderButton.tag withObject:newDict];
         [[NSUserDefaults standardUserDefaults] setObject:KmyappDelegate.MainCartArr forKey:CoustmerID];
         KmyappDelegate.MainCartArr=[[NSMutableArray alloc]initWithArray:[[NSUserDefaults standardUserDefaults]objectForKey:CoustmerID]];
-       // [self GetDiscount];
+        [self GetDiscount];
         Total=0.0;
         MainTotal=0.0;
         [cartTable reloadData];
