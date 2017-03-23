@@ -26,7 +26,7 @@
         [[STPPaymentConfiguration sharedConfiguration] setPublishableKey:kstrStripePublishableKey];
     }
 
-    [[STPPaymentConfiguration sharedConfiguration] setSmsAutofillDisabled:YES];
+    [[STPPaymentConfiguration sharedConfiguration] setSmsAutofillDisabled:NO];
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     return YES;

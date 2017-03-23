@@ -9,7 +9,7 @@
 #import "CheckOut_PaymentVW.h"
 #import "successMessageVW.h"
 #import "cartView.h"
-#import "CardExampleViewController.h"
+#import "AddCreditCardView.h"
 
 @import Stripe;
 
@@ -325,16 +325,23 @@
     }
     else if ([PAYMENTTYPE isEqualToString:@"stripe"])
     {
-         NSLog(@"PAYMENTTYPE=%@",PAYMENTTYPE);
+         NSLog(@"OrderAmount=%@",OrderAmount);
         
+        OrderAmount = [OrderAmount stringByReplacingOccurrencesOfString:@"£"
+                                             withString:@""];
         
+        AddCreditCardView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"AddCreditCardView"];
+         vcr.delegate = self;
+        vcr.amount=[NSDecimalNumber decimalNumberWithString:OrderAmount];
+        [self.navigationController pushViewController:vcr animated:YES];
         
-        CardExampleViewController *addCardViewController = [[CardExampleViewController alloc] init];
+        /*
+        AddCreditCardView *addCardViewController = [[AddCreditCardView alloc] init];
        addCardViewController.delegate = self;
          addCardViewController.amount=[NSDecimalNumber decimalNumberWithString:OrderAmount];
         // STPAddCardViewController must be shown inside a UINavigationController.
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:addCardViewController];
-        [self presentViewController:navigationController animated:YES completion:nil];
+        [self presentViewController:navigationController animated:YES completion:nil];*/
     }
     else
     {
@@ -403,7 +410,7 @@
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *action = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(__unused UIAlertAction *action) {
             [self.navigationController popToRootViewControllerAnimated:YES];
-             [controller dismissViewControllerAnimated:YES completion:nil];
+             [self.navigationController popViewControllerAnimated:YES ];
         }];
         [alertController addAction:action];
         [controller presentViewController:alertController animated:YES completion:nil];

@@ -16,6 +16,7 @@
 		5307924A1E702274005426ED /* CartGrandTotalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 530792481E702274005426ED /* CartGrandTotalCell.m */; };
 		5307924B1E702274005426ED /* CartGrandTotalCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 530792491E702274005426ED /* CartGrandTotalCell.xib */; };
 		5307989C1E79947A005BA050 /* successMessageVW.m in Sources */ = {isa = PBXBuildFile; fileRef = 5307989B1E79947A005BA050 /* successMessageVW.m */; };
+		53083BBE1E83995800B29F0A /* AddCreditCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 53083BBD1E83995800B29F0A /* AddCreditCardView.m */; };
 		530979DB1E73ECBB00385083 /* ContactUsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 530979DA1E73ECBB00385083 /* ContactUsView.m */; };
 		530979DE1E7420C900385083 /* AboutUS.m in Sources */ = {isa = PBXBuildFile; fileRef = 530979DD1E7420C900385083 /* AboutUS.m */; };
 		530979E11E74276A00385083 /* ProfileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 530979E01E74276A00385083 /* ProfileView.m */; };
@@ -65,7 +66,6 @@
 		5310CC721E6AB12800091333 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5310CC711E6AB12800091333 /* CFNetwork.framework */; };
 		5310CC741E6AB12E00091333 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5310CC731E6AB12E00091333 /* AVFoundation.framework */; };
 		5310CC761E6AB13C00091333 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5310CC751E6AB13C00091333 /* GLKit.framework */; };
-		5362F8251E82666A00EC5F4A /* CardExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5362F8241E82666A00EC5F4A /* CardExampleViewController.m */; };
 		B13A04621E7BBF430048F36D /* RestaurantMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = B13A04611E7BBF430048F36D /* RestaurantMenuView.m */; };
 		B1451E211E6DE5E800E98C7C /* AFAutoPurgingImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B1451E1E1E6DE5E800E98C7C /* AFAutoPurgingImageCache.m */; };
 		B1451E221E6DE5E800E98C7C /* AFImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = B1451E201E6DE5E800E98C7C /* AFImageDownloader.m */; };
@@ -166,6 +166,8 @@
 		530792491E702274005426ED /* CartGrandTotalCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CartGrandTotalCell.xib; sourceTree = "<group>"; };
 		5307989A1E79947A005BA050 /* successMessageVW.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = successMessageVW.h; sourceTree = "<group>"; };
 		5307989B1E79947A005BA050 /* successMessageVW.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = successMessageVW.m; sourceTree = "<group>"; };
+		53083BBC1E83995800B29F0A /* AddCreditCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCreditCardView.h; sourceTree = "<group>"; };
+		53083BBD1E83995800B29F0A /* AddCreditCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCreditCardView.m; sourceTree = "<group>"; };
 		530979D91E73ECBB00385083 /* ContactUsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactUsView.h; sourceTree = "<group>"; };
 		530979DA1E73ECBB00385083 /* ContactUsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactUsView.m; sourceTree = "<group>"; };
 		530979DC1E7420C900385083 /* AboutUS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutUS.h; sourceTree = "<group>"; };
@@ -240,8 +242,6 @@
 		5310CC711E6AB12800091333 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		5310CC731E6AB12E00091333 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		5310CC751E6AB13C00091333 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
-		5362F8231E82666A00EC5F4A /* CardExampleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardExampleViewController.h; sourceTree = "<group>"; };
-		5362F8241E82666A00EC5F4A /* CardExampleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardExampleViewController.m; sourceTree = "<group>"; };
 		B12C94EE1E6C2AE100185A7B /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AFNetworking.framework; path = MirchMasala/AFNetworking/AFNetworking.framework; sourceTree = "<group>"; };
 		B13A04601E7BBF430048F36D /* RestaurantMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantMenuView.h; sourceTree = "<group>"; };
 		B13A04611E7BBF430048F36D /* RestaurantMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantMenuView.m; sourceTree = "<group>"; };
@@ -400,6 +400,13 @@
 			name = "Side Menu";
 			sourceTree = "<group>";
 		};
+		53083BBF1E83BF6100B29F0A /* Custom Class */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Custom Class";
+			sourceTree = "<group>";
+		};
 		530BEF701E718B4300614BF8 /* CartCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -458,8 +465,8 @@
 			isa = PBXGroup;
 			children = (
 				530D67DA1E8112190045EAD7 /* Constant.h */,
-				5362F8231E82666A00EC5F4A /* CardExampleViewController.h */,
-				5362F8241E82666A00EC5F4A /* CardExampleViewController.m */,
+				53083BBC1E83995800B29F0A /* AddCreditCardView.h */,
+				53083BBD1E83995800B29F0A /* AddCreditCardView.m */,
 			);
 			name = StripePay;
 			sourceTree = "<group>";
@@ -503,6 +510,7 @@
 		5310CBDE1E6A957800091333 /* MirchMasala */ = {
 			isa = PBXGroup;
 			children = (
+				53083BBF1E83BF6100B29F0A /* Custom Class */,
 				530792361E6FE104005426ED /* Side Menu */,
 				5310CBF81E6A95BE00091333 /* Images */,
 				530EA8F01E6DA74800A61A88 /* Cell */,
@@ -919,7 +927,6 @@
 				5310CBE41E6A957800091333 /* AppDelegate.m in Sources */,
 				B15F7A7C1E6C3964004A4D32 /* AFSecurityPolicy.m in Sources */,
 				5309EDD31E6EA8D400A216F2 /* HomeView.m in Sources */,
-				5362F8251E82666A00EC5F4A /* CardExampleViewController.m in Sources */,
 				B1451E221E6DE5E800E98C7C /* AFImageDownloader.m in Sources */,
 				B1451E211E6DE5E800E98C7C /* AFAutoPurgingImageCache.m in Sources */,
 				B15F7A191E6C3665004A4D32 /* KVNProgress.m in Sources */,
@@ -991,6 +998,7 @@
 				530C39BE1E6BE8040073AA78 /* SignUpView.m in Sources */,
 				530BA8E31E7C5ACA002FDCA2 /* ShoppingPolicy_View.m in Sources */,
 				B15F7A0E1E6C3665004A4D32 /* IQKeyboardReturnKeyHandler.m in Sources */,
+				53083BBE1E83995800B29F0A /* AddCreditCardView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
