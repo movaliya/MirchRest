@@ -60,7 +60,15 @@
         cartTable.hidden=NO;
         cellcount=KmyappDelegate.MainCartArr.count;
         [cartNotification_LBL setHidden:NO];
-        cartNotification_LBL.text=[NSString stringWithFormat:@"%lu",(unsigned long)KmyappDelegate.MainCartArr.count];
+        
+        NSInteger qnttotal=0;
+        for (int i=0; i<KmyappDelegate.MainCartArr.count; i++)
+        {
+            qnttotal=qnttotal+[[[KmyappDelegate.MainCartArr objectAtIndex:i]valueForKey:@"quatity"] integerValue];
+        }
+        
+        cartNotification_LBL.text=[NSString stringWithFormat:@"%lu",(unsigned long)qnttotal];
+        
         ExtraCellINT=1;
     }
     else
@@ -676,7 +684,12 @@
                 cartTable.hidden=NO;
                 
                 [cartNotification_LBL setHidden:NO];
-                cartNotification_LBL.text=[NSString stringWithFormat:@"%lu",(unsigned long)KmyappDelegate.MainCartArr.count];
+                NSInteger qnttotal=0;
+                for (int i=0; i<KmyappDelegate.MainCartArr.count; i++)
+                {
+                    qnttotal=qnttotal+[[[KmyappDelegate.MainCartArr objectAtIndex:i]valueForKey:@"quatity"] integerValue];
+                }
+                cartNotification_LBL.text=[NSString stringWithFormat:@"%lu",(unsigned long)qnttotal];
             }
             else
             {
@@ -862,8 +875,14 @@
         Notavailable_LBL.hidden=YES;
         cartTable.hidden=NO;
 
+        NSInteger qnttotal=0;
+        for (int i=0; i<KmyappDelegate.MainCartArr.count; i++)
+        {
+            qnttotal=qnttotal+[[[KmyappDelegate.MainCartArr objectAtIndex:i]valueForKey:@"quatity"] integerValue];
+        }
+        
         [cartNotification_LBL setHidden:NO];
-        cartNotification_LBL.text=[NSString stringWithFormat:@"%lu",(unsigned long)KmyappDelegate.MainCartArr.count];
+        cartNotification_LBL.text=[NSString stringWithFormat:@"%lu",(unsigned long)qnttotal];
     }
     else
     {
