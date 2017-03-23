@@ -338,7 +338,7 @@
         /*
         AddCreditCardView *addCardViewController = [[AddCreditCardView alloc] init];
        addCardViewController.delegate = self;
-         addCardViewController.amount=[NSDecimalNumber decimalNumberWithString:OrderAmount];
+         addCardViewController.amount=OrderAmount;
         // STPAddCardViewController must be shown inside a UINavigationController.
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:addCardViewController];
         [self presentViewController:navigationController animated:YES completion:nil];*/
