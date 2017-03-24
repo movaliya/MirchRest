@@ -359,9 +359,12 @@
 - (void)createBackendChargeWithSource:(NSString *)sourceID completion:(STPSourceSubmissionHandler)completion {
     
     NSLog(@"Token==%@",sourceID);
-    completion(STPBackendChargeResultSuccess, nil);
-    [self PlaceOrderServiceCall];
-    
+    if (sourceID)
+    {
+        completion(STPBackendChargeResultSuccess, nil);
+        //[self PlaceOrderServiceCall];
+        [self ChargeCard:sourceID paidAmount:OrderAmount];
+    }
     return;
     
     /*
@@ -402,7 +405,79 @@
     
     [uploadTask resume];*/
 }
+-(void)ChargeCard:(NSString *)token paidAmount:(NSString *)Amoumnt
+{
+    [KVNProgress show] ;
+    NSMutableDictionary *dict1 = [[NSMutableDictionary alloc] init];
+    
+    [dict1 setValue:KAPIKEY forKey:@"APIKEY"];
+    
+    
+    NSMutableDictionary *dictInner = [[NSMutableDictionary alloc] init];
+    
+    [dictInner setObject:Amoumnt forKey:@"AMOUNT"];
+    
+    [dictInner setObject:token forKey:@"TOKEN"];
+    
+    
+    NSMutableDictionary *dictSub = [[NSMutableDictionary alloc] init];
+    
+    [dictSub setObject:@"action" forKey:@"MODULE"];
+    
+    [dictSub setObject:@"chargeCard" forKey:@"METHOD"];
+    
+    [dictSub setObject:dictInner forKey:@"PARAMS"];
+    
+    
+    NSMutableArray *arr = [[NSMutableArray alloc] initWithObjects:dictSub, nil];
+    NSMutableDictionary *dictREQUESTPARAM = [[NSMutableDictionary alloc] init];
+    
+    [dictREQUESTPARAM setObject:arr forKey:@"REQUESTPARAM"];
+    [dictREQUESTPARAM setObject:dict1 forKey:@"RESTAURANT"];
+    
+    
+    NSError* error = nil;
+    
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dictREQUESTPARAM options:NSJSONWritingPrettyPrinted error:&error];
+    // NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                         options:NSJSONReadingMutableContainers
+                                                           error:&error];
+    
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer.acceptableContentTypes=[NSSet setWithObjects:@"text/html",@"application/json", nil];
+    AFJSONRequestSerializer *serializer = [AFJSONRequestSerializer serializer];
+    [serializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [serializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    manager.requestSerializer = serializer;
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    [manager POST:kBaseURL parameters:json success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject)
+     {
+         NSLog(@"responseObject==%@",responseObject);
+         NSString *SUCCESS=[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"action"] objectForKey:@"authenticate"] objectForKey:@"SUCCESS"];
+         if ([SUCCESS boolValue] ==YES)
+         {
+             
+         }
+         else
+         {
+             [AppDelegate showErrorMessageWithTitle:@"" message:@"Server Error." delegate:nil];
+         }
+         
+         [KVNProgress dismiss] ;
+     }
+     
+          failure:^(AFHTTPRequestOperation *operation, NSError *error)
+     {
+         NSLog(@"Fail");
+         [KVNProgress dismiss] ;
+     }];
 
+}
 #pragma mark - ExampleViewControllerDelegate
 
 - (void)exampleViewController:(UIViewController *)controller didFinishWithMessage:(NSString *)message {
