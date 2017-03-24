@@ -29,8 +29,14 @@
     }
     if (KmyappDelegate.MainCartArr.count>0 && CoustmerID!=nil)
     {
+        NSInteger qnttotal=0;
+        for (int i=0; i<KmyappDelegate.MainCartArr.count; i++)
+        {
+            qnttotal=qnttotal+[[[KmyappDelegate.MainCartArr objectAtIndex:i]valueForKey:@"quatity"] integerValue];
+        }
+        
         [CartNotification_LBL setHidden:NO];
-        CartNotification_LBL.text=[NSString stringWithFormat:@"%lu",(unsigned long)KmyappDelegate.MainCartArr.count];
+        CartNotification_LBL.text=[NSString stringWithFormat:@"%lu",(unsigned long)qnttotal];
     }
     else
     {
@@ -75,14 +81,5 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

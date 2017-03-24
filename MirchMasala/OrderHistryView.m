@@ -41,15 +41,21 @@
     }
     if (KmyappDelegate.MainCartArr.count>0 && CoustmerID!=nil)
     {
+        NSInteger qnttotal=0;
+        for (int i=0; i<KmyappDelegate.MainCartArr.count; i++)
+        {
+            qnttotal=qnttotal+[[[KmyappDelegate.MainCartArr objectAtIndex:i]valueForKey:@"quatity"] integerValue];
+        }
+        
         [CartNotification_LBL setHidden:NO];
-        CartNotification_LBL.text=[NSString stringWithFormat:@"%lu",(unsigned long)KmyappDelegate.MainCartArr.count];
+        CartNotification_LBL.text=[NSString stringWithFormat:@"%lu",(unsigned long)qnttotal];
     }
     else
     {
         [CartNotification_LBL setHidden:YES];
     }
     CartNotification_LBL.layer.masksToBounds = YES;
-    CartNotification_LBL.layer.cornerRadius = 8.0f;
+    CartNotification_LBL.layer.cornerRadius = 10.0f;
     
     self.rootNav = (CCKFNavDrawer *)self.navigationController;
     [self.rootNav setCCKFNavDrawerDelegate:self];

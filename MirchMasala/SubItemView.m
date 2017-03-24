@@ -54,8 +54,14 @@
     }
     if (KmyappDelegate.MainCartArr.count>0 && CoustmerID!=nil)
     {
+        NSInteger qnttotal=0;
+        for (int i=0; i<KmyappDelegate.MainCartArr.count; i++)
+        {
+            qnttotal=qnttotal+[[[KmyappDelegate.MainCartArr objectAtIndex:i]valueForKey:@"quatity"] integerValue];
+        }
+        
         [CartNotification_LBL setHidden:NO];
-        CartNotification_LBL.text=[NSString stringWithFormat:@"%lu",(unsigned long)KmyappDelegate.MainCartArr.count];
+        CartNotification_LBL.text=[NSString stringWithFormat:@"%lu",(unsigned long)qnttotal];
     }
     else
     {
@@ -394,8 +400,14 @@
                             
                             if (KmyappDelegate.MainCartArr.count>0 && CoustmerID!=nil)
                             {
+                                NSInteger qnttotal=0;
+                                for (int i=0; i<KmyappDelegate.MainCartArr.count; i++)
+                                {
+                                    qnttotal=qnttotal+[[[KmyappDelegate.MainCartArr objectAtIndex:i]valueForKey:@"quatity"] integerValue];
+                                }
+                                
                                 [CartNotification_LBL setHidden:NO];
-                                CartNotification_LBL.text=[NSString stringWithFormat:@"%lu",(unsigned long)KmyappDelegate.MainCartArr.count];
+                                CartNotification_LBL.text=[NSString stringWithFormat:@"%lu",(unsigned long)qnttotal];
                             }
                             else
                             {
@@ -457,8 +469,14 @@
     
     if (KmyappDelegate.MainCartArr.count>0 && CoustmerID!=nil)
     {
+        NSInteger qnttotal=0;
+        for (int i=0; i<KmyappDelegate.MainCartArr.count; i++)
+        {
+            qnttotal=qnttotal+[[[KmyappDelegate.MainCartArr objectAtIndex:i]valueForKey:@"quatity"] integerValue];
+        }
+        
         [CartNotification_LBL setHidden:NO];
-        CartNotification_LBL.text=[NSString stringWithFormat:@"%lu",(unsigned long)KmyappDelegate.MainCartArr.count];
+        CartNotification_LBL.text=[NSString stringWithFormat:@"%lu",(unsigned long)qnttotal];
     }
     else
     {
@@ -687,8 +705,14 @@
                                 
                                 if (KmyappDelegate.MainCartArr.count>0 && CoustmerID!=nil)
                                 {
+                                    NSInteger qnttotal=0;
+                                    for (int i=0; i<KmyappDelegate.MainCartArr.count; i++)
+                                    {
+                                        qnttotal=qnttotal+[[[KmyappDelegate.MainCartArr objectAtIndex:i]valueForKey:@"quatity"] integerValue];
+                                    }
+                                    
                                     [CartNotification_LBL setHidden:NO];
-                                    CartNotification_LBL.text=[NSString stringWithFormat:@"%lu",(unsigned long)KmyappDelegate.MainCartArr.count];
+                                    CartNotification_LBL.text=[NSString stringWithFormat:@"%lu",(unsigned long)qnttotal];
                                 }
                                 else
                                 {
@@ -759,8 +783,14 @@
     
     if (KmyappDelegate.MainCartArr.count>0 && CoustmerID!=nil)
     {
+        NSInteger qnttotal=0;
+        for (int i=0; i<KmyappDelegate.MainCartArr.count; i++)
+        {
+            qnttotal=qnttotal+[[[KmyappDelegate.MainCartArr objectAtIndex:i]valueForKey:@"quatity"] integerValue];
+        }
         [CartNotification_LBL setHidden:NO];
-        CartNotification_LBL.text=[NSString stringWithFormat:@"%lu",(unsigned long)KmyappDelegate.MainCartArr.count];
+        CartNotification_LBL.text=[NSString stringWithFormat:@"%lu",(unsigned long)qnttotal];
+        
     }
     else
     {
