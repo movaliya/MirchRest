@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "Constant.h"
+#import "MirchMasala.pch"
 @import Stripe;
 @interface AppDelegate ()
 
@@ -22,9 +23,7 @@
     // Override point for customization after application launch.
     //Kaushik
     
-    if (kstrStripePublishableKey != nil) {
-        [[STPPaymentConfiguration sharedConfiguration] setPublishableKey:kstrStripePublishableKey];
-    }
+    [self GetPublishableKey];
 
     [[STPPaymentConfiguration sharedConfiguration] setSmsAutofillDisabled:NO];
     
@@ -35,7 +34,62 @@
 {
     return (AppDelegate *)[UIApplication sharedApplication].delegate;
 }
-
+-(void)GetPublishableKey
+{
+    NSMutableDictionary *dict1 = [[NSMutableDictionary alloc] init];
+    
+    [dict1 setValue:KAPIKEY forKey:@"APIKEY"];
+    
+    NSMutableDictionary *dictSub = [[NSMutableDictionary alloc] init];
+    [dictSub setObject:@"getitem" forKey:@"MODULE"];
+    [dictSub setObject:@"publishableKey" forKey:@"METHOD"];
+    
+    NSMutableArray *arr = [[NSMutableArray alloc] initWithObjects:dictSub, nil];
+    NSMutableDictionary *dictREQUESTPARAM = [[NSMutableDictionary alloc] init];
+    
+    [dictREQUESTPARAM setObject:arr forKey:@"REQUESTPARAM"];
+    [dictREQUESTPARAM setObject:dict1 forKey:@"RESTAURANT"];
+    
+    
+    NSError* error = nil;
+    
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dictREQUESTPARAM options:NSJSONWritingPrettyPrinted error:&error];
+    // NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                         options:NSJSONReadingMutableContainers
+                                                           error:&error];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer.acceptableContentTypes=[NSSet setWithObjects:@"text/html",@"application/json", nil];
+    AFJSONRequestSerializer *serializer = [AFJSONRequestSerializer serializer];
+    [serializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [serializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    manager.requestSerializer = serializer;
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    [manager POST:kBaseURL parameters:json success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject)
+     {
+         NSString *SUCCESS=[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"getitem"] objectForKey:@"publishableKey"] objectForKey:@"SUCCESS"];
+         
+         if ([SUCCESS boolValue] ==YES)
+         {
+             kstrStripePublishableKey=[[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"getitem"] objectForKey:@"publishableKey"] objectForKey:@"result"] objectForKey:@"publishableKey"];
+             NSLog(@"kstrStripePublishableKey==%@",kstrStripePublishableKey);
+             
+             if (kstrStripePublishableKey != nil) {
+                 [[STPPaymentConfiguration sharedConfiguration] setPublishableKey:kstrStripePublishableKey];
+             }
+         }
+         
+         
+     }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error)
+     {
+         NSLog(@"Fail");
+         [KVNProgress dismiss] ;
+     }];
+}
 +(BOOL)IsValidEmail:(NSString *)checkString
 {
     BOOL stricterFilter = NO;

@@ -141,6 +141,7 @@
 - (void)performStripeOperation
 {
     
+    NSLog(@"defaultPublishableKey=%@",[Stripe defaultPublishableKey]);
     if (![Stripe defaultPublishableKey]) {
         [self.delegate exampleViewController:self didFinishWithMessage:@"Please set a Stripe Publishable Key in Constants.m"];
         return;
@@ -163,7 +164,7 @@
                                                       return;
                                                   }
                                                    [KVNProgress dismiss];
-                                                  [self.delegate exampleViewController:self didFinishWithMessage:@"Payment successfully created"];
+                                                 // [self.delegate exampleViewController:self didFinishWithMessage:@"Payment successfully created"];
                                               }];
                                           }];
      [KVNProgress dismiss];

@@ -10,6 +10,6 @@
 #define Constant_h
 
 // This can be found at https://dashboard.stripe.com/account/apikeys
-NSString *const kstrStripePublishableKey = @"pk_test_AdQkfvDPjhh5OBqmlJ5DGCub"; // TODO: replace nil with your own value
+NSString *kstrStripePublishableKey = nil; // TODO: replace nil with your own value
 
 #endif /* Constant_h */

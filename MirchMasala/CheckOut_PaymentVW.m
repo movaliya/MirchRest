@@ -172,13 +172,16 @@
          {
             NSString *result=[[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"putitem"] objectForKey:@"webOrder"] objectForKey:@"result"] objectForKey:@"webOrder"];
              NSLog(@"place order result=%@",result);
-              [AppDelegate showErrorMessageWithTitle:@"" message:result delegate:nil];
+              //[AppDelegate showErrorMessageWithTitle:@"" message:result delegate:nil];
              
              [KmyappDelegate.MainCartArr removeAllObjects];
              KmyappDelegate.MainCartArr=[[NSMutableArray alloc]init];
              [[NSUserDefaults standardUserDefaults] setObject:KmyappDelegate.MainCartArr forKey:CoustmerID];
              KmyappDelegate.MainCartArr=[[NSMutableArray alloc]initWithArray:[[NSUserDefaults standardUserDefaults]objectForKey:CoustmerID]];
-             [self.navigationController popToRootViewControllerAnimated:YES];
+             
+              successMessageVW *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"successMessageVW"];
+              [self.navigationController pushViewController:vcr animated:YES];
+             //[self.navigationController popToRootViewControllerAnimated:YES];
          }
      }
           failure:^(AFHTTPRequestOperation *operation, NSError *error)
@@ -425,7 +428,6 @@
     
     [dictInner setObject:token forKey:@"TOKEN"];
     
-    
     NSMutableDictionary *dictSub = [[NSMutableDictionary alloc] init];
     
     [dictSub setObject:@"action" forKey:@"MODULE"];
@@ -440,7 +442,7 @@
     
     [dictREQUESTPARAM setObject:arr forKey:@"REQUESTPARAM"];
     [dictREQUESTPARAM setObject:dict1 forKey:@"RESTAURANT"];
-    
+    NSLog(@"dictREQUESTPARAM==%@",dictREQUESTPARAM);
     
     NSError* error = nil;
     
@@ -464,6 +466,7 @@
     [manager POST:kBaseURL parameters:json success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject)
      {
          NSLog(@"responseObject==%@",responseObject);
+         [self PlaceOrderServiceCall];
          NSString *SUCCESS=[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"action"] objectForKey:@"authenticate"] objectForKey:@"SUCCESS"];
          if ([SUCCESS boolValue] ==YES)
          {
@@ -480,6 +483,8 @@
           failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
          NSLog(@"Fail");
+         //[AppDelegate showErrorMessageWithTitle:@"Payment Failures" message:@"Keep calm and retry!" delegate:nil];
+          [self exampleViewController:self didFinishWithError:error];
          [KVNProgress dismiss] ;
      }];
 
