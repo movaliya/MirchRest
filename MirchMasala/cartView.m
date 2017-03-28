@@ -181,7 +181,25 @@
              NSArray *idarr=[subCategoryDic valueForKey:@"id"];
              NSInteger indx=[idarr indexOfObject:ProductidStr];
              
-             [self OptionClick:[NSString stringWithFormat:@"%ld",(long)indx]];
+             NSLog(@"==%@",[KmyappDelegate.MainCartArr objectAtIndex:[Selectcredinx integerValue]]);
+             NSArray *ingredientArr=[[KmyappDelegate.MainCartArr valueForKey:@"ingredient"] objectAtIndex:[Selectcredinx integerValue]];
+             if ([ingredientArr isKindOfClass:[NSArray class]])
+             {
+                 if (ingredientArr.count>0)
+                 {
+                     [self OptionClick:[NSString stringWithFormat:@"%ld",(long)indx] :ingredientArr];
+                 }
+                 else
+                 {
+                     [self OptionClick:[NSString stringWithFormat:@"%ld",(long)indx] :@""];
+                 }
+             }
+             else
+             {
+                 [self OptionClick:[NSString stringWithFormat:@"%ld",(long)indx] :@""];
+             }
+             
+             
          }
      }
     failure:^(AFHTTPRequestOperation *operation, NSError *error)
@@ -191,7 +209,7 @@
      }];
 }
 
--(void)OptionClick:(NSString *)indextag
+-(void)OptionClick:(NSString *)indextag : (NSArray *)IntgArr;
 {
     OptionView.hidden=NO;
     subItemIndex= [indextag integerValue];
@@ -217,8 +235,10 @@
     }
     
     
+    
     WithSelectArr=[[NSMutableArray alloc]init];
     WithoutSelectArr=[[NSMutableArray alloc]init];
+  
     for (int i=0; i<withoutIntegrate.count; i++)
     {
         [WithoutSelectArr addObject:@"NO"];
@@ -226,6 +246,70 @@
     for (int i=0; i<WithIntegrate.count; i++)
     {
         [WithSelectArr addObject:@"NO"];
+    }
+    
+    if ([IntgArr isKindOfClass:[NSArray class]])
+    {
+        for (int i=0; i<IntgArr.count; i++)
+        {
+            NSString *ingredient_idStr=[[IntgArr objectAtIndex:i] valueForKey:@"ingredient_id"];
+            NSArray *filtered = [IntgArr filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(ingredient_id == %@)", ingredient_idStr]];
+            for (int k=0; k<filtered.count; k++)
+            {
+                if ([[[filtered objectAtIndex:k] valueForKey:@"is_with"] isEqualToString:@"1"])
+                {
+                    NSInteger indx=[[WithIntegrate valueForKey:@"ingredient_id"] indexOfObject:[[filtered objectAtIndex:k] valueForKey:@"ingredient_id"]];
+                    [WithSelectArr replaceObjectAtIndex:indx withObject:@"YES"];
+                    
+                    if ([[WithSelectArr objectAtIndex:indx] isEqualToString:@"YES"])
+                    {
+                        [WithSelectArr replaceObjectAtIndex:indx withObject:@"YES"];
+                        if (![withSelectMain containsObject:[NSString stringWithFormat:@"%ld",indx]])
+                        {
+                            [withSelectMain addObject:[NSString stringWithFormat:@"%ld",indx]];
+                        }
+                        
+                    }
+                    else
+                    {
+                        [WithSelectArr replaceObjectAtIndex:indx withObject:@"NO"];
+                        [withSelectMain removeObjectAtIndex:indx];
+                        
+                    }
+                }
+                else
+                {
+                    NSInteger indx=[[withoutIntegrate valueForKey:@"ingredient_id"] indexOfObject:[[filtered objectAtIndex:k] valueForKey:@"ingredient_id"]];
+                    [WithoutSelectArr replaceObjectAtIndex:indx withObject:@"YES"];
+                    
+                    if ([[WithoutSelectArr objectAtIndex:indx] isEqualToString:@"YES"])
+                    {
+                        [WithoutSelectArr replaceObjectAtIndex:indx withObject:@"YES"];
+                        if (![withoutselectMain containsObject:[NSString stringWithFormat:@"%ld",indx]])
+                        {
+                            [withoutselectMain addObject:[NSString stringWithFormat:@"%ld",(long)indx]];
+                        }
+                    }
+                    else
+                    {
+                        [WithoutSelectArr replaceObjectAtIndex:indx withObject:@"NO"];
+                        [withoutselectMain removeObjectAtIndex:indx];
+                    }
+                }
+            }
+        }
+    }
+    else
+    {
+        for (int i=0; i<withoutIntegrate.count; i++)
+        {
+            [WithoutSelectArr addObject:@"NO"];
+        }
+        for (int i=0; i<WithIntegrate.count; i++)
+        {
+            [WithSelectArr addObject:@"NO"];
+        }
+
     }
     [WithoutTBL reloadData];
     [WithTBL reloadData];
@@ -892,6 +976,7 @@
         [cartNotification_LBL setHidden:YES];
     }
 }
+
 - (IBAction)CheckOutBtn_Action:(id)sender
 {
     if (KmyappDelegate.MainCartArr.count>0 && CoustmerID!=nil)
