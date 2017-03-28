@@ -30,6 +30,7 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    PayButton.enabled=YES;
     NSString *titleamount = [NSString stringWithFormat:@"Pay £%@", self.amount];
     [PayButton setTitle:titleamount forState:UIControlStateNormal];
     
@@ -89,6 +90,8 @@
         
         
         if ([self validateCustomerInfo]) {
+            PayButton.enabled=NO;
+            PayButton.backgroundColor=[UIColor grayColor];
             [self performStripeOperation];
         }
     }
@@ -103,6 +106,7 @@
 }
 - (BOOL)validateCustomerInfo {
     
+    [KVNProgress show] ;
     //2. Validate card number, CVC, expMonth, expYear
     [STPCardValidator validationStateForExpirationMonth:monthNo];
     [STPCardValidator validationStateForExpirationYear:year inMonth:monthNo];
@@ -135,7 +139,7 @@
         [STPCardValidator validationStateForCVC:CVC_TXT.text cardBrand:STPCardBrandUnknown];
         [STPCardValidator validationStateForNumber:CardNumber_TXT.text validatingCardBrand:STPCardBrandUnknown];
     }
-    
+    [KVNProgress dismiss];
     return YES;
 }
 - (void)performStripeOperation
@@ -143,12 +147,11 @@
     
     NSLog(@"defaultPublishableKey=%@",[Stripe defaultPublishableKey]);
     if (![Stripe defaultPublishableKey]) {
-        [self.delegate exampleViewController:self didFinishWithMessage:@"Please set a Stripe Publishable Key in Constants.m"];
+        [self.delegate exampleViewController:self didFinishWithMessage:@"Please set a Stripe Publishable Key in Constants.h"];
         return;
     }
     
     [KVNProgress show];
-    
     
     [[STPAPIClient sharedClient] createTokenWithCard:CardParam
                                           completion:^(STPToken *token, NSError *error) {

@@ -419,7 +419,7 @@
     [KVNProgress show] ;
     NSMutableDictionary *dict1 = [[NSMutableDictionary alloc] init];
     
-    [dict1 setValue:KAPIKEY forKey:@"APIKEY"];
+    [dict1 setValue:@"DoPUQBErcpKPtRmbjpcFvbb8YCMeBjr4w6OcyjtA" forKey:@"APIKEY"];
     
     
     NSMutableDictionary *dictInner = [[NSMutableDictionary alloc] init];
@@ -462,15 +462,15 @@
     [serializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     manager.requestSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
+    //NSString *baseurl=@"https://tiffintom.com/api/private/request/data/";
     [manager POST:kBaseURL parameters:json success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject)
      {
-         NSLog(@"responseObject==%@",responseObject);
-         [self PlaceOrderServiceCall];
-         NSString *SUCCESS=[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"action"] objectForKey:@"authenticate"] objectForKey:@"SUCCESS"];
+         NSLog(@"charge card responseObject==%@",responseObject);
+         
+         NSString *SUCCESS=[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"action"] objectForKey:@"chargeCard"] objectForKey:@"SUCCESS"];
          if ([SUCCESS boolValue] ==YES)
          {
-             
+             [self PlaceOrderServiceCall];
          }
          else
          {

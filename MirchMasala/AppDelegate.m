@@ -22,7 +22,7 @@
     
     // Override point for customization after application launch.
     //Kaushik
-    
+    //[[STPPaymentConfiguration sharedConfiguration] setPublishableKey:kstrStripePublishableKey];
     [self GetPublishableKey];
 
     [[STPPaymentConfiguration sharedConfiguration] setSmsAutofillDisabled:NO];
@@ -36,9 +36,10 @@
 }
 -(void)GetPublishableKey
 {
+    [KVNProgress show] ;
     NSMutableDictionary *dict1 = [[NSMutableDictionary alloc] init];
     
-    [dict1 setValue:KAPIKEY forKey:@"APIKEY"];
+    [dict1 setValue:@"DoPUQBErcpKPtRmbjpcFvbb8YCMeBjr4w6OcyjtA" forKey:@"APIKEY"];
     
     NSMutableDictionary *dictSub = [[NSMutableDictionary alloc] init];
     [dictSub setObject:@"getitem" forKey:@"MODULE"];
@@ -68,15 +69,18 @@
     manager.requestSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
+    //NSString *baseurl=@"https://tiffintom.com/api/private/request/data/";
+    
     [manager POST:kBaseURL parameters:json success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject)
      {
          NSString *SUCCESS=[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"getitem"] objectForKey:@"publishableKey"] objectForKey:@"SUCCESS"];
          
          if ([SUCCESS boolValue] ==YES)
          {
+             kstrStripePublishableKey=[[NSString alloc]init];
              kstrStripePublishableKey=[[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"getitem"] objectForKey:@"publishableKey"] objectForKey:@"result"] objectForKey:@"publishableKey"];
-             NSLog(@"kstrStripePublishableKey==%@",kstrStripePublishableKey);
              
+             NSLog(@"kstrStripePublishableKey==%@",kstrStripePublishableKey);
              if (kstrStripePublishableKey != nil) {
                  [[STPPaymentConfiguration sharedConfiguration] setPublishableKey:kstrStripePublishableKey];
              }
