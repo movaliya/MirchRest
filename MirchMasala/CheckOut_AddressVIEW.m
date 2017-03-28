@@ -12,7 +12,9 @@
 
 
 @interface CheckOut_AddressVIEW ()
-
+{
+    NSMutableDictionary *AddressRespose;
+}
 @end
 
 @implementation CheckOut_AddressVIEW
@@ -305,7 +307,7 @@
              if ([SUCCESS boolValue] ==YES)
              {
                  
-                 NSMutableDictionary *AddressRespose=[[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"putitem"] objectForKey:@"deliveryAddress"] objectForKey:@"result"] objectForKey:@"deliveryAddress"];
+                AddressRespose=[[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"putitem"] objectForKey:@"deliveryAddress"] objectForKey:@"result"] objectForKey:@"deliveryAddress"];
                  NSLog(@"AddressRespose==%@",AddressRespose);
                  
                  float minimumDeliveryAmount=[[AddressRespose valueForKey:@"minimumDeliveryAmount"] floatValue];
@@ -320,9 +322,7 @@
                  {
                      // Push Next View
                      [KVNProgress dismiss] ;
-                     CheckOut_OrderSummyVW *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CheckOut_OrderSummyVW"];
-                     vcr.deliveryCharge1=[AddressRespose valueForKey:@"deliveryCharge"];
-                     [self.navigationController pushViewController:vcr animated:YES];
+                     [self performSelector:@selector(Pushtoordersummryview) withObject:nil afterDelay:0.1];
                  }
              }
              else
@@ -344,6 +344,14 @@
         [AppDelegate showErrorMessageWithTitle:@"" message:@"You are not Login." delegate:nil];
     }
 
+}
+
+-(void)Pushtoordersummryview
+{
+    [KVNProgress dismiss] ;
+    CheckOut_OrderSummyVW *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CheckOut_OrderSummyVW"];
+    vcr.deliveryCharge1=[AddressRespose valueForKey:@"deliveryCharge"];
+    [self.navigationController pushViewController:vcr animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -22,6 +22,7 @@
 
 @implementation CheckOut_OrderSummyVW
 @synthesize TableVW,CartNotification_LBL,paymentBtn,deliveryCharge1;
+
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -72,7 +73,8 @@
     
      Total=0.00,MainTotal=0.00;
     
-     [self GetDiscount];
+    [self performSelector:@selector(GetDiscountmethod) withObject:nil afterDelay:0.1];
+    
     
 }
 
@@ -224,7 +226,7 @@
     return 84;
     
 }
--(void)GetDiscount
+-(void)GetDiscountmethod
 {
     [KVNProgress show] ;
     MainDiscount =@"0.00";
@@ -325,6 +327,7 @@
          [KVNProgress dismiss] ;
      }];
 }
+
 - (IBAction)PaymentMethod_Action:(id)sender
 {
     [KVNProgress dismiss];
@@ -334,6 +337,7 @@
     vcr.deliveryCharge=deliveryCharge1;
     [self.navigationController pushViewController:vcr animated:YES];
 }
+
 - (IBAction)TopBarCartBtn_action:(id)sender
 {
     cartView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"cartView"];
