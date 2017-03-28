@@ -142,13 +142,34 @@
     [KVNProgress dismiss];
     return YES;
 }
+- (void)storeDataWithCompletion:(void (^)(void))completion
+{
+    // Store Data Processing...
+    if (completion) {
+        [KmyappDelegate GetPublishableKey];
+    }
+}
 - (void)performStripeOperation
 {
     
     NSLog(@"defaultPublishableKey=%@",[Stripe defaultPublishableKey]);
-    if (![Stripe defaultPublishableKey]) {
-        [self.delegate exampleViewController:self didFinishWithMessage:@"Please set a Stripe Publishable Key in Constants.h"];
-        return;
+    if (![Stripe defaultPublishableKey])
+    {
+        NSString *PublishableKey = [[NSUserDefaults standardUserDefaults]
+                                    stringForKey:@"PublishableKey"];
+        if (!PublishableKey) {
+            [self storeDataWithCompletion:^{
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSString * PublishableKey = [[NSUserDefaults standardUserDefaults]
+                                      stringForKey:@"PublishableKey"];
+                     [[STPPaymentConfiguration sharedConfiguration] setPublishableKey:PublishableKey];
+                });
+            }];
+        }
+        else
+        {
+             [[STPPaymentConfiguration sharedConfiguration] setPublishableKey:PublishableKey];
+        }
     }
     
     [KVNProgress show];

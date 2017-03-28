@@ -80,6 +80,9 @@
              kstrStripePublishableKey=[[NSString alloc]init];
              kstrStripePublishableKey=[[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"getitem"] objectForKey:@"publishableKey"] objectForKey:@"result"] objectForKey:@"publishableKey"];
              
+             [[NSUserDefaults standardUserDefaults] setObject:kstrStripePublishableKey forKey:@"PublishableKey"];
+             [[NSUserDefaults standardUserDefaults] synchronize];
+             
              NSLog(@"kstrStripePublishableKey==%@",kstrStripePublishableKey);
              if (kstrStripePublishableKey != nil) {
                  [[STPPaymentConfiguration sharedConfiguration] setPublishableKey:kstrStripePublishableKey];

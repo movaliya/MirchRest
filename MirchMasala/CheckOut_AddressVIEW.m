@@ -96,7 +96,12 @@
     //Disable a Usertext and EmailText
     User_TXT.enabled = NO;
     Email_TXT.enabled = NO;
-    [self GetUserProfileAddress];
+    BOOL internet=[AppDelegate connectedToNetwork];
+    if (internet)
+        [self GetUserProfileAddress];
+    else
+        [AppDelegate showErrorMessageWithTitle:@"" message:@"Please check your internet connection or try again later." delegate:nil];
+    
 }
 
 -(void)GetUserProfileAddress
