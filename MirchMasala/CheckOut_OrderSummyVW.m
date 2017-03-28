@@ -72,10 +72,12 @@
     [TableVW registerNib:nib1 forCellReuseIdentifier:@"OrderSummry_Total"];
     
      Total=0.00,MainTotal=0.00;
-    
-    [self performSelector:@selector(GetDiscountmethod) withObject:nil afterDelay:0.1];
-    
-    
+    BOOL internet=[AppDelegate connectedToNetwork];
+    if (internet)
+        [self performSelector:@selector(GetDiscountmethod) withObject:nil afterDelay:0.1];
+    else
+        [AppDelegate showErrorMessageWithTitle:@"" message:@"Please check your internet connection or try again later." delegate:nil];
+ 
 }
 
 #pragma mark UITableView delegate
@@ -331,11 +333,19 @@
 - (IBAction)PaymentMethod_Action:(id)sender
 {
     [KVNProgress dismiss];
-    CheckOut_PaymentVW *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CheckOut_PaymentVW"];
-    vcr.Discount=[NSString stringWithFormat:@"%@",MainDiscount];
-    vcr.OrderAmount=[NSString stringWithFormat:@"%.02f",MainTotal];
-    vcr.deliveryCharge=deliveryCharge1;
-    [self.navigationController pushViewController:vcr animated:YES];
+    
+    BOOL internet=[AppDelegate connectedToNetwork];
+    if (internet)
+    {
+        CheckOut_PaymentVW *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CheckOut_PaymentVW"];
+        vcr.Discount=[NSString stringWithFormat:@"%@",MainDiscount];
+        vcr.OrderAmount=[NSString stringWithFormat:@"%.02f",MainTotal];
+        vcr.deliveryCharge=deliveryCharge1;
+        [self.navigationController pushViewController:vcr animated:YES];
+    }
+    else
+        [AppDelegate showErrorMessageWithTitle:@"" message:@"Please check your internet connection or try again later." delegate:nil];
+   
 }
 
 - (IBAction)TopBarCartBtn_action:(id)sender

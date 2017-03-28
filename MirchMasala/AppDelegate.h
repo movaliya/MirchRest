@@ -25,6 +25,7 @@
                          delegate:(id)delegate;
 +(void)showInternetErrorMessageWithTitle:(NSString *)title delegate:(id)delegate;
 +(BOOL)connectedToNetwork;
+-(void)GetPublishableKey;
 - (BOOL)isUserLoggedIn;
 
 @end

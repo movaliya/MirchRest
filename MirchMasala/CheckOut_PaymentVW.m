@@ -31,6 +31,19 @@
 {
     [super viewDidLoad];
 
+    if (![Stripe defaultPublishableKey])
+    {
+        NSString *PublishableKey = [[NSUserDefaults standardUserDefaults]
+                                stringForKey:@"PublishableKey"];
+        if (!PublishableKey) {
+            [KmyappDelegate GetPublishableKey];
+            PublishableKey = [[NSUserDefaults standardUserDefaults]
+                              stringForKey:@"PublishableKey"];
+        }
+        [[STPPaymentConfiguration sharedConfiguration] setPublishableKey:PublishableKey];
+    }
+    
+    
     [self AcceptedOrderTypes];
     OrderType=@"Collection";
     PAYMENTTYPE=@"";
@@ -328,7 +341,13 @@
         }
         else
         {
-             [self PlaceOrderServiceCall];
+            BOOL internet=[AppDelegate connectedToNetwork];
+            if (internet)
+            {
+                [self PlaceOrderServiceCall];
+            }
+            else
+                [AppDelegate showErrorMessageWithTitle:@"" message:@"Please check your internet connection or try again later." delegate:nil];
         }
        
     }
@@ -336,13 +355,20 @@
     {
          NSLog(@"OrderAmount=%@",OrderAmount);
         
-        OrderAmount = [OrderAmount stringByReplacingOccurrencesOfString:@"£"
-                                             withString:@""];
-        
-        AddCreditCardView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"AddCreditCardView"];
-         vcr.delegate = self;
-        vcr.amount=[NSDecimalNumber decimalNumberWithString:OrderAmount];
-        [self.navigationController pushViewController:vcr animated:YES];
+        BOOL internet=[AppDelegate connectedToNetwork];
+        if (internet)
+        {
+            OrderAmount = [OrderAmount stringByReplacingOccurrencesOfString:@"£"
+                                                                 withString:@""];
+            
+            AddCreditCardView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"AddCreditCardView"];
+            vcr.delegate = self;
+            vcr.amount=[NSDecimalNumber decimalNumberWithString:OrderAmount];
+            [self.navigationController pushViewController:vcr animated:YES];
+        }
+        else
+            [AppDelegate showErrorMessageWithTitle:@"" message:@"Please check your internet connection or try again later." delegate:nil];
+       
         
         /*
         AddCreditCardView *addCardViewController = [[AddCreditCardView alloc] init];
@@ -354,7 +380,13 @@
     }
     else
     {
-        [self PlaceOrderServiceCall];
+        BOOL internet=[AppDelegate connectedToNetwork];
+        if (internet)
+        {
+            [self PlaceOrderServiceCall];
+        }
+        else
+            [AppDelegate showErrorMessageWithTitle:@"" message:@"Please check your internet connection or try again later." delegate:nil];
     }
     
    // successMessageVW *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"successMessageVW"];
@@ -372,7 +404,17 @@
     {
         completion(STPBackendChargeResultSuccess, nil);
         //[self PlaceOrderServiceCall];
-        [self ChargeCard:sourceID paidAmount:OrderAmount];
+        BOOL internet=[AppDelegate connectedToNetwork];
+        if (internet)
+        {
+            [self ChargeCard:sourceID paidAmount:OrderAmount];
+        }
+        else
+        {
+            NSError *error;
+             [self exampleViewController:self didFinishWithError:error];
+            //[AppDelegate showErrorMessageWithTitle:@"" message:@"Please check your internet connection or try again later." delegate:nil];
+        }
     }
     return;
     
@@ -419,7 +461,7 @@
     [KVNProgress show] ;
     NSMutableDictionary *dict1 = [[NSMutableDictionary alloc] init];
     
-    [dict1 setValue:KAPIKEY forKey:@"APIKEY"];
+    [dict1 setValue:@"DoPUQBErcpKPtRmbjpcFvbb8YCMeBjr4w6OcyjtA" forKey:@"APIKEY"];
     
     
     NSMutableDictionary *dictInner = [[NSMutableDictionary alloc] init];
@@ -462,15 +504,15 @@
     [serializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     manager.requestSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
+    //NSString *baseurl=@"https://tiffintom.com/api/private/request/data/";
     [manager POST:kBaseURL parameters:json success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject)
      {
-         NSLog(@"responseObject==%@",responseObject);
-         [self PlaceOrderServiceCall];
-         NSString *SUCCESS=[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"action"] objectForKey:@"authenticate"] objectForKey:@"SUCCESS"];
+         NSLog(@"charge card responseObject==%@",responseObject);
+         
+         NSString *SUCCESS=[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"action"] objectForKey:@"chargeCard"] objectForKey:@"SUCCESS"];
          if ([SUCCESS boolValue] ==YES)
          {
-             
+             [self PlaceOrderServiceCall];
          }
          else
          {

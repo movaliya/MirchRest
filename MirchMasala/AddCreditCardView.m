@@ -30,6 +30,7 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    PayButton.enabled=YES;
     NSString *titleamount = [NSString stringWithFormat:@"Pay £%@", self.amount];
     [PayButton setTitle:titleamount forState:UIControlStateNormal];
     
@@ -89,6 +90,8 @@
         
         
         if ([self validateCustomerInfo]) {
+            PayButton.enabled=NO;
+            PayButton.backgroundColor=[UIColor grayColor];
             [self performStripeOperation];
         }
     }
@@ -103,6 +106,7 @@
 }
 - (BOOL)validateCustomerInfo {
     
+    [KVNProgress show] ;
     //2. Validate card number, CVC, expMonth, expYear
     [STPCardValidator validationStateForExpirationMonth:monthNo];
     [STPCardValidator validationStateForExpirationYear:year inMonth:monthNo];
@@ -135,20 +139,40 @@
         [STPCardValidator validationStateForCVC:CVC_TXT.text cardBrand:STPCardBrandUnknown];
         [STPCardValidator validationStateForNumber:CardNumber_TXT.text validatingCardBrand:STPCardBrandUnknown];
     }
-    
+    [KVNProgress dismiss];
     return YES;
+}
+- (void)storeDataWithCompletion:(void (^)(void))completion
+{
+    // Store Data Processing...
+    if (completion) {
+        [KmyappDelegate GetPublishableKey];
+    }
 }
 - (void)performStripeOperation
 {
     
     NSLog(@"defaultPublishableKey=%@",[Stripe defaultPublishableKey]);
-    if (![Stripe defaultPublishableKey]) {
-        [self.delegate exampleViewController:self didFinishWithMessage:@"Please set a Stripe Publishable Key in Constants.m"];
-        return;
+    if (![Stripe defaultPublishableKey])
+    {
+        NSString *PublishableKey = [[NSUserDefaults standardUserDefaults]
+                                    stringForKey:@"PublishableKey"];
+        if (!PublishableKey) {
+            [self storeDataWithCompletion:^{
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSString * PublishableKey = [[NSUserDefaults standardUserDefaults]
+                                      stringForKey:@"PublishableKey"];
+                     [[STPPaymentConfiguration sharedConfiguration] setPublishableKey:PublishableKey];
+                });
+            }];
+        }
+        else
+        {
+             [[STPPaymentConfiguration sharedConfiguration] setPublishableKey:PublishableKey];
+        }
     }
     
     [KVNProgress show];
-    
     
     [[STPAPIClient sharedClient] createTokenWithCard:CardParam
                                           completion:^(STPToken *token, NSError *error) {
