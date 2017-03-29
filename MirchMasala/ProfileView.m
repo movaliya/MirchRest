@@ -192,6 +192,21 @@
     [AD_TXT setInputView:ADdatePicker];
 }
 
+-(void)Removekeyboadr
+{
+    [User_TXT resignFirstResponder];
+    [Email_TXT resignFirstResponder];
+    [Street_TXT resignFirstResponder];
+    [PostCode_View resignFirstResponder];
+    [Mobile_TXT resignFirstResponder];
+    [HoueNoTXT resignFirstResponder];
+    [HouseName_TXT resignFirstResponder];
+    [State_TXT resignFirstResponder];
+    [AD_TXT resignFirstResponder];
+    [Town_TXT resignFirstResponder];
+    [DOBdatePicker resignFirstResponder];
+}
+
 -(void)updateDOBTextField:(id)sender
 {
     UIDatePicker *picker = (UIDatePicker*)DOB_TXT.inputView;
@@ -203,7 +218,6 @@
     UIDatePicker *picker = (UIDatePicker*)AD_TXT.inputView;
     AD_TXT.text = [self formatDate:picker.date];
 }
-
 
 - (NSString *)formatDate:(NSDate *)date
 {
@@ -458,6 +472,7 @@
 
 - (IBAction)Menu_Toggle:(id)sender
 {
+    [self Removekeyboadr];
     [self.rootNav drawerToggle];
 }
 
@@ -476,6 +491,7 @@
 
 - (IBAction)Update_Action:(id)sender
 {
+    [self Removekeyboadr];
     if ([Street_TXT.text isEqualToString:@""])
     {
         [AppDelegate showErrorMessageWithTitle:@"Error!" message:@"Please enter street" delegate:nil];

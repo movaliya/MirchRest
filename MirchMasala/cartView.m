@@ -726,8 +726,6 @@
 
             return cell1;
         }
-        
-        
     }
     return nil;
 }
