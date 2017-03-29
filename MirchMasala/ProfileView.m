@@ -14,7 +14,7 @@
 @end
 
 @implementation ProfileView
-@synthesize User_TXT,Email_TXT,Street_TXT,PostCode_TXT,Mobile_TXT,Country_TXT,user_View,Email_View,Street_View,PostCode_View,Mobile_View,Country_View,update_Btn;
+@synthesize User_TXT,Email_TXT,Street_TXT,PostCode_TXT,Mobile_TXT,Country_TXT,HouseName_TXT,HoueNoTXT,Town_TXT,State_TXT,DOB_TXT,AD_TXT,user_View,Email_View,Street_View,PostCode_View,Mobile_View,Country_View,HouseNoView,HouseNameView,TownView,StateView,DOBView,ADView,update_Btn;
 
 @synthesize CartNotification_LBL;
 
@@ -34,6 +34,8 @@
     [self.rootNav.pan_gr setEnabled:YES];
     
     // Corner and Color
+    
+    
     
     [user_View.layer setCornerRadius:25.0f];
     user_View.layer.borderWidth = 1.0f;
@@ -64,6 +66,36 @@
     Country_View.layer.borderWidth = 1.0f;
     [Country_View.layer setMasksToBounds:YES];
     Country_View.layer.borderColor = [UIColor colorWithRed:(193/255.0) green:(193/255.0) blue:(193/255.0) alpha:1.0].CGColor;
+    
+    [HouseNoView.layer setCornerRadius:25.0f];
+    HouseNoView.layer.borderWidth = 1.0f;
+    [HouseNoView.layer setMasksToBounds:YES];
+    HouseNoView.layer.borderColor = [UIColor colorWithRed:(193/255.0) green:(193/255.0) blue:(193/255.0) alpha:1.0].CGColor;
+    
+    [HouseNameView.layer setCornerRadius:25.0f];
+    HouseNameView.layer.borderWidth = 1.0f;
+    [HouseNameView.layer setMasksToBounds:YES];
+    HouseNameView.layer.borderColor = [UIColor colorWithRed:(193/255.0) green:(193/255.0) blue:(193/255.0) alpha:1.0].CGColor;
+    
+    [StateView.layer setCornerRadius:25.0f];
+    StateView.layer.borderWidth = 1.0f;
+    [StateView.layer setMasksToBounds:YES];
+    StateView.layer.borderColor = [UIColor colorWithRed:(193/255.0) green:(193/255.0) blue:(193/255.0) alpha:1.0].CGColor;
+    
+    [TownView.layer setCornerRadius:25.0f];
+    TownView.layer.borderWidth = 1.0f;
+    [TownView.layer setMasksToBounds:YES];
+    TownView.layer.borderColor = [UIColor colorWithRed:(193/255.0) green:(193/255.0) blue:(193/255.0) alpha:1.0].CGColor;
+    
+    [DOBView.layer setCornerRadius:25.0f];
+    DOBView.layer.borderWidth = 1.0f;
+    [DOBView.layer setMasksToBounds:YES];
+    DOBView.layer.borderColor = [UIColor colorWithRed:(193/255.0) green:(193/255.0) blue:(193/255.0) alpha:1.0].CGColor;
+    
+    [ADView.layer setCornerRadius:25.0f];
+    ADView.layer.borderWidth = 1.0f;
+    [ADView.layer setMasksToBounds:YES];
+    ADView.layer.borderColor = [UIColor colorWithRed:(193/255.0) green:(193/255.0) blue:(193/255.0) alpha:1.0].CGColor;
     
     [update_Btn.layer setCornerRadius:20.0f];
     [update_Btn.layer setMasksToBounds:YES];
@@ -104,9 +136,9 @@
     }
     else
         [AppDelegate showErrorMessageWithTitle:@"" message:@"Please check your internet connection or try again later." delegate:nil];
-   
-   
 }
+
+
 
 -(void)GetUserProfileData
 {
