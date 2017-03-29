@@ -21,6 +21,15 @@
 ;
 @property (weak, nonatomic) IBOutlet UITextField *Mobile_TXT;
 @property (weak, nonatomic) IBOutlet UITextField *Country_TXT;
+@property (strong, nonatomic) IBOutlet UITextField *HoueNoTXT;
+@property (strong, nonatomic) IBOutlet UITextField *HouseName_TXT;
+@property (strong, nonatomic) IBOutlet UITextField *Town_TXT;
+@property (strong, nonatomic) IBOutlet UITextField *State_TXT;
+@property (strong, nonatomic) IBOutlet UITextField *DOB_TXT;
+@property (strong, nonatomic) IBOutlet UITextField *AD_TXT;
+
+
+
 @property (strong, nonatomic) CCKFNavDrawer *rootNav;
 @property (weak, nonatomic) IBOutlet UIView *user_View;
 @property (weak, nonatomic) IBOutlet UIView *Email_View;
@@ -28,6 +37,14 @@
 @property (weak, nonatomic) IBOutlet UIView *PostCode_View;
 @property (weak, nonatomic) IBOutlet UIView *Mobile_View;
 @property (weak, nonatomic) IBOutlet UIView *Country_View;
+@property (strong, nonatomic) IBOutlet UIView *HouseNoView;
+@property (strong, nonatomic) IBOutlet UIView *HouseNameView;
+@property (strong, nonatomic) IBOutlet UIView *TownView;
+@property (strong, nonatomic) IBOutlet UIView *StateView;
+@property (strong, nonatomic) IBOutlet UIView *DOBView;
+@property (strong, nonatomic) IBOutlet UIView *ADView;
+
+
 @property (weak, nonatomic) IBOutlet UIButton *update_Btn;
 
 @end
