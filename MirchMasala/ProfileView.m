@@ -108,6 +108,7 @@
     //Disable a Usertext and EmailText
     User_TXT.enabled = NO;
     Email_TXT.enabled = NO;
+    AD_TXT.enabled = NO;
     
     
     if (CoustmerID!=nil)
@@ -150,7 +151,7 @@
     NSString *minDateString = @"01-Jan-1950";
 
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = @"dd-MMM-yyyy";
+    dateFormatter.dateFormat = @"dd/MMM/yyyy";
     NSDate *theMaximumDate = [dateFormatter dateFromString: maxDateString];
     NSDate *theMinimumDate = [dateFormatter dateFromString: minDateString];
     
@@ -170,7 +171,7 @@
     
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    formatter.dateFormat = @"dd-MMM-yyyy";
+    formatter.dateFormat = @"dd/MMM/yyyy";
     NSString *string = [formatter stringFromDate:[NSDate date]];
     NSString *maxDateStringforad = string;
    // NSString *minDateString = @"01-Jan-1950";
@@ -208,7 +209,7 @@
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateStyle:NSDateFormatterShortStyle];
-    [dateFormatter setDateFormat:@"dd-MMM-yyyy"];
+    [dateFormatter setDateFormat:@"dd/MM/yyyy"];
     NSString *formattedDate = [dateFormatter stringFromDate:date];
     return formattedDate;
 }
@@ -387,6 +388,7 @@
         }
         if (![AD_TXT.text isEqualToString:@""]) {
              [dictInner setObject:AD_TXT.text forKey:@"ANNIVERSARYDATE"];
+            NSLog(@"anniveryDate=%@",AD_TXT.text);
         }
         
         NSMutableDictionary *dictSub = [[NSMutableDictionary alloc] init];
