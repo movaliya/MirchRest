@@ -10,7 +10,9 @@
 #import "cartView.h"
 
 @interface ProfileView ()
-
+{
+    UIDatePicker *DOBdatePicker,*ADdatePicker;
+}
 @end
 
 @implementation ProfileView
@@ -18,25 +20,9 @@
 
 @synthesize CartNotification_LBL;
 
-- (void)viewDidLoad
+
+-(void)SetviewCorner
 {
-    [super viewDidLoad];
-    
-    NSDictionary *UserSaveData=[[NSUserDefaults standardUserDefaults]objectForKey:@"LoginUserDic"];
-    NSString *CoustmerID=[[[[[[UserSaveData objectForKey:@"RESPONSE"] objectForKey:@"action"] objectForKey:@"authenticate"] objectForKey:@"result"] objectForKey:@"authenticate"]  objectForKey:@"customerid"];
-    
-    CartNotification_LBL.layer.masksToBounds = YES;
-    CartNotification_LBL.layer.cornerRadius = 8.0;
-    
-    self.rootNav = (CCKFNavDrawer *)self.navigationController;
-    [self.rootNav setCCKFNavDrawerDelegate:self];
-    [self.rootNav CheckLoginArr];
-    [self.rootNav.pan_gr setEnabled:YES];
-    
-    // Corner and Color
-    
-    
-    
     [user_View.layer setCornerRadius:25.0f];
     user_View.layer.borderWidth = 1.0f;
     [user_View.layer setMasksToBounds:YES];
@@ -100,6 +86,25 @@
     [update_Btn.layer setCornerRadius:20.0f];
     [update_Btn.layer setMasksToBounds:YES];
     
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    NSDictionary *UserSaveData=[[NSUserDefaults standardUserDefaults]objectForKey:@"LoginUserDic"];
+    NSString *CoustmerID=[[[[[[UserSaveData objectForKey:@"RESPONSE"] objectForKey:@"action"] objectForKey:@"authenticate"] objectForKey:@"result"] objectForKey:@"authenticate"]  objectForKey:@"customerid"];
+    
+    CartNotification_LBL.layer.masksToBounds = YES;
+    CartNotification_LBL.layer.cornerRadius = 8.0;
+    
+    self.rootNav = (CCKFNavDrawer *)self.navigationController;
+    [self.rootNav setCCKFNavDrawerDelegate:self];
+    [self.rootNav CheckLoginArr];
+    [self.rootNav.pan_gr setEnabled:YES];
+    
+    // Corner and Color
+    [self SetviewCorner];
+    
     //Disable a Usertext and EmailText
     User_TXT.enabled = NO;
     Email_TXT.enabled = NO;
@@ -136,9 +141,77 @@
     }
     else
         [AppDelegate showErrorMessageWithTitle:@"" message:@"Please check your internet connection or try again later." delegate:nil];
+    //Set DOB DatePicker
+    DOBdatePicker = [[UIDatePicker alloc]init];
+    [DOBdatePicker setDate:[NSDate date]]; //this returns today's date
+    
+    
+    NSString *maxDateString = @"01-Jan-2000";
+    NSString *minDateString = @"01-Jan-1950";
+
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"dd-MMM-yyyy";
+    NSDate *theMaximumDate = [dateFormatter dateFromString: maxDateString];
+    NSDate *theMinimumDate = [dateFormatter dateFromString: minDateString];
+    
+    // repeat the same logic for theMinimumDate if needed
+    
+    [DOBdatePicker setMaximumDate:theMaximumDate]; //the min age restriction
+    [DOBdatePicker setMinimumDate:theMinimumDate]; //the max age restriction (if needed, or else dont use this line)
+    
+    // set the mode
+    [DOBdatePicker setDatePickerMode:UIDatePickerModeDate];
+    [DOBdatePicker addTarget:self action:@selector(updateDOBTextField:) forControlEvents:UIControlEventValueChanged];
+    [DOB_TXT setInputView:DOBdatePicker];
+    
+    //Set AD DatePicker
+    ADdatePicker = [[UIDatePicker alloc]init];
+    [ADdatePicker setDate:[NSDate date]]; //this returns today's date
+    
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"dd-MMM-yyyy";
+    NSString *string = [formatter stringFromDate:[NSDate date]];
+    NSString *maxDateStringforad = string;
+   // NSString *minDateString = @"01-Jan-1950";
+    
+    //NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+   // dateFormatter.dateFormat = @"dd-MMM-yyyy";
+    NSDate *theMaximumDateforad = [dateFormatter dateFromString: maxDateStringforad];
+    //NSDate *theMinimumDate = [dateFormatter dateFromString: minDateString];
+    
+    // repeat the same logic for theMinimumDate if needed
+    
+    [ADdatePicker setMaximumDate:theMaximumDateforad]; //the min age restriction
+   // [ADdatePicker setMinimumDate:theMinimumDate]; //the max age restriction (if needed, or else dont use this line)
+    
+    // set the mode
+    [ADdatePicker setDatePickerMode:UIDatePickerModeDate];
+    [ADdatePicker addTarget:self action:@selector(updateADTextField:) forControlEvents:UIControlEventValueChanged];
+    [AD_TXT setInputView:ADdatePicker];
+}
+
+-(void)updateDOBTextField:(id)sender
+{
+    UIDatePicker *picker = (UIDatePicker*)DOB_TXT.inputView;
+    DOB_TXT.text = [self formatDate:picker.date];
+}
+
+-(void)updateADTextField:(id)sender
+{
+    UIDatePicker *picker = (UIDatePicker*)AD_TXT.inputView;
+    AD_TXT.text = [self formatDate:picker.date];
 }
 
 
+- (NSString *)formatDate:(NSDate *)date
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateStyle:NSDateFormatterShortStyle];
+    [dateFormatter setDateFormat:@"dd-MMM-yyyy"];
+    NSString *formattedDate = [dateFormatter stringFromDate:date];
+    return formattedDate;
+}
 
 -(void)GetUserProfileData
 {
