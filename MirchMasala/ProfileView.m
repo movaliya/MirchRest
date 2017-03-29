@@ -165,7 +165,7 @@
         
         [manager POST:kBaseURL parameters:json success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject)
          {
-            
+             NSLog(@"responseObject==%@",responseObject);
              NSString *SUCCESS=[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"getitem"] objectForKey:@"myProfile"] objectForKey:@"SUCCESS"];
              if ([SUCCESS boolValue] ==YES)
              {
@@ -194,7 +194,7 @@
              }
              else
              {
-                 [AppDelegate showErrorMessageWithTitle:@"" message:@"Email and/or Password did not matched." delegate:nil];
+                 [AppDelegate showErrorMessageWithTitle:@"" message:@"Server Error." delegate:nil];
              }
              
              [KVNProgress dismiss] ;
