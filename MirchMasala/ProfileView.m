@@ -108,7 +108,7 @@
     //Disable a Usertext and EmailText
     User_TXT.enabled = NO;
     Email_TXT.enabled = NO;
-    AD_TXT.enabled = NO;
+    //AD_TXT.enabled = NO;
     
     
     if (CoustmerID!=nil)
@@ -151,7 +151,7 @@
     NSString *minDateString = @"01-Jan-1950";
 
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = @"dd/MMM/yyyy";
+    dateFormatter.dateFormat = @"MMM/dd/yyyy";
     NSDate *theMaximumDate = [dateFormatter dateFromString: maxDateString];
     NSDate *theMinimumDate = [dateFormatter dateFromString: minDateString];
     
@@ -171,7 +171,7 @@
     
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    formatter.dateFormat = @"dd/MMM/yyyy";
+    formatter.dateFormat = @"MMM/dd/yyyy";
     NSString *string = [formatter stringFromDate:[NSDate date]];
     NSString *maxDateStringforad = string;
    // NSString *minDateString = @"01-Jan-1950";
@@ -209,7 +209,7 @@
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateStyle:NSDateFormatterShortStyle];
-    [dateFormatter setDateFormat:@"dd/MM/yyyy"];
+    [dateFormatter setDateFormat:@"MM/dd/yyyy"];
     NSString *formattedDate = [dateFormatter stringFromDate:date];
     return formattedDate;
 }
