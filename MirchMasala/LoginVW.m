@@ -31,17 +31,8 @@
 
 - (void)viewDidLoad
 {
-    
     [super viewDidLoad];
-//    if ([ShowBack isEqualToString:@"YES"])
-//    {
-//        BackBTN.hidden=NO;
-//    }
-//    else
-//    {
-//         BackBTN.hidden=YES;
-//    }
-     BackBTN.hidden=YES;
+    BackBTN.hidden=NO;
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 
     

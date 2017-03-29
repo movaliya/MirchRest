@@ -31,20 +31,15 @@
 {
     [super viewDidLoad];
 
-    if (![Stripe defaultPublishableKey])
+    BOOL internet=[AppDelegate connectedToNetwork];
+    if (internet)
     {
-        NSString *PublishableKey = [[NSUserDefaults standardUserDefaults]
-                                stringForKey:@"PublishableKey"];
-        if (!PublishableKey) {
-            [KmyappDelegate GetPublishableKey];
-            PublishableKey = [[NSUserDefaults standardUserDefaults]
-                              stringForKey:@"PublishableKey"];
-        }
-        [[STPPaymentConfiguration sharedConfiguration] setPublishableKey:PublishableKey];
+        [self checkStripKey];
+        [self AcceptedOrderTypes];
     }
+    else
+        [AppDelegate showErrorMessageWithTitle:@"" message:@"Please check your internet connection or try again later." delegate:nil];
     
-    
-    [self AcceptedOrderTypes];
     OrderType=@"Collection";
     PAYMENTTYPE=@"";
     
@@ -80,7 +75,35 @@
     OrderAmount_LBL.text=[NSString stringWithFormat:@"£%.02f",[OrderAmount floatValue]-disct];
     OrderAmount=[NSString stringWithFormat:@"£%.02f",[OrderAmount floatValue]-disct];
 }
-
+-(void)checkStripKey
+{
+   
+    if (![Stripe defaultPublishableKey])
+    {
+        NSString *PublishableKey = [[NSUserDefaults standardUserDefaults]
+                                    stringForKey:@"PublishableKey"];
+        if (!PublishableKey) {
+            [self storeDataWithCompletion:^{
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSString * PublishableKey = [[NSUserDefaults standardUserDefaults]
+                                                 stringForKey:@"PublishableKey"];
+                    [[STPPaymentConfiguration sharedConfiguration] setPublishableKey:PublishableKey];
+                });
+            }];
+        }
+        else
+        {
+            [[STPPaymentConfiguration sharedConfiguration] setPublishableKey:PublishableKey];
+        }
+    }
+}
+- (void)storeDataWithCompletion:(void (^)(void))completion
+{
+    // Store Data Processing...
+    if (completion) {
+        [KmyappDelegate GetPublishableKey];
+    }
+}
 -(void)PlaceOrderServiceCall
 {
     [KVNProgress show] ;

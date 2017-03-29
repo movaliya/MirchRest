@@ -83,7 +83,14 @@
     self.LBL_cancel.backgroundColor=[UIColor whiteColor];
     [self.CancelBtn setTitleColor:[UIColor colorWithRed:(161/255.0) green:(156/255.0) blue:(156/255.0) alpha:1.0] forState:UIControlStateNormal];
     
-    [self GetOrderHistory];
+    BOOL internet=[AppDelegate connectedToNetwork];
+    if (internet)
+    {
+        [self GetOrderHistory];
+    }
+    else
+        [AppDelegate showErrorMessageWithTitle:@"" message:@"Please check your internet connection or try again later." delegate:nil];
+    
 }
 -(void)GetOrderHistory
 {

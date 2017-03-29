@@ -14,7 +14,7 @@
 
 @interface CheckOut_OrderSummyVW ()
 {
-    float Total,MainTotal;
+    float GetTotal,GetMainTotal;
     NSString *MainDiscount;
 }
 
@@ -71,7 +71,6 @@
     TableVW.rowHeight = cell1.frame.size.height;
     [TableVW registerNib:nib1 forCellReuseIdentifier:@"OrderSummry_Total"];
     
-     Total=0.00,MainTotal=0.00;
     BOOL internet=[AppDelegate connectedToNetwork];
     if (internet)
         [self performSelector:@selector(GetDiscountmethod) withObject:nil afterDelay:0.1];
@@ -80,6 +79,65 @@
  
 }
 
+-(void)CalculateGrantTotal
+{
+    GetMainTotal=0.00;
+    GetTotal=0.00;
+    for (int jj=0; jj<KmyappDelegate.MainCartArr.count; jj++)
+    {
+        NSMutableArray *Array=[[[KmyappDelegate.MainCartArr objectAtIndex:jj] valueForKey:@"ingredient"] mutableCopy];
+        
+        GetTotal=[[[KmyappDelegate.MainCartArr objectAtIndex:jj]valueForKey:@"price"] floatValue];
+        float integratPRICE=0.00;
+        NSLog(@"Array==%@",Array);
+        if ([Array isKindOfClass:[NSArray class]])
+        {
+            NSString *WithoutStr=[[NSString alloc]init];
+            NSString *WithStr=[[NSString alloc]init];
+            
+            for (int i=0; i<Array.count; i++)
+            {
+                if ([[[Array objectAtIndex:i] valueForKey:@"is_with"] boolValue]==0)
+                {
+                    integratPRICE=integratPRICE+[[[Array objectAtIndex:i] valueForKey:@"price_without"] floatValue];
+                    
+                    if ([WithoutStr isEqualToString:@""])
+                    {
+                        WithoutStr=[[Array objectAtIndex:i] valueForKey:@"ingredient_name"];
+                    }
+                    else
+                    {
+                        WithoutStr=[NSString stringWithFormat:@"%@,%@",WithoutStr,[[Array objectAtIndex:i] valueForKey:@"ingredient_name"]];
+                    }
+                }
+                else
+                {
+                    integratPRICE=integratPRICE+[[[Array objectAtIndex:i] valueForKey:@"price"] floatValue];
+                    
+                    if ([WithStr isEqualToString:@""])
+                    {
+                        WithStr=[[Array objectAtIndex:i] valueForKey:@"ingredient_name"];
+                    }
+                    else
+                    {
+                        WithStr=[NSString stringWithFormat:@"%@,%@",WithStr,[[Array objectAtIndex:i] valueForKey:@"ingredient_name"]];
+                    }
+                }
+            }
+            NSLog(@"integratPRICE==%f",integratPRICE);
+        }
+        // NSLog(@"Price total=%f",Total);
+        GetTotal=GetTotal*[[[KmyappDelegate.MainCartArr objectAtIndex:jj]valueForKey:@"quatity"] floatValue];
+        
+        //NSLog(@"total=%f",Total);
+        float QUATIntegate=integratPRICE*[[[KmyappDelegate.MainCartArr objectAtIndex:jj]valueForKey:@"quatity"] floatValue];
+        NSLog(@"QUATIntegate=%f",QUATIntegate);
+        GetMainTotal=GetMainTotal+GetTotal+QUATIntegate;
+    }
+    NSLog(@"GetTotal=%f",GetTotal);
+    NSLog(@"GetMainTotal=%f",GetMainTotal);
+    
+}
 #pragma mark UITableView delegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -119,7 +177,7 @@
         [cell1 setSelectionStyle:UITableViewCellSelectionStyleNone];
         
         cell1.Discount_LBL.text=[NSString stringWithFormat:@"£%@",MainDiscount];
-        float Gt=[[NSString stringWithFormat:@"%.02f",MainTotal] floatValue] - [MainDiscount floatValue];
+        float Gt=[[NSString stringWithFormat:@"%.02f",GetMainTotal] floatValue] - [MainDiscount floatValue];
         
         cell1.OrderAmount_LBL.text=[NSString stringWithFormat:@"£%.02f",Gt];
        
@@ -136,12 +194,11 @@
             cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
             
         }
-        Total=0.0;
-        MainTotal=0.0;
+       
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         NSMutableArray *Array=[[[KmyappDelegate.MainCartArr objectAtIndex:indexPath.section] valueForKey:@"ingredient"] mutableCopy];
         
-        Total=[[[KmyappDelegate.MainCartArr objectAtIndex:indexPath.section]valueForKey:@"price"] floatValue];
+        
         float integratPRICE=0.00;
         if ([Array isKindOfClass:[NSArray class]])
         {
@@ -205,9 +262,6 @@
         }
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         
-        Total=Total*[[[KmyappDelegate.MainCartArr objectAtIndex:indexPath.section]valueForKey:@"quatity"] floatValue];
-        float QUATIntegate=integratPRICE*[[[KmyappDelegate.MainCartArr objectAtIndex:indexPath.section]valueForKey:@"quatity"] floatValue];
-        MainTotal=MainTotal+Total+QUATIntegate;
         cell.ProductName_LBL.text=[[KmyappDelegate.MainCartArr objectAtIndex:indexPath.section]valueForKey:@"productName"];
         
        // NSLog(@"MainCartArr=%@",cell.ProductPrice_LBL.text);
@@ -320,6 +374,7 @@
          {
               NSLog(@"responseObjectjson===%@",responseObject);
              MainDiscount=[NSString stringWithFormat:@"%@",[[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"getitem"] objectForKey:@"calculateDiscount"]  objectForKey:@"result"] objectForKey:@"calculateDiscount"]];
+             [self CalculateGrantTotal];
              [TableVW reloadData];
          }
      }
@@ -339,7 +394,7 @@
     {
         CheckOut_PaymentVW *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CheckOut_PaymentVW"];
         vcr.Discount=[NSString stringWithFormat:@"%@",MainDiscount];
-        vcr.OrderAmount=[NSString stringWithFormat:@"%.02f",MainTotal];
+        vcr.OrderAmount=[NSString stringWithFormat:@"%.02f",GetMainTotal];
         vcr.deliveryCharge=deliveryCharge1;
         [self.navigationController pushViewController:vcr animated:YES];
     }

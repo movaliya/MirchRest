@@ -79,8 +79,14 @@
     self.OptionTitleView.layer.shadowOffset = CGSizeMake(0, 1);
     // self.MenuView.layer.shadowRadius = 5;
     self.OptionTitleView.layer.shadowOpacity = 0.5;
-    [self SUBCategoriesList];
-    
+    BOOL internet=[AppDelegate connectedToNetwork];
+    if (internet)
+    {
+         [self SUBCategoriesList];
+    }
+    else
+        [AppDelegate showErrorMessageWithTitle:@"" message:@"Please check your internet connection or try again later." delegate:nil];
+   
 }
 
 

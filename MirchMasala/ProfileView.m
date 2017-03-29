@@ -97,7 +97,14 @@
         [CartNotification_LBL setHidden:YES];
     }
     
-    [self GetUserProfileData];
+    BOOL internet=[AppDelegate connectedToNetwork];
+    if (internet)
+    {
+         [self GetUserProfileData];
+    }
+    else
+        [AppDelegate showErrorMessageWithTitle:@"" message:@"Please check your internet connection or try again later." delegate:nil];
+   
    
 }
 

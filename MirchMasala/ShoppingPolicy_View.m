@@ -51,13 +51,20 @@
     MyWebView.scrollView.showsHorizontalScrollIndicator = NO;
     MyWebView.scrollView.showsVerticalScrollIndicator = NO;
     
+    BOOL internet=[AppDelegate connectedToNetwork];
+    if (internet)
+    {
+        NSString * myURLString = @"http://m-masala.co.uk/shoppingpolicy";
+        NSURL * url = [[NSURL alloc] initWithString:myURLString];
+        NSURLRequest * request = [[NSURLRequest alloc] initWithURL:url];
+        
+        //assuming, the property webView ist the UIWebView you want to change
+        [MyWebView loadRequest:request];
+    }
+    else
+        [AppDelegate showErrorMessageWithTitle:@"" message:@"Please check your internet connection or try again later." delegate:nil];
     
-    NSString * myURLString = @"http://m-masala.co.uk/shoppingpolicy";
-    NSURL * url = [[NSURL alloc] initWithString:myURLString];
-    NSURLRequest * request = [[NSURLRequest alloc] initWithURL:url];
-    
-    //assuming, the property webView ist the UIWebView you want to change
-    [MyWebView loadRequest:request];
+   
 }
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {

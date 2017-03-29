@@ -15,7 +15,9 @@
 @interface cartView ()
 {
     NSString *CoustmerID,*MainDiscount,*CategoryIdStr,*Select_Indx;
-    float Total,MainTotal;
+    
+    float tempMainTotal;
+    float tempTotal;
     
     
     NSMutableArray *WithSelectArr,*WithoutSelectArr;
@@ -102,8 +104,76 @@
         [dic setObject:arr forKey:@"Count"];
         [MainCount setObject:arr forKey:@"MainCount"];
         
-        [self GetDiscount];
+        BOOL internet=[AppDelegate connectedToNetwork];
+        if (internet)
+        {
+            [self GetDiscount];
+            [self CalculateGrantTotal];
+        }
+        else
+            [AppDelegate showErrorMessageWithTitle:@"" message:@"Please check your internet connection or try again later." delegate:nil];
+        
     }
+}
+
+-(void)CalculateGrantTotal
+{
+    tempMainTotal=0.00;
+    tempTotal=0.00;
+    for (int jj=0; jj<KmyappDelegate.MainCartArr.count; jj++)
+    {
+        NSMutableArray *Array=[[[KmyappDelegate.MainCartArr objectAtIndex:jj] valueForKey:@"ingredient"] mutableCopy];
+        
+        tempTotal=[[[KmyappDelegate.MainCartArr objectAtIndex:jj]valueForKey:@"price"] floatValue];
+        float integratPRICE=0.00;
+        NSLog(@"Array==%@",Array);
+        if ([Array isKindOfClass:[NSArray class]])
+        {
+            NSString *WithoutStr=[[NSString alloc]init];
+            NSString *WithStr=[[NSString alloc]init];
+            
+            for (int i=0; i<Array.count; i++)
+            {
+                if ([[[Array objectAtIndex:i] valueForKey:@"is_with"] boolValue]==0)
+                {
+                    integratPRICE=integratPRICE+[[[Array objectAtIndex:i] valueForKey:@"price_without"] floatValue];
+                    
+                    if ([WithoutStr isEqualToString:@""])
+                    {
+                        WithoutStr=[[Array objectAtIndex:i] valueForKey:@"ingredient_name"];
+                    }
+                    else
+                    {
+                        WithoutStr=[NSString stringWithFormat:@"%@,%@",WithoutStr,[[Array objectAtIndex:i] valueForKey:@"ingredient_name"]];
+                    }
+                }
+                else
+                {
+                    integratPRICE=integratPRICE+[[[Array objectAtIndex:i] valueForKey:@"price"] floatValue];
+                    
+                    if ([WithStr isEqualToString:@""])
+                    {
+                        WithStr=[[Array objectAtIndex:i] valueForKey:@"ingredient_name"];
+                    }
+                    else
+                    {
+                        WithStr=[NSString stringWithFormat:@"%@,%@",WithStr,[[Array objectAtIndex:i] valueForKey:@"ingredient_name"]];
+                    }
+                }
+            }
+           NSLog(@"integratPRICE==%f",integratPRICE);
+        }
+       // NSLog(@"Price total=%f",Total);
+        tempTotal=tempTotal*[[[KmyappDelegate.MainCartArr objectAtIndex:jj]valueForKey:@"quatity"] floatValue];
+        
+        //NSLog(@"total=%f",Total);
+        float QUATIntegate=integratPRICE*[[[KmyappDelegate.MainCartArr objectAtIndex:jj]valueForKey:@"quatity"] floatValue];
+        NSLog(@"QUATIntegate=%f",QUATIntegate);
+        tempMainTotal=tempMainTotal+tempTotal+QUATIntegate;
+    }
+    NSLog(@"tempTotal=%f",tempTotal);
+    NSLog(@"tempMainTotal=%f",tempMainTotal);
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -320,6 +390,7 @@
 -(void)GetDiscount
 {
     [KVNProgress show] ;
+    
     MainDiscount =@"0.00";
     NSMutableArray *ProdArr=[[NSMutableArray alloc]init];
     //NSLog(@"===%@",KmyappDelegate.MainCartArr);
@@ -407,6 +478,7 @@
          if ([SUCCESS boolValue] ==YES)
          {
              MainDiscount=[NSString stringWithFormat:@"%@",[[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"getitem"] objectForKey:@"calculateDiscount"]  objectForKey:@"result"] objectForKey:@"calculateDiscount"]];
+            [self CalculateGrantTotal];
              [cartTable reloadData];
          }
          
@@ -521,6 +593,7 @@
     }
     else
     {
+        
         if (indexPath.section == cellcount)
         {
             static NSString *CellIdentifier = @"CartGrandTotalCell";
@@ -531,9 +604,9 @@
                 cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
             }
             
-            cell.SubTotal_LBL.text=[NSString stringWithFormat:@"£%.02f",MainTotal];
+            cell.SubTotal_LBL.text=[NSString stringWithFormat:@"£%.02f",tempMainTotal];
             cell.Discount_LBL.text=[NSString stringWithFormat:@"£%@",MainDiscount];
-            float Gt = MainTotal - [MainDiscount floatValue];
+            float Gt = tempMainTotal - [MainDiscount floatValue];
             NSLog(@"Gt==%f",Gt);
             GandTotal=Gt;
             cell.GrandTotal_LBL.text=[NSString stringWithFormat:@"£%.02f",Gt];
@@ -552,8 +625,6 @@
                 cell.accessoryView = nil;
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
             }
-            Total=0.0;
-            MainTotal=0.0;
             UILabel *clearCart=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, cartTable.frame.size.width, 44)];
             clearCart.text=@"Clear Cart";
             clearCart.textColor=[UIColor redColor];
@@ -565,19 +636,17 @@
         }
         else
         {
+            
             static NSString *CellIdentifier = @"CartTableCell";
             CartTableCell *cell1 = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
             cell1=nil;
-            
             if (cell1 == nil)
             {
                 cell1 = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-                
             }
             
             NSMutableArray *Array=[[[KmyappDelegate.MainCartArr objectAtIndex:indexPath.section] valueForKey:@"ingredient"] mutableCopy];
             
-            Total=[[[KmyappDelegate.MainCartArr objectAtIndex:indexPath.section]valueForKey:@"price"] floatValue];
              float integratPRICE=0.00;
             if ([Array isKindOfClass:[NSArray class]])
             {
@@ -639,12 +708,6 @@
                 cell1.WithoutOptiion_LBL.text=@"--";
                 cell1.WithOption_LBL.text=@"--";
             }
-            
-            Total=Total*[[[KmyappDelegate.MainCartArr objectAtIndex:indexPath.section]valueForKey:@"quatity"] floatValue];
-            NSLog(@"total=%f",Total);
-            float QUATIntegate=integratPRICE*[[[KmyappDelegate.MainCartArr objectAtIndex:indexPath.section]valueForKey:@"quatity"] floatValue];
-             NSLog(@"QUATIntegate=%f",QUATIntegate);
-            MainTotal=MainTotal+Total+QUATIntegate;
             [cell1 setSelectionStyle:UITableViewCellSelectionStyleNone];
             cell1.Title_LBL.text=[[KmyappDelegate.MainCartArr objectAtIndex:indexPath.section]valueForKey:@"productName"];
             
@@ -758,10 +821,7 @@
             KmyappDelegate.MainCartArr=[[NSMutableArray alloc]initWithArray:[[NSUserDefaults standardUserDefaults]objectForKey:CoustmerID]];
             cellcount=KmyappDelegate.MainCartArr.count;
             
-            Total=0.0;
-            MainTotal=0.0;
             [cartTable reloadData];
-            
             if (KmyappDelegate.MainCartArr.count>0)
             {
                 Notavailable_LBL.hidden=YES;
@@ -774,6 +834,7 @@
                     qnttotal=qnttotal+[[[KmyappDelegate.MainCartArr objectAtIndex:i]valueForKey:@"quatity"] integerValue];
                 }
                 cartNotification_LBL.text=[NSString stringWithFormat:@"%lu",(unsigned long)qnttotal];
+                [self CalculateGrantTotal];
             }
             else
             {
@@ -781,6 +842,7 @@
                 cartTable.hidden=YES;
                 
                 [cartNotification_LBL setHidden:YES];
+                [self CalculateGrantTotal];
             }
 
         }
@@ -894,8 +956,7 @@
         NSLog(@"==%@",KmyappDelegate.MainCartArr);
         
         [self GetDiscount];
-        Total=0.0;
-        MainTotal=0.0;
+        [self CalculateGrantTotal];
         [cartTable reloadData];
       
     }
@@ -924,14 +985,11 @@
         [[NSUserDefaults standardUserDefaults] setObject:KmyappDelegate.MainCartArr forKey:CoustmerID];
         KmyappDelegate.MainCartArr=[[NSMutableArray alloc]initWithArray:[[NSUserDefaults standardUserDefaults]objectForKey:CoustmerID]];
         [self GetDiscount];
-        Total=0.0;
-        MainTotal=0.0;
+        [self CalculateGrantTotal];
         [cartTable reloadData];
     }
     else
     {
-        Total=0.0;
-        MainTotal=0.0;
         [AppDelegate showErrorMessageWithTitle:@"" message:@"Invalid Quatity Number." delegate:nil];
         [cartTable reloadData];
     }
@@ -949,9 +1007,6 @@
     cellcount=KmyappDelegate.MainCartArr.count;
     
      [self GetDiscount];
-    
-    Total=0.0;
-    MainTotal=0.0;
     [cartTable reloadData];
     
     if (KmyappDelegate.MainCartArr.count>0)
@@ -981,11 +1036,18 @@
 {
     if (KmyappDelegate.MainCartArr.count>0 && CoustmerID!=nil)
     {
-        CheckOut_AddressVIEW *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CheckOut_AddressVIEW"];
-        NSString *stringWithoutSpaces = [CheckoutTotal_LBL.text
-                                         stringByReplacingOccurrencesOfString:@"£" withString:@""];
-        vcr.CartTotalAmout=stringWithoutSpaces;
-        [self.navigationController pushViewController:vcr animated:YES];
+        BOOL internet=[AppDelegate connectedToNetwork];
+        if (internet)
+        {
+            CheckOut_AddressVIEW *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CheckOut_AddressVIEW"];
+            NSString *stringWithoutSpaces = [CheckoutTotal_LBL.text
+                                             stringByReplacingOccurrencesOfString:@"£" withString:@""];
+            vcr.CartTotalAmout=stringWithoutSpaces;
+            [self.navigationController pushViewController:vcr animated:YES];
+        }
+        else
+            [AppDelegate showErrorMessageWithTitle:@"" message:@"Please check your internet connection or try again later." delegate:nil];
+        
     }
 }
 
