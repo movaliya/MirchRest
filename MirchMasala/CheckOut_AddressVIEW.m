@@ -189,6 +189,14 @@
                  {
                      Country_TXT.text=[myProfileDic valueForKey:@"country"];
                  }
+                 if ([myProfileDic valueForKey:@"houseName"] != (id)[NSNull null])
+                 {
+                     HouseName_TXT.text=[myProfileDic valueForKey:@"houseName"];
+                 }
+                 if ([myProfileDic valueForKey:@"houseNo"] != (id)[NSNull null])
+                 {
+                     HouseNo_TXT.text=[myProfileDic valueForKey:@"houseNo"];
+                 }
              }
              else
              {

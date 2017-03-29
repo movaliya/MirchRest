@@ -223,6 +223,31 @@
                  {
                      Country_TXT.text=[myProfileDic valueForKey:@"country"];
                  }
+                 if ([myProfileDic valueForKey:@"houseNo"] != (id)[NSNull null])
+                 {
+                     HoueNoTXT.text=[myProfileDic valueForKey:@"houseNo"];
+                 }
+                 if ([myProfileDic valueForKey:@"houseName"] != (id)[NSNull null])
+                 {
+                     HouseName_TXT.text=[myProfileDic valueForKey:@"houseName"];
+                 }
+                 if ([myProfileDic valueForKey:@"town"] != (id)[NSNull null])
+                 {
+                     Town_TXT.text=[myProfileDic valueForKey:@"town"];
+                 }
+                 if ([myProfileDic valueForKey:@"state"] != (id)[NSNull null])
+                 {
+                     State_TXT.text=[myProfileDic valueForKey:@"state"];
+                 }
+                 if ([myProfileDic valueForKey:@"dateOfBirth"] != (id)[NSNull null])
+                 {
+                     DOB_TXT.text=[myProfileDic valueForKey:@"dateOfBirth"];
+                 }
+                 if ([myProfileDic valueForKey:@"anniverseryDate"] != (id)[NSNull null])
+                 {
+                     AD_TXT.text=[myProfileDic valueForKey:@"anniverseryDate"];
+                 }
+                
              }
              else
              {
@@ -271,6 +296,25 @@
         [dictInner setObject:PostCode_TXT.text forKey:@"POSTCODE"];
         [dictInner setObject:Country_TXT.text forKey:@"COUNTRY"];
         [dictInner setObject:Mobile_TXT.text forKey:@"MOBILE"];
+        
+        if (![HoueNoTXT.text isEqualToString:@""]) {
+             [dictInner setObject:HoueNoTXT.text forKey:@"HOUSENO"];
+        }
+        if (![HouseName_TXT.text isEqualToString:@""]) {
+             [dictInner setObject:HouseName_TXT.text forKey:@"HOUSENAME"];
+        }
+        if (![Town_TXT.text isEqualToString:@""]) {
+             [dictInner setObject:Town_TXT.text forKey:@"TOWN"];
+        }
+        if (![State_TXT.text isEqualToString:@""]) {
+             [dictInner setObject:State_TXT.text forKey:@"STATE"];
+        }
+        if (![DOB_TXT.text isEqualToString:@""]) {
+             [dictInner setObject:DOB_TXT.text forKey:@"DATEOFBIRTH"];
+        }
+        if (![AD_TXT.text isEqualToString:@""]) {
+             [dictInner setObject:AD_TXT.text forKey:@"ANNIVERSARYDATE"];
+        }
         
         NSMutableDictionary *dictSub = [[NSMutableDictionary alloc] init];
         
