@@ -129,6 +129,30 @@
         
         NSInteger qutInt=[[[childerDic valueForKey:@"quantity"] objectAtIndex:indexPath.section-1] integerValue];
         cell1.ProductQuatity_LBL.text=[NSString stringWithFormat:@"%ld",(long)qutInt];
+        
+        NSMutableArray *Array=[[childerDic valueForKey:@"ingredients"] objectAtIndex:indexPath.section-1] ;
+        
+        if ([Array isKindOfClass:[NSArray class]])
+        {
+            NSString *WithoutStr=[[NSString alloc]init];
+            NSString *WithStr=[[NSString alloc]init];
+            
+            for (int i=0; i<Array.count; i++)
+            {
+                if ([[[Array objectAtIndex:i] valueForKey:@"isWith"] boolValue]==0)
+                {
+                    
+                    WithoutStr=[NSString stringWithFormat:@"%@,%@",WithoutStr,[[Array objectAtIndex:i] valueForKey:@"description"]];
+                }
+                else
+                {
+                        WithStr=[NSString stringWithFormat:@"%@,%@",WithStr,[[Array objectAtIndex:i] valueForKey:@"description"]];
+                }
+            }
+            cell1.withIntegrate_LBL.text=WithStr;
+            cell1.WithoutIntegrate_LBL.text=WithoutStr;
+        }
+        
         [cell1 setSelectionStyle:UITableViewCellSelectionStyleNone];
         return cell1;
     }
