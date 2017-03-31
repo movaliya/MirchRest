@@ -108,7 +108,7 @@
         if (internet)
         {
             [self GetDiscount];
-            [self CalculateGrantTotal];
+            //[self CalculateGrantTotal];
         }
         else
             [AppDelegate showErrorMessageWithTitle:@"" message:@"Please check your internet connection or try again later." delegate:nil];
@@ -171,6 +171,8 @@
         NSLog(@"QUATIntegate=%f",QUATIntegate);
         tempMainTotal=tempMainTotal+tempTotal+QUATIntegate;
     }
+    float Calution=tempMainTotal-[MainDiscount floatValue];
+    CheckoutTotal_LBL.text=[NSString stringWithFormat:@"£%.02f",Calution];
     NSLog(@"tempTotal=%f",tempTotal);
     NSLog(@"tempMainTotal=%f",tempMainTotal);
     
@@ -640,7 +642,7 @@
             NSLog(@"Gt==%f",Gt);
             GandTotal=Gt;
             cell.GrandTotal_LBL.text=[NSString stringWithFormat:@"£%.02f",Gt];
-            CheckoutTotal_LBL.text=[NSString stringWithFormat:@"%@",cell.GrandTotal_LBL.text];
+            //CheckoutTotal_LBL.text=[NSString stringWithFormat:@"%@",cell.GrandTotal_LBL.text];
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
             return cell;
         }
@@ -862,7 +864,7 @@
                     qnttotal=qnttotal+[[[KmyappDelegate.MainCartArr objectAtIndex:i]valueForKey:@"quatity"] integerValue];
                 }
                 cartNotification_LBL.text=[NSString stringWithFormat:@"%lu",(unsigned long)qnttotal];
-                [self CalculateGrantTotal];
+                //[self CalculateGrantTotal];
             }
             else
             {
