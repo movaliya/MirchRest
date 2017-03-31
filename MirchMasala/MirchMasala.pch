@@ -86,6 +86,7 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 #import "AppDelegate.h"
+#import "LoginVW.h"
 
 #endif
 #ifndef MirchMasala_pch

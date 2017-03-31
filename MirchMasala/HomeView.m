@@ -343,9 +343,41 @@
 
 - (IBAction)TopBarCartBtn_action:(id)sender
 {
-    cartView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"cartView"];
-    [self.navigationController pushViewController:vcr animated:YES];
+    NSDictionary *UserSaveData=[[NSUserDefaults standardUserDefaults]objectForKey:@"LoginUserDic"];
+    
+    NSString *CoustmerID=[[[[[[UserSaveData objectForKey:@"RESPONSE"] objectForKey:@"action"] objectForKey:@"authenticate"] objectForKey:@"result"] objectForKey:@"authenticate"]  objectForKey:@"customerid"];
+    
+    if (CoustmerID!=nil)
+    {
+        cartView *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"cartView"];
+        [self.navigationController pushViewController:vcr animated:YES];;
+        
+    }
+    else
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please First Login"
+                                                        message:@""
+                                                       delegate:self
+                                              cancelButtonTitle:@"Cancel"
+                                              otherButtonTitles:@"Login",nil];
+        alert.tag=51;
+        [alert show];
+    }
+    
 }
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag==51)
+    {
+        if (buttonIndex == 1)
+        {
+            LoginVW *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"LoginVW"];
+            [self.navigationController  pushViewController:vcr animated:YES];
+        }
+    }
+}
+
 
 - (IBAction)NavtoggleBtn_action:(id)sender
 {
