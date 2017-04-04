@@ -556,7 +556,21 @@
         
         UIButton *ChkButton=[[UIButton alloc]initWithFrame:CGRectMake(8, 14.5, 15, 15)];
         UILabel *titleLBL=[[UILabel alloc]initWithFrame:CGRectMake(30, 0, 100, 44)];
-        titleLBL.font=[UIFont systemFontOfSize:15.0f];
+        UILabel *PriceLBL=[[UILabel alloc]initWithFrame:CGRectMake(WithTBL.frame.size.width-50, 0, 40, 44)];
+        
+        if (IS_IPHONE_4 || isIPhone5)
+        {
+            titleLBL.font=[UIFont systemFontOfSize:11.5f];
+            PriceLBL.font=[UIFont systemFontOfSize:11.5f];
+        }
+        else
+        {
+            titleLBL.font=[UIFont systemFontOfSize:13.0f];
+            PriceLBL.font=[UIFont systemFontOfSize:13.0f];
+        }
+        
+        PriceLBL.textAlignment=NSTextAlignmentRight;
+
         if (tableView==WithTBL)
         {
             if ([[WithSelectArr objectAtIndex:indexPath.row] isEqualToString:@"YES"])
@@ -569,10 +583,24 @@
             }
             [ChkButton addTarget:self action:@selector(WithChkbox_click:) forControlEvents:UIControlEventTouchUpInside];
             titleLBL.text=[[WithIntegrate valueForKey:@"ingredient_name"] objectAtIndex:indexPath.row];
-            
+             PriceLBL.text=[NSString stringWithFormat:@"£%@",[[WithIntegrate valueForKey:@"price"] objectAtIndex:indexPath.row]];
         }
         else
         {
+            PriceLBL=[[UILabel alloc]initWithFrame:CGRectMake(WithoutTBL.frame.size.width-50, 0, 40, 44)];
+            PriceLBL.textAlignment=NSTextAlignmentRight;
+            
+            if (IS_IPHONE_4 || isIPhone5)
+            {
+                titleLBL.font=[UIFont systemFontOfSize:11.5f];
+                PriceLBL.font=[UIFont systemFontOfSize:11.5f];
+            }
+            else
+            {
+                titleLBL.font=[UIFont systemFontOfSize:13.0f];
+                PriceLBL.font=[UIFont systemFontOfSize:13.0f];
+            }
+            
             if ([[WithoutSelectArr objectAtIndex:indexPath.row] isEqualToString:@"YES"])
             {
                 [ChkButton setBackgroundImage:[UIImage imageNamed:@"Orange_chkIcon"] forState:UIControlStateNormal];
@@ -583,11 +611,13 @@
             }
             [ChkButton addTarget:self action:@selector(WithoutChkbox_click:) forControlEvents:UIControlEventTouchUpInside];
             titleLBL.text=[[withoutIntegrate valueForKey:@"ingredient_name"] objectAtIndex:indexPath.row];
+            PriceLBL.text=[NSString stringWithFormat:@"£%@",[[WithIntegrate valueForKey:@"price_without"] objectAtIndex:indexPath.row]];
         }
         
         ChkButton.tag=indexPath.row;
         [cell addSubview:ChkButton];
         [cell addSubview:titleLBL];
+        [cell addSubview:PriceLBL];
         
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         return cell;
