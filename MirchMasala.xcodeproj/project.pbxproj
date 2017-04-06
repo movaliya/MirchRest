@@ -450,13 +450,6 @@
 			name = "Side Menu";
 			sourceTree = "<group>";
 		};
-		53083BBF1E83BF6100B29F0A /* Custom Class */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Custom Class";
-			sourceTree = "<group>";
-		};
 		530BEF701E718B4300614BF8 /* CartCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -561,7 +554,6 @@
 			isa = PBXGroup;
 			children = (
 				53BBBCF81E853A4C00E4DC73 /* AppIcon */,
-				53083BBF1E83BF6100B29F0A /* Custom Class */,
 				530792361E6FE104005426ED /* Side Menu */,
 				5310CBF81E6A95BE00091333 /* Images */,
 				530EA8F01E6DA74800A61A88 /* Cell */,
