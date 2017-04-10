@@ -485,8 +485,12 @@
     [KVNProgress show] ;
     NSMutableDictionary *dict1 = [[NSMutableDictionary alloc] init];
     
-    [dict1 setValue:@"DoPUQBErcpKPtRmbjpcFvbb8YCMeBjr4w6OcyjtA" forKey:@"APIKEY"];
     
+    //This is for Static DummyKey
+    //[dict1 setValue:@"DoPUQBErcpKPtRmbjpcFvbb8YCMeBjr4w6OcyjtA" forKey:@"APIKEY"];
+    
+    //This is for Dynamic APIKEY
+    [dict1 setValue:KAPIKEY forKey:@"APIKEY"];
     
     NSMutableDictionary *dictInner = [[NSMutableDictionary alloc] init];
     
