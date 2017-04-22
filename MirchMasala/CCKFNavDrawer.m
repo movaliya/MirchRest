@@ -514,9 +514,9 @@
     }
     else if (indexPath.row==7)
     {
-          [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://m-masala.co.uk/shoppingpolicy"]];
-        //ShoppingPolicy_View *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ShoppingPolicy_View"];
-        //[super pushViewController:vcr animated:YES];
+         // [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://m-masala.co.uk/shoppingpolicy"]];
+        ShoppingPolicy_View *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ShoppingPolicy_View"];
+        [super pushViewController:vcr animated:YES];
     }
     else if (indexPath.row==8)
     {

@@ -245,13 +245,105 @@
         BOOL internet=[AppDelegate connectedToNetwork];
         if (internet)
         {
-            [self checkMinimumAmout];
+            //[self checkMinimumAmout];
+            [self UpdateUserProfileData];
         }
         else
             [AppDelegate showErrorMessageWithTitle:@"" message:@"Please check your internet connection or try again later." delegate:nil];
     }
 }
-
+-(void)UpdateUserProfileData
+{
+    NSMutableDictionary *UserSaveData = [[[NSUserDefaults standardUserDefaults] objectForKey:@"LoginUserDic"] mutableCopy];
+    if (UserSaveData)
+    {
+        NSString *CoustmerID=[[[[[[UserSaveData objectForKey:@"RESPONSE"] objectForKey:@"action"] objectForKey:@"authenticate"] objectForKey:@"result"] objectForKey:@"authenticate"]  objectForKey:@"customerid"];
+        
+        
+        [KVNProgress show] ;
+        NSMutableDictionary *dict1 = [[NSMutableDictionary alloc] init];
+        
+        [dict1 setValue:KAPIKEY forKey:@"APIKEY"];
+        
+        
+        NSMutableDictionary *dictInner = [[NSMutableDictionary alloc] init];
+        
+        [dictInner setObject:CoustmerID forKey:@"CUSTOMERID"];
+        [dictInner setObject:Street_TXT.text forKey:@"STREET"];
+        [dictInner setObject:PostCode_TXT.text forKey:@"POSTCODE"];
+        [dictInner setObject:Country_TXT.text forKey:@"COUNTRY"];
+        [dictInner setObject:Mobile_TXT.text forKey:@"MOBILE"];
+        
+        if (![HouseNo_TXT.text isEqualToString:@""]) {
+            [dictInner setObject:HouseNo_TXT.text forKey:@"HOUSENO"];
+        }
+        if (![HouseName_TXT.text isEqualToString:@""]) {
+            [dictInner setObject:HouseName_TXT.text forKey:@"HOUSENAME"];
+        }
+        NSMutableDictionary *dictSub = [[NSMutableDictionary alloc] init];
+        
+        [dictSub setObject:@"putitem" forKey:@"MODULE"];
+        
+        [dictSub setObject:@"myProfile" forKey:@"METHOD"];
+        
+        [dictSub setObject:dictInner forKey:@"PARAMS"];
+        
+        
+        NSMutableArray *arr = [[NSMutableArray alloc] initWithObjects:dictSub, nil];
+        NSMutableDictionary *dictREQUESTPARAM = [[NSMutableDictionary alloc] init];
+        
+        [dictREQUESTPARAM setObject:arr forKey:@"REQUESTPARAM"];
+        [dictREQUESTPARAM setObject:dict1 forKey:@"RESTAURANT"];
+        
+        
+        NSError* error = nil;
+        
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dictREQUESTPARAM options:NSJSONWritingPrettyPrinted error:&error];
+        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
+        
+        
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        manager.responseSerializer.acceptableContentTypes=[NSSet setWithObjects:@"text/html",@"application/json", nil];
+        AFJSONRequestSerializer *serializer = [AFJSONRequestSerializer serializer];
+        [serializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [serializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+        manager.requestSerializer = serializer;
+        manager.requestSerializer = [AFJSONRequestSerializer serializer];
+        
+        [manager POST:kBaseURL parameters:json success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject)
+         {
+             
+             NSString *SUCCESS=[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"putitem"] objectForKey:@"myProfile"] objectForKey:@"SUCCESS"];
+             if ([SUCCESS boolValue] ==YES)
+             {
+                 
+                // NSString *SUCCESS=[[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"putitem"] objectForKey:@"myProfile"] objectForKey:@"result"] objectForKey:@"myProfile"];
+                 
+                 //[AppDelegate showErrorMessageWithTitle:@"" message:SUCCESS delegate:nil];
+                 [self checkMinimumAmout];
+                 
+             }
+             else
+             {
+                 [AppDelegate showErrorMessageWithTitle:@"" message:@"Your Address is not Update. Please Try After Some Time" delegate:nil];
+             }
+             
+             [KVNProgress dismiss] ;
+         }
+              failure:^(AFHTTPRequestOperation *operation, NSError *error)
+         {
+             NSLog(@"Fail");
+             [KVNProgress dismiss] ;
+         }];
+        
+    }
+    else
+    {
+        [AppDelegate showErrorMessageWithTitle:@"" message:@"You are not Login." delegate:nil];
+    }
+    
+}
 -(void)checkMinimumAmout
 {
     NSMutableDictionary *UserSaveData = [[[NSUserDefaults standardUserDefaults] objectForKey:@"LoginUserDic"] mutableCopy];

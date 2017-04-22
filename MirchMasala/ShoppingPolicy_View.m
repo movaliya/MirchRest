@@ -51,15 +51,21 @@
     MyWebView.scrollView.showsHorizontalScrollIndicator = NO;
     MyWebView.scrollView.showsVerticalScrollIndicator = NO;
     
+    [MyWebView loadHTMLString:@"about:blank" baseURL:nil];
+   
     BOOL internet=[AppDelegate connectedToNetwork];
     if (internet)
     {
-        NSString * myURLString = @"http://m-masala.co.uk/shoppingpolicy";
+        NSString * myURLString = @"https://parivahan.gov.in/rcdlstatus/?pur_cd=102";
         NSURL * url = [[NSURL alloc] initWithString:myURLString];
         NSURLRequest * request = [[NSURLRequest alloc] initWithURL:url];
         
         //assuming, the property webView ist the UIWebView you want to change
         [MyWebView loadRequest:request];
+        
+       // [MyWebView stringByEvaluatingJavaScriptFromString:@"document.tf_reg_no1.text.value='ANdrew';"];
+       
+
     }
     else
         [AppDelegate showErrorMessageWithTitle:@"" message:@"Please check your internet connection or try again later." delegate:nil];
@@ -68,11 +74,29 @@
 }
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
-     [KVNProgress show] ;
+       [KVNProgress show] ;
 }
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
      [KVNProgress dismiss] ;
+   
+    
+   // [MyWebView stringByEvaluatingJavaScriptFromString:@"('div[ui-view=\"navbar\"]').remove();"];
+
+    [MyWebView stringByEvaluatingJavaScriptFromString:@"document.getElementById('header-logo-section').remove();"];
+    
+    [MyWebView stringByEvaluatingJavaScriptFromString:@"document.getElementById('home').remove();"];
+
+   
+    
+    NSString *evaluate = [NSString stringWithFormat:@"document.form_rcdl.value='%@';", @"New title"];
+    [MyWebView stringByEvaluatingJavaScriptFromString:evaluate];
+    
+    [MyWebView stringByEvaluatingJavaScriptFromString:@"document.getElementById('form_rcdl:tf_reg_no1').value='GJ32C';"];
+    
+    [MyWebView stringByEvaluatingJavaScriptFromString:@"document.getElementById('form_rcdl:tf_reg_no2').value='8685';"];
+    
+    [MyWebView stringByEvaluatingJavaScriptFromString:@"document.getElementById('form_rcdl:tf_Mobile').value='9228373027';"];
 }
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
