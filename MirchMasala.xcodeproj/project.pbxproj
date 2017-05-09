@@ -92,6 +92,8 @@
 		53BBBD291E853A6900E4DC73 /* Icon-Small-50x50@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53BBBD131E853A6900E4DC73 /* Icon-Small-50x50@1x.png */; };
 		53BBBD2A1E853A6900E4DC73 /* Icon-Small-50x50@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53BBBD141E853A6900E4DC73 /* Icon-Small-50x50@2x.png */; };
 		B13A04621E7BBF430048F36D /* RestaurantMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = B13A04611E7BBF430048F36D /* RestaurantMenuView.m */; };
+		B13BC3551EC2252F00F40DB0 /* CommentTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B13BC3531EC2252F00F40DB0 /* CommentTextCell.m */; };
+		B13BC3561EC2252F00F40DB0 /* CommentTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B13BC3541EC2252F00F40DB0 /* CommentTextCell.xib */; };
 		B1451E211E6DE5E800E98C7C /* AFAutoPurgingImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B1451E1E1E6DE5E800E98C7C /* AFAutoPurgingImageCache.m */; };
 		B1451E221E6DE5E800E98C7C /* AFImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = B1451E201E6DE5E800E98C7C /* AFImageDownloader.m */; };
 		B15F7A071E6C3665004A4D32 /* IQNSArray+Sort.m in Sources */ = {isa = PBXBuildFile; fileRef = B15F799A1E6C3665004A4D32 /* IQNSArray+Sort.m */; };
@@ -295,6 +297,9 @@
 		B12C94EE1E6C2AE100185A7B /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AFNetworking.framework; path = MirchMasala/AFNetworking/AFNetworking.framework; sourceTree = "<group>"; };
 		B13A04601E7BBF430048F36D /* RestaurantMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantMenuView.h; sourceTree = "<group>"; };
 		B13A04611E7BBF430048F36D /* RestaurantMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantMenuView.m; sourceTree = "<group>"; };
+		B13BC3521EC2252F00F40DB0 /* CommentTextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentTextCell.h; sourceTree = "<group>"; };
+		B13BC3531EC2252F00F40DB0 /* CommentTextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentTextCell.m; sourceTree = "<group>"; };
+		B13BC3541EC2252F00F40DB0 /* CommentTextCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentTextCell.xib; sourceTree = "<group>"; };
 		B1451E1D1E6DE5E800E98C7C /* AFAutoPurgingImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFAutoPurgingImageCache.h; sourceTree = "<group>"; };
 		B1451E1E1E6DE5E800E98C7C /* AFAutoPurgingImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFAutoPurgingImageCache.m; sourceTree = "<group>"; };
 		B1451E1F1E6DE5E800E98C7C /* AFImageDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFImageDownloader.h; sourceTree = "<group>"; };
@@ -459,6 +464,9 @@
 				530792471E702274005426ED /* CartGrandTotalCell.h */,
 				530792481E702274005426ED /* CartGrandTotalCell.m */,
 				530792491E702274005426ED /* CartGrandTotalCell.xib */,
+				B13BC3521EC2252F00F40DB0 /* CommentTextCell.h */,
+				B13BC3531EC2252F00F40DB0 /* CommentTextCell.m */,
+				B13BC3541EC2252F00F40DB0 /* CommentTextCell.xib */,
 			);
 			name = CartCell;
 			sourceTree = "<group>";
@@ -983,6 +991,7 @@
 				530ECF461E713EBD0004F9AB /* OrderHistry_Cell.xib in Resources */,
 				530BFA561E794B5A00AE5502 /* OrderSummay_Detail.xib in Resources */,
 				53BBBD251E853A6900E4DC73 /* Icon-App-76x76@1x.png in Resources */,
+				B13BC3561EC2252F00F40DB0 /* CommentTextCell.xib in Resources */,
 				53BBBD281E853A6900E4DC73 /* Icon-App-83.5x83.5@2x.png in Resources */,
 				5307924B1E702274005426ED /* CartGrandTotalCell.xib in Resources */,
 				530792431E6FE124005426ED /* MenuCell.xib in Resources */,
@@ -1067,6 +1076,7 @@
 				B15F7A2A1E6C3665004A4D32 /* SDWebImageDownloader.m in Sources */,
 				B15F7A091E6C3665004A4D32 /* IQUITextFieldView+Additions.m in Sources */,
 				5310CBE11E6A957800091333 /* main.m in Sources */,
+				B13BC3551EC2252F00F40DB0 /* CommentTextCell.m in Sources */,
 				B15F7A811E6C3964004A4D32 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				B15F7A841E6C3964004A4D32 /* UIImageView+AFNetworking.m in Sources */,
 				530BEF7A1E718D8000614BF8 /* OrderDetailLowerCell.m in Sources */,

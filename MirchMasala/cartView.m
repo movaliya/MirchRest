@@ -11,6 +11,7 @@
 #import "CartGrandTotalCell.h"
 #import "LoginVW.h"
 #import "CheckOut_AddressVIEW.h"
+#import "CommentTextCell.h"
 
 @interface cartView ()
 {
@@ -90,6 +91,11 @@
     CartGrandTotalCell *cell1 = [[nib instantiateWithOwner:nil options:nil] objectAtIndex:0];
     cartTable.rowHeight = cell1.frame.size.height;
     [cartTable registerNib:nib1 forCellReuseIdentifier:@"CartGrandTotalCell"];
+    
+    UINib *nib3 = [UINib nibWithNibName:@"CommentTextCell" bundle:nil];
+    CommentTextCell *cell2 = [[nib3 instantiateWithOwner:nil options:nil] objectAtIndex:0];
+    cartTable.rowHeight = cell2.frame.size.height;
+    [cartTable registerNib:nib3 forCellReuseIdentifier:@"CommentTextCell"];
     
     if (KmyappDelegate.MainCartArr.count>0 && CoustmerID!=nil)
     {
@@ -500,7 +506,7 @@
         return 1;
     }
     //NSLog(@"MainCartArr---%d",KmyappDelegate.MainCartArr.count);
-    return KmyappDelegate.MainCartArr.count+ExtraCellINT+1;
+    return KmyappDelegate.MainCartArr.count+ExtraCellINT+2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -626,7 +632,7 @@
     else
     {
         
-        if (indexPath.section == cellcount)
+        if (indexPath.section == cellcount+1)
         {
             static NSString *CellIdentifier = @"CartGrandTotalCell";
             CartGrandTotalCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -646,7 +652,7 @@
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
             return cell;
         }
-        else if(indexPath.section == cellcount+1)
+        else if(indexPath.section == cellcount+2)
         {
             static NSString *CellIdentifier1 = @"Cell";
             UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier1];
@@ -666,6 +672,20 @@
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
             return cell;
         }
+        else if(indexPath.section == cellcount)
+        {
+            static NSString *CellIdentifier = @"CommentTextCell";
+            CommentTextCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+            cell=nil;
+            if (cell == nil)
+            {
+                cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+            }
+            
+            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+            return cell;
+        }
+
         else
         {
             
@@ -772,9 +792,13 @@
     {
         if (indexPath.section == cellcount)
         {
-            return 137;
+            return 130;
         }
         else if (indexPath.section==cellcount+1)
+        {
+            return 137;
+        }
+        else if (indexPath.section==cellcount+2)
         {
             return 44;
         }
@@ -936,6 +960,8 @@
 
 - (IBAction)Confirm_Click:(id)sender
 {
+   
+    
     if ([KmyappDelegate isUserLoggedIn] == NO)
     {
         [self performSelector:@selector(checkLoginAndPresentContainer) withObject:nil afterDelay:0.0];
@@ -1064,6 +1090,10 @@
 
 - (IBAction)CheckOutBtn_Action:(id)sender
 {
+    NSIndexPath *changedRow = [NSIndexPath indexPathForRow:0 inSection:cellcount];
+    CommentTextCell *cell = (CommentTextCell *)[cartTable cellForRowAtIndexPath:changedRow];
+    NSLog(@"===%@",cell.Comment_TXT.text);
+    
     if (KmyappDelegate.MainCartArr.count>0 && CoustmerID!=nil)
     {
         BOOL internet=[AppDelegate connectedToNetwork];
