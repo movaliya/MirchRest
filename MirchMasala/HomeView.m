@@ -16,6 +16,7 @@
 @interface HomeView ()
 {
     UIImageView *Headerimg;
+    NSMutableArray *OfferArr;
     NSMutableDictionary *Searchdic;
 }
 @property AppDelegate *appDelegate;
@@ -100,23 +101,158 @@
     BOOL internet=[AppDelegate connectedToNetwork];
     if (internet)
     {
-        [self CategoriesList];
+        [self performSelector:@selector(CategoriesList) withObject:nil afterDelay:0.0f];
+        [self performSelector:@selector(CallforgetOffers) withObject:nil afterDelay:0.0f];
+       
     }
     else
         [AppDelegate showErrorMessageWithTitle:@"" message:@"Please check your internet connection or try again later." delegate:nil];
     
-    [self SetheaderScroll];
+   // [self SetheaderScroll];
 }
 
 -(void)SetheaderScroll
 {
+    NSArray* subviews = [[NSArray alloc] initWithArray: HeaderScroll.subviews];
+    for (UIView* view in subviews)
+    {
+        if ([view isKindOfClass:[UIView class]])
+        {
+            [view removeFromSuperview];
+        }
+        if ([view isKindOfClass:[UIImageView class]])
+        {
+            [view removeFromSuperview];
+        }
+        if ([view isKindOfClass:[UIButton class]])
+        {
+            [view removeFromSuperview];
+        }
+        if ([view isKindOfClass:[UILabel class]])
+        {
+            [view removeFromSuperview];
+        }
+    }
+    
     int x=0;
+    
+    
     for (int i=0; i<3; i++)
     {
         Headerimg=[[UIImageView alloc]initWithFrame:CGRectMake(x, -20, SCREEN_WIDTH, 260)];
         Headerimg.image=[UIImage imageNamed:@"HomeLogo"];
         [HeaderScroll addSubview:Headerimg];
         
+        if (OfferArr.count>i)
+        {
+            if (i==0)
+            {
+                NSString *MainStr=[OfferArr valueForKey:@"A"];
+                NSArray *arr = [MainStr componentsSeparatedByString:@"#"];
+                for (int i =0 ; i<arr.count; i++)
+                {
+                    if (i==0)
+                    {
+                        UILabel *First_LBL=[[UILabel alloc]initWithFrame:CGRectMake(x, 260-150, SCREEN_WIDTH, 40)];
+                        First_LBL.text=[arr objectAtIndex:0];
+                        First_LBL.font=[UIFont boldSystemFontOfSize:30];
+                        First_LBL.textAlignment=NSTextAlignmentCenter;
+                        First_LBL.textColor=[UIColor whiteColor];
+                        [HeaderScroll addSubview:First_LBL];
+                    }
+                    else if (i==1)
+                    {
+                        UILabel *Second_LBL=[[UILabel alloc]initWithFrame:CGRectMake(x, 260-110, SCREEN_WIDTH, 30)];
+                        Second_LBL.text=[arr objectAtIndex:1];
+                        Second_LBL.font=[UIFont boldSystemFontOfSize:20];
+                        Second_LBL.textAlignment=NSTextAlignmentCenter;
+                        Second_LBL.textColor=[UIColor whiteColor];
+                        [HeaderScroll addSubview:Second_LBL];
+                    }
+                    else if (i==2)
+                    {
+                        UILabel *thert_LBL=[[UILabel alloc]initWithFrame:CGRectMake(x, 260-80, SCREEN_WIDTH, 30)];
+                        thert_LBL.text=[arr objectAtIndex:2];
+                        thert_LBL.font=[UIFont boldSystemFontOfSize:10];
+                        thert_LBL.textAlignment=NSTextAlignmentCenter;
+                        thert_LBL.textColor=[UIColor whiteColor];
+                        [HeaderScroll addSubview:thert_LBL];
+                    }
+                }
+            }
+            else if (i==1)
+            {
+                NSString *MainStr=[OfferArr valueForKey:@"B"];
+                NSArray *arr = [MainStr componentsSeparatedByString:@"#"];
+                for (int i =0 ; i<arr.count; i++)
+                {
+                    if (i==0)
+                    {
+                        UILabel *First_LBL=[[UILabel alloc]initWithFrame:CGRectMake(x, 260-150, SCREEN_WIDTH, 40)];
+                        First_LBL.text=[arr objectAtIndex:0];
+                        First_LBL.font=[UIFont boldSystemFontOfSize:30];
+                        First_LBL.textAlignment=NSTextAlignmentCenter;
+                        First_LBL.textColor=[UIColor whiteColor];
+                        [HeaderScroll addSubview:First_LBL];
+                    }
+                    else if (i==1)
+                    {
+                        UILabel *Second_LBL=[[UILabel alloc]initWithFrame:CGRectMake(x, 260-110, SCREEN_WIDTH, 30)];
+                        Second_LBL.text=[arr objectAtIndex:1];
+                        Second_LBL.font=[UIFont boldSystemFontOfSize:20];
+                        Second_LBL.textAlignment=NSTextAlignmentCenter;
+                        Second_LBL.textColor=[UIColor whiteColor];
+                        [HeaderScroll addSubview:Second_LBL];
+                    }
+                    else if (i==2)
+                    {
+                        UILabel *thert_LBL=[[UILabel alloc]initWithFrame:CGRectMake(x, 260-80, SCREEN_WIDTH, 30)];
+                        thert_LBL.text=[arr objectAtIndex:2];
+                        thert_LBL.font=[UIFont boldSystemFontOfSize:10];
+                        thert_LBL.textAlignment=NSTextAlignmentCenter;
+                        thert_LBL.textColor=[UIColor whiteColor];
+                        [HeaderScroll addSubview:thert_LBL];
+                    }
+                }
+
+            }
+            else if (i==2)
+            {
+                NSString *MainStr=[OfferArr valueForKey:@"B"];
+                NSArray *arr = [MainStr componentsSeparatedByString:@"#"];
+                for (int i =0 ; i<arr.count; i++)
+                {
+                    if (i==0)
+                    {
+                        UILabel *First_LBL=[[UILabel alloc]initWithFrame:CGRectMake(x, 260-150, SCREEN_WIDTH, 40)];
+                        First_LBL.text=[arr objectAtIndex:0];
+                        First_LBL.font=[UIFont boldSystemFontOfSize:30];
+                        First_LBL.textAlignment=NSTextAlignmentCenter;
+                        First_LBL.textColor=[UIColor whiteColor];
+                        [HeaderScroll addSubview:First_LBL];
+                    }
+                    else if (i==1)
+                    {
+                        UILabel *Second_LBL=[[UILabel alloc]initWithFrame:CGRectMake(x, 260-110, SCREEN_WIDTH, 30)];
+                        Second_LBL.text=[arr objectAtIndex:1];
+                        Second_LBL.font=[UIFont boldSystemFontOfSize:20];
+                        Second_LBL.textAlignment=NSTextAlignmentCenter;
+                        Second_LBL.textColor=[UIColor whiteColor];
+                        [HeaderScroll addSubview:Second_LBL];
+                    }
+                    else if (i==2)
+                    {
+                        UILabel *thert_LBL=[[UILabel alloc]initWithFrame:CGRectMake(x, 260-80, SCREEN_WIDTH, 30)];
+                        thert_LBL.text=[arr objectAtIndex:2];
+                        thert_LBL.font=[UIFont boldSystemFontOfSize:10];
+                        thert_LBL.textAlignment=NSTextAlignmentCenter;
+                        thert_LBL.textColor=[UIColor whiteColor];
+                        [HeaderScroll addSubview:thert_LBL];
+                    }
+                }
+
+            }
+        }
         x=x+SCREEN_WIDTH;
     }
     
@@ -141,6 +277,57 @@
     }
 }
 
+-(void)CallforgetOffers
+{
+    [KVNProgress show] ;
+    OfferArr=[[NSMutableArray alloc] init];
+    NSMutableDictionary *dict1 = [[NSMutableDictionary alloc] init];
+    
+    [dict1 setValue:KAPIKEY forKey:@"APIKEY"];
+    
+    NSMutableDictionary *dictSub = [[NSMutableDictionary alloc] init];
+    [dictSub setObject:@"getitem" forKey:@"MODULE"];
+    [dictSub setObject:@"offerText" forKey:@"METHOD"];
+    
+    NSMutableArray *arr = [[NSMutableArray alloc] initWithObjects:dictSub, nil];
+    NSMutableDictionary *dictREQUESTPARAM = [[NSMutableDictionary alloc] init];
+    
+    [dictREQUESTPARAM setObject:arr forKey:@"REQUESTPARAM"];
+    [dictREQUESTPARAM setObject:dict1 forKey:@"RESTAURANT"];
+    
+    
+    NSError* error = nil;
+    
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dictREQUESTPARAM options:NSJSONWritingPrettyPrinted error:&error];
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer.acceptableContentTypes=[NSSet setWithObjects:@"text/html",@"application/json", nil];
+    AFJSONRequestSerializer *serializer = [AFJSONRequestSerializer serializer];
+    [serializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [serializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    manager.requestSerializer = serializer;
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    [manager POST:kBaseURL parameters:json success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject)
+     {
+         [KVNProgress dismiss];
+         
+         NSString *SUCCESS=[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"getitem"] objectForKey:@"offerText"] objectForKey:@"SUCCESS"];
+         if ([SUCCESS boolValue] ==YES)
+         {
+             OfferArr=[[[[[[responseObject objectForKey:@"RESPONSE"] objectForKey:@"getitem"] objectForKey:@"offerText"] objectForKey:@"result"] objectForKey:@"offerText"] mutableCopy];
+             
+             [self SetheaderScroll];
+         }
+    }
+    failure:^(AFHTTPRequestOperation *operation, NSError *error)
+     {
+         NSLog(@"Fail");
+         [KVNProgress dismiss] ;
+     }];
+}
+
 -(void)CategoriesList
 {
     
@@ -163,11 +350,7 @@
     NSError* error = nil;
     
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dictREQUESTPARAM options:NSJSONWritingPrettyPrinted error:&error];
-    // NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-    
-    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:jsonData
-                                                         options:NSJSONReadingMutableContainers
-                                                           error:&error];
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer.acceptableContentTypes=[NSSet setWithObjects:@"text/html",@"application/json", nil];
