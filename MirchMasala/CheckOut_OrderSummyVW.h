@@ -12,6 +12,7 @@
 {
     NSInteger cellcount;
 }
+@property (strong, nonatomic) NSString *Comment2View;
 @property (strong, nonatomic) NSString *deliveryCharge1;
 @property (weak, nonatomic) IBOutlet UITableView *TableVW;
 @property (weak, nonatomic) IBOutlet UILabel *CartNotification_LBL;

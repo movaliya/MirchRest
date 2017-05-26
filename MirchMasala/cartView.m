@@ -1103,6 +1103,7 @@
             NSString *stringWithoutSpaces = [CheckoutTotal_LBL.text
                                              stringByReplacingOccurrencesOfString:@"£" withString:@""];
             vcr.CartTotalAmout=stringWithoutSpaces;
+            vcr.Comment1View=cell.Comment_TXT.text;
             [self.navigationController pushViewController:vcr animated:YES];
         }
         else

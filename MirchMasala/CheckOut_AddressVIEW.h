@@ -12,6 +12,7 @@
 {
     NSString *CartTotalAmout;
 }
+@property (strong, nonatomic) NSString *Comment1View;
 
 @property (strong, nonatomic) NSString *CartTotalAmout;
 
