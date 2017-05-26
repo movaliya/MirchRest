@@ -396,6 +396,7 @@
         vcr.Discount=[NSString stringWithFormat:@"%@",MainDiscount];
         vcr.OrderAmount=[NSString stringWithFormat:@"%.02f",GetMainTotal];
         vcr.deliveryCharge=deliveryCharge1;
+        vcr.Comment3View=self.Comment2View;
         [self.navigationController pushViewController:vcr animated:YES];
     }
     else

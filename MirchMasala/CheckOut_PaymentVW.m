@@ -31,6 +31,16 @@
 {
     [super viewDidLoad];
 
+    
+    if (self.Comment3View.length>0)
+    {
+        NSLog(@"if comment==%@",_Comment3View);
+    }
+    else
+    {
+        NSLog(@"else comment==%@",_Comment3View);
+    }
+    
     BOOL internet=[AppDelegate connectedToNetwork];
     if (internet)
     {
@@ -153,7 +163,8 @@
         [inddic setObject:[[KmyappDelegate.MainCartArr objectAtIndex:k] valueForKey:@"quatity"] forKey:@"QUANTITY"];
         [ProdArr addObject:inddic];
     }
-    
+  
+
     
     NSMutableDictionary *dict1 = [[NSMutableDictionary alloc] init];
     
@@ -166,6 +177,12 @@
     [dictInner setObject:PAYMENTTYPE forKey:@"PAYMENTTYPE"];
     [dictInner setObject:PAIDAMOUNT forKey:@"PAIDAMOUNT"];
     [dictInner setObject:ProdArr forKey:@"PRODUCTS"];
+    
+    if (self.Comment3View.length>0)
+    {
+         [dictInner setObject:self.Comment3View forKey:@"COMMENTS"];
+    }
+    
     
     NSMutableDictionary *dictSub = [[NSMutableDictionary alloc] init];
     

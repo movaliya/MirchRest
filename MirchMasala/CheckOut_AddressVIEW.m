@@ -456,6 +456,7 @@
     [KVNProgress dismiss] ;
     CheckOut_OrderSummyVW *vcr = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CheckOut_OrderSummyVW"];
     vcr.deliveryCharge1=[AddressRespose valueForKey:@"deliveryCharge"];
+    vcr.Comment2View=self.Comment1View;
     [self.navigationController pushViewController:vcr animated:YES];
 }
 
